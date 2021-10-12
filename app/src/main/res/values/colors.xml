@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#cf312e</color>
-    <color name="colorPrimaryDark">#c40b19</color>
-    <color name="colorAccent">#cf312e</color>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#222222</color>
 
-    <color name="activity_intro_background">#cf312e</color>
+    <color name="activity_intro_background">#222222</color>
     <color name="activity_create_wallet_background">#ffffff</color>
     <color name="activity_exchange_background">#ffffff</color>
     <color name="activity_address_background">#ffffff</color>
@@ -31,9 +31,9 @@
     <color name="votes_button_color">#7c7b81</color>
     <color name="copy_address_button_color">#7c7b81</color>
     <color name="confirm_text_color">#029f2a</color>
-    <color name="unconfirm_text_color">#c40b19</color>
+    <color name="unconfirm_text_color">#000000</color>
     <color name="favorite_token_color">#8b8b8b</color>
-    <color name="vote_down_color">#cf312e</color>
+    <color name="vote_down_color">#222222</color>
     <color name="vote_up_color">#029f2a</color>
     <color name="default_text_color">#808080</color>
     <color name="trc10_color">#FF5036</color>

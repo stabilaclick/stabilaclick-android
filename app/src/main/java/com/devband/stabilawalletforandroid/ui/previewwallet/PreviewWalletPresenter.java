@@ -1,0 +1,59 @@
+package com.devband.stabilawalletforandroid.ui.previewwallet;
+
+import com.devband.stabilawalletforandroid.stabila.Stabila;
+import com.devband.stabilawalletforandroid.ui.mvp.BasePresenter;
+import com.devband.stabilalib.StabilaNetwork;
+import com.devband.stabilawalletforandroid.common.AdapterDataModel;
+import com.devband.stabilawalletforandroid.database.model.AccountModel;
+import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
+
+public class PreviewWalletPresenter extends BasePresenter<PreviewWalletView> {
+
+    private Stabila mTron;
+    private StabilaNetwork mTronNetwork;
+    private RxJavaSchedulers mRxJavaSchedulers;
+    private AdapterDataModel<AccountModel> mAdapterDataModel;
+
+    public PreviewWalletPresenter(PreviewWalletView view, Stabila tron, StabilaNetwork tronNetwork,
+                                  RxJavaSchedulers rxJavaSchedulers) {
+        super(view);
+        this.mTron = tron;
+        this.mTronNetwork = tronNetwork;
+        this.mRxJavaSchedulers = rxJavaSchedulers;
+    }
+
+    public void setAdapterDataModel(AdapterDataModel<AccountModel> adapterDataModel) {
+        this.mAdapterDataModel = adapterDataModel;
+    }
+
+    @Override
+    public void onCreate() {
+        refreshAccount();
+    }
+
+    public void refreshAccount() {
+        mTron.getAccountList()
+                .subscribeOn(mRxJavaSchedulers.getIo())
+                .observeOn(mRxJavaSchedulers.getMainThread())
+                .subscribe(accountList -> {
+                    mAdapterDataModel.clear();
+                    mAdapterDataModel.addAll(accountList);
+                    mView.finishRefresh();
+                }, e -> mView.finishRefresh());
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+}
