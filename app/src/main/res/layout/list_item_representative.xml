@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        tools:text="99,803,000,222 TRX"/>
+                        tools:text="99,803,000,222 STB"/>
                 </LinearLayout>
             </LinearLayout>
 

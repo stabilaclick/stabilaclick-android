@@ -53,7 +53,7 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/agree_freeze_balance"
+            android:id="@+id/agree_cd_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -61,15 +61,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@string/freeze_confirm_text" />
+            android:text="@string/cd_confirm_text" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_freeze"
+        android:id="@+id/btn_cd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:textColor="@android:color/white"
-        android:text="@string/freeze_text" />
+        android:text="@string/cd_text" />
 </LinearLayout>

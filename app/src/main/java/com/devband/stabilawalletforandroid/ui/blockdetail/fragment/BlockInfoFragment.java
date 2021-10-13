@@ -108,7 +108,7 @@ public class BlockInfoFragment extends CommonFragment implements BlockInfoView {
         mTxtHash.setText(block.getHash());
         mTxtBlockHeight.setText("#"+ Utils.getCommaNumber(mBlockNumber));
         mTxtTimestamp.setText(Constants.sdf.format(new Date(block.getTimestamp())));
-        mTxtTransaction.setText(block.getNrOfTrx() + "");
+        mTxtTransaction.setText(block.getNrOfStb() + "");
         mTxtParentHash.setText(block.getParentHash());
         mTxtWitnessAddress.setText(block.getWitnessAddress());
         mTxtBlockSize.setText(Utils.getCommaNumber(block.getSize()) + " " + getString(R.string.block_size_bytes));

@@ -26,7 +26,7 @@ public class PreviewWalletActivity extends CommonActivity implements PreviewWall
     PreviewWalletPresenter mPreviewWalletPresenter;
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -59,7 +59,7 @@ public class PreviewWalletActivity extends CommonActivity implements PreviewWall
             getSupportActionBar().setTitle(R.string.title_preview_wallet);
         }
 
-        mAdapter = new PreviewWalletAdapter(mTron, PreviewWalletActivity.this, mOnItemClickListener);
+        mAdapter = new PreviewWalletAdapter(mStabila, PreviewWalletActivity.this, mOnItemClickListener);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -92,7 +92,7 @@ public class PreviewWalletActivity extends CommonActivity implements PreviewWall
             int pos = mRecyclerView.getChildLayoutPosition(v);
             AccountModel item = mAdapter.getItem(pos);
 
-            mTron.changeLoginAccount(item);
+            mStabila.changeLoginAccount(item);
             startActivity(MainActivity.class);
             finishActivity();
         }

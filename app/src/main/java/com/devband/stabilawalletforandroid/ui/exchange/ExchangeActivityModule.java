@@ -14,7 +14,7 @@ public abstract class ExchangeActivityModule {
     public abstract ExchangeView view(ExchangeActivity exchangeActivity);
 
     @Provides
-    static ExchangePresenter provideExchangePresenter(ExchangeView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
-        return new ExchangePresenter(view, tron, rxJavaSchedulers);
+    static ExchangePresenter provideExchangePresenter(ExchangeView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
+        return new ExchangePresenter(view, stabila, rxJavaSchedulers);
     }
 }

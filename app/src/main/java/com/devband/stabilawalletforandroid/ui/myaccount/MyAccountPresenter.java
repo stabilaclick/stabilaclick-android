@@ -3,8 +3,8 @@ package com.devband.stabilawalletforandroid.ui.myaccount;
 import android.support.annotation.NonNull;
 
 import com.devband.stabilawalletforandroid.ui.main.dto.Asset;
-import com.devband.stabilawalletforandroid.ui.main.dto.Frozen;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.Cded;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.ui.mvp.BasePresenter;
 import com.devband.stabilawalletforandroid.common.Constants;
 import com.devband.stabilawalletforandroid.database.AppDatabase;
@@ -28,15 +28,15 @@ import org.stabila.protos.Protocol;
 
 public class MyAccountPresenter extends BasePresenter<MyAccountView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
     private FavoriteTokenDao mFavoriteTokenDao;
 
-    public MyAccountPresenter(MyAccountView view, Stabila tron, WalletAppManager walletAppManager,
+    public MyAccountPresenter(MyAccountView view, Stabila stabila, WalletAppManager walletAppManager,
                               RxJavaSchedulers rxJavaSchedulers, AppDatabase appDatabase) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
         this.mFavoriteTokenDao = appDatabase.favoriteTokenDao();
@@ -62,26 +62,26 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
     }
 
     public Single<List<AccountModel>> getAccountList() {
-        return mTron.getAccountList();
+        return mStabila.getAccountList();
     }
 
     public void getAccountAccountInfo() {
-        final String loginAddress = mTron.getLoginAddress();
+        final String loginAddress = mStabila.getLoginAddress();
 
         mView.showLoadingDialog();
 
-        mTron.queryAccount(loginAddress)
+        mStabila.queryAccount(loginAddress)
                 .map((account -> {
-                    List<Frozen> frozenList = new ArrayList<>();
+                    List<Cded> cdedList = new ArrayList<>();
 
-                    for (Protocol.Account.Frozen frozen : account.getFrozenList()) {
-                        frozenList.add(Frozen.builder()
-                                .frozenBalance(frozen.getFrozenBalance())
-                                .expireTime(frozen.getExpireTime())
+                    for (Protocol.Account.Cded cded : account.getCdedList()) {
+                        cdedList.add(Cded.builder()
+                                .cdedBalance(cded.getCdedBalance())
+                                .expireTime(cded.getExpireTime())
                                 .build());
                     }
 
-                    long accountId = mTron.getLoginAccount().getId();
+                    long accountId = mStabila.getLoginAccount().getId();
                     List<Asset> assetList = new ArrayList<>();
 
 //                        for (Trc20Token trc20TokenBalance : account.getTrc20TokenBalances()) {
@@ -93,7 +93,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
 //                        }
 
                     for (String key : account.getAssetV2Map().keySet()) {
-                        Trc10AssetModel trc10Asset = mTron.getTrc10Asset(key);
+                        Trc10AssetModel trc10Asset = mStabila.getTrc10Asset(key);
 
                         assetList.add(Asset.builder()
                                 .name(key)
@@ -104,23 +104,23 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
                                 .build());
                     }
 
-                    return TronAccount.builder()
+                    return StabilaAccount.builder()
                             .balance(account.getBalance())
-                            .bandwidth(account.getDelegatedFrozenBalanceForBandwidth())
+                            .bandwidth(account.getDelegatedCdedBalanceForBandwidth())
                             .assetList(assetList)
-                            .frozenList(frozenList)
+                            .cdedList(cdedList)
                             .build();
                 }))
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
-        .subscribe(new SingleObserver<TronAccount>() {
+        .subscribe(new SingleObserver<StabilaAccount>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onSuccess(TronAccount account) {
+            public void onSuccess(StabilaAccount account) {
                 mView.displayAccountInfo(loginAddress, account);
             }
 
@@ -141,17 +141,17 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
 
 
     public String getLoginPrivateKey(@NonNull String password) {
-        return mTron.getLoginPrivateKey(password);
+        return mStabila.getLoginPrivateKey(password);
     }
 
     public void changeLoginAccount(@NonNull AccountModel accountModel) {
-        mTron.changeLoginAccount(accountModel);
+        mStabila.changeLoginAccount(accountModel);
     }
 
-    public void freezeBalance(@NonNull String password, long freezeBalance) {
+    public void cdBalance(@NonNull String password, long cdBalance) {
         mView.showLoadingDialog();
 
-        mTron.freezeBalance(password, freezeBalance, Constants.FREEZE_DURATION)
+        mStabila.cdBalance(password, cdBalance, Constants.CD_DURATION)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {
@@ -163,7 +163,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
             @Override
             public void onSuccess(Boolean result) {
                 if (result) {
-                    mView.successFreezeBalance();
+                    mView.successCdBalance();
                 } else {
                     mView.showServerError();
                 }
@@ -181,10 +181,10 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
         });
     }
 
-    public void unfreezeBalance(@NonNull String password) {
+    public void uncdBalance(@NonNull String password) {
         mView.showLoadingDialog();
 
-        mTron.unfreezeBalance(password)
+        mStabila.uncdBalance(password)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {
@@ -196,7 +196,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
             @Override
             public void onSuccess(Boolean result) {
                 if (result) {
-                    mView.successFreezeBalance();
+                    mView.successCdBalance();
                 } else {
                     mView.showServerError();
                 }
@@ -205,7 +205,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
             @Override
             public void onError(Throwable e) {
                 if (e instanceof RuntimeException) {
-                    mView.unableToUnfreeze();
+                    mView.unableToUncd();
                 } else {
                     mView.showServerError();
                 }
@@ -214,20 +214,20 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
     }
 
     public long getLoginAccountIndex() {
-        return mTron.getLoginAccount().getId();
+        return mStabila.getLoginAccount().getId();
     }
 
     public AccountModel getLoginAccount() {
-        return mTron.getLoginAccount();
+        return mStabila.getLoginAccount();
     }
 
     public int getAccountCount() {
-        return mTron.getAccountCount();
+        return mStabila.getAccountCount();
     }
 
     public boolean isFavoriteToken(@NonNull String tokenName) {
-        if (mTron.getLoginAccount() != null) {
-            long accountId = mTron.getLoginAccount().getId();
+        if (mStabila.getLoginAccount() != null) {
+            long accountId = mStabila.getLoginAccount().getId();
 
             return mFavoriteTokenDao.findByAccountIdAndTokenName(accountId, tokenName) != null;
         }
@@ -236,8 +236,8 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
     }
 
     public void doFavorite(@NonNull String tokenName) {
-        if (mTron.getLoginAccount() != null) {
-            long accountId = mTron.getLoginAccount().getId();
+        if (mStabila.getLoginAccount() != null) {
+            long accountId = mStabila.getLoginAccount().getId();
             FavoriteTokenModel model = FavoriteTokenModel.builder()
                     .accountId(accountId)
                     .tokenName(tokenName)
@@ -248,8 +248,8 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
     }
 
     public void removeFavorite(@NonNull String tokenName) {
-        if (mTron.getLoginAccount() != null) {
-            long accountId = mTron.getLoginAccount().getId();
+        if (mStabila.getLoginAccount() != null) {
+            long accountId = mStabila.getLoginAccount().getId();
             FavoriteTokenModel favoriteTokenModel = mFavoriteTokenDao.findByAccountIdAndTokenName(accountId, tokenName);
             mFavoriteTokenDao.delete(favoriteTokenModel);
         }
@@ -262,7 +262,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
     public void removeAccount(long accountId, String accountName) {
         mView.showLoadingDialog();
         Single.fromCallable(() -> {
-            mTron.removeAccount(accountId, accountName);
+            mStabila.removeAccount(accountId, accountName);
             return true;
         })
                 .subscribeOn(mRxJavaSchedulers.getIo())

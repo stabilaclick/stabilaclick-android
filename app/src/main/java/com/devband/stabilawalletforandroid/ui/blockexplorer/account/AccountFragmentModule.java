@@ -14,8 +14,8 @@ public abstract class AccountFragmentModule {
     public abstract AccountView view(AccountFragment fragment);
 
     @Provides
-    static AccountPresenter provideAccountPresenter(AccountView view, StabilaNetwork tronNetwork,
+    static AccountPresenter provideAccountPresenter(AccountView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new AccountPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new AccountPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

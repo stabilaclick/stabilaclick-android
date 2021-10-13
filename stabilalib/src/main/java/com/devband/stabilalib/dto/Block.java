@@ -39,8 +39,8 @@ public class Block {
     @JsonProperty("witnessAddress")
     private String witnessAddress;
 
-    @JsonProperty("nrOfTrx")
-    private int nrOfTrx;
+    @JsonProperty("nrOfStb")
+    private int nrOfStb;
 
     @JsonProperty("confirmed")
     private boolean confirmed;

@@ -49,7 +49,7 @@ public class AboutActivity extends CommonActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_about_tron);
+            getSupportActionBar().setTitle(R.string.title_about_stabila);
         }
 
         mStabilaNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME)
@@ -82,16 +82,16 @@ public class AboutActivity extends CommonActivity {
                                     .setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                new FinestWebView.Builder(AboutActivity.this).show(getString(R.string.tron_white_paper_url));
+                                                new FinestWebView.Builder(AboutActivity.this).show(getString(R.string.stabila_white_paper_url));
                                             }
                                         });
 
                             Element architecture = new Element()
-                                    .setTitle(getString(R.string.tron_architecture_text))
+                                    .setTitle(getString(R.string.stabila_architecture_text))
                                     .setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            new FinestWebView.Builder(AboutActivity.this).show(getString(R.string.tron_architecture_url));
+                                            new FinestWebView.Builder(AboutActivity.this).show(getString(R.string.stabila_architecture_url));
                                         }
                                     });
 
@@ -102,20 +102,20 @@ public class AboutActivity extends CommonActivity {
                                             "TRON Protocol and the TVM allow anyone to develop DAPPs for themselves or their communities, with smart contracts making decentralized crowdfunding and token issuance easier than ever. Tron DAPP projects already include Peiwo, Obike, Uplive, game.com, Kitty live and Mico, with 100M+ active users from more than 100 countries and regions around the world.")
                                     .addGroup("Tron info (" + Constants.sdf.format(updated) + ")")
                                     .addItem(new Element().setTitle("Name : TRON"))
-                                    .addItem(new Element().setTitle("Symbol : TRX"))
-                                    .addItem(new Element().setTitle("Total Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getTotalSupply())) + " TRX"))
-                                    .addItem(new Element().setTitle("Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getAvailableSupply())) + " TRX"))
+                                    .addItem(new Element().setTitle("Symbol : STB"))
+                                    .addItem(new Element().setTitle("Total Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getTotalSupply())) + " STB"))
+                                    .addItem(new Element().setTitle("Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getAvailableSupply())) + " STB"))
                                     .addItem(new Element().setTitle(sb.toString()))
                                     .addItem(new Element().setTitle("Market Rank : " + coinMarketCap.getRank()))
                                     .addItem(new Element().setTitle("Market Cap : " + Constants.usdFormat.format(Double.parseDouble(coinMarketCap.getMarketCapUsd())) + " USD"))
                                     .addItem(new Element().setTitle("24H Volume : " + Constants.usdFormat.format(Double.parseDouble(coinMarketCap.get_24hVolumeUsd())) + " USD"))
                                     //.addItem(whitePaper)
                                     //.addItem(architecture)
-                                    .addGroup("Connect with tron team")
-                                    .addWebsite("https://tron.network")
-                                    .addFacebook("tronfoundation")
-                                    .addTwitter("Tronfoundation")
-                                    .addGitHub("tronprotocol")
+                                    .addGroup("Connect with stabila team")
+                                    .addWebsite("https://stabila.network")
+                                    .addFacebook("stabilafoundation")
+                                    .addTwitter("Stabilafoundation")
+                                    .addGitHub("stabilaprotocol")
                                     .create();
 
                             mViewLayout.addView(aboutPage);

@@ -57,7 +57,7 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
     public Spinner mTokenSpinner;
 
     @BindView(R.id.btn_send_trx)
-    public Button mSendTrxBtn;
+    public Button mSendStbBtn;
 
     @BindView(R.id.btn_qrcode_scan)
     public ImageButton mQrCodeScanBtn;
@@ -98,7 +98,7 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
 
             mInputAddress.setText(getString(R.string.donation_address_text));
             mInputAddress.setEnabled(false);
-            mSendTrxBtn.setText(R.string.title_donations);
+            mSendStbBtn.setText(R.string.title_donations);
             mQrCodeScanBtn.setVisibility(View.GONE);
         }
 
@@ -114,11 +114,11 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
 
     @OnClick(R.id.max_button)
     public void onMaxBtnClick() {
-        mInputAmount.setText(Utils.getTrxFormat(mSelectedAsset.getBalance()));
+        mInputAmount.setText(Utils.getStbFormat(mSelectedAsset.getBalance()));
     }
 
     @OnClick(R.id.btn_send_trx)
-    public void onSendTrxClick() {
+    public void onSendStbClick() {
         String address = mInputAddress.getText().toString();
         address = address.trim();
 
@@ -175,7 +175,7 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
                     String password = mInputPassword.getText().toString();
 
                     if (Constants.TRON_SYMBOL.equals(mSelectedAsset.getName())) {
-                        long amount = (long) (finalAmountDouble * Constants.ONE_TRX);
+                        long amount = (long) (finalAmountDouble * Constants.ONE_STB);
 
                         showProgressDialog(null, getString(R.string.loading_msg));
                         mSendTrc10Presenter.sendTron(password, finalAddress, amount);

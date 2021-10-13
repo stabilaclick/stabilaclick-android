@@ -10,12 +10,12 @@ import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
 
 public class OverviewPresenter extends BasePresenter<OverviewView> {
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public OverviewPresenter(OverviewView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public OverviewPresenter(OverviewView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -42,7 +42,7 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
     void chartDataLoad() {
         mView.showLoadingDialog();
 
-        mTronNetwork.getAccounts(0, 10, "-balance")
+        mStabilaNetwork.getAccounts(0, 10, "-balance")
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(
                         mView::overviewDataLoadSuccess,

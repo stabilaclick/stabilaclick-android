@@ -16,7 +16,7 @@ public abstract class CreateWalletActivityModule {
 
     @Provides
     static CreateWalletPresenter provideCreateWalletPresenter(CreateWalletView createWalletView,
-                                                              Stabila tron, RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference) {
-        return new CreateWalletPresenter(createWalletView, tron, rxJavaSchedulers, customPreference);
+                                                              Stabila stabila, RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference) {
+        return new CreateWalletPresenter(createWalletView, stabila, rxJavaSchedulers, customPreference);
     }
 }

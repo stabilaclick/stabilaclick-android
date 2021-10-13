@@ -21,16 +21,16 @@ import io.reactivex.disposables.Disposable;
 public class TokenPresenter extends BasePresenter<TokenView> {
 
     private AdapterDataModel<Token> mAdapterDataModel;
-    private Stabila mTron;
-    private StabilaNetwork mTronNetwork;
+    private Stabila mStabila;
+    private StabilaNetwork mStabilaNetwork;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TokenPresenter(TokenView view, Stabila tron, StabilaNetwork tronNetwork, WalletAppManager walletAppManager,
+    public TokenPresenter(TokenView view, Stabila stabila, StabilaNetwork stabilaNetwork, WalletAppManager walletAppManager,
                           RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
-        this.mTronNetwork = tronNetwork;
+        this.mStabila = stabila;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -66,7 +66,7 @@ public class TokenPresenter extends BasePresenter<TokenView> {
     public void findToken(@NonNull String query, long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        Single.zip(mTron.queryAccount(mTron.getLoginAddress()), mTronNetwork.findTokens("%" + query + "%", startIndex, pageSize, "-name"),
+        Single.zip(mStabila.queryAccount(mStabila.getLoginAddress()), mStabilaNetwork.findTokens("%" + query + "%", startIndex, pageSize, "-name"),
                 (account, tokens) -> {
                     AccountInfo accountInfo = new AccountInfo();
                     accountInfo.account = account;
@@ -96,7 +96,7 @@ public class TokenPresenter extends BasePresenter<TokenView> {
     }
 
     public void loadItems(long startIndex, int pageSize) {
-        String acc = mTron.getLoginAddress();
+        String acc = mStabila.getLoginAddress();
 
         if (TextUtils.isEmpty(acc)) {
             mView.needLogin();
@@ -105,7 +105,7 @@ public class TokenPresenter extends BasePresenter<TokenView> {
 
         mView.showLoadingDialog();
 
-        Single.zip(mTron.queryAccount(acc), mTronNetwork.getTokens(startIndex, pageSize, "-name", "ico"),
+        Single.zip(mStabila.queryAccount(acc), mStabilaNetwork.getTokens(startIndex, pageSize, "-name", "ico"),
                 (account, tokens) -> {
                     AccountInfo accountInfo = new AccountInfo();
                     accountInfo.account = account;
@@ -137,7 +137,7 @@ public class TokenPresenter extends BasePresenter<TokenView> {
     public void participateToken(@NonNull String password, Token item, long tokenAmount) {
         mView.showLoadingDialog();
 
-        mTron.participateTokens(password, item.getName(), item.getOwnerAddress(), tokenAmount)
+        mStabila.participateTokens(password, item.getName(), item.getOwnerAddress(), tokenAmount)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {

@@ -19,7 +19,7 @@ import com.devband.stabilawalletforandroid.ui.login.LoginActivity;
 
 public class BalanceCheckService extends Service {
 
-    private static final String CHANNEL_ID = "tron_balance_check_channel";
+    private static final String CHANNEL_ID = "stabila_balance_check_channel";
 
     private static boolean isStart;
 
@@ -27,8 +27,8 @@ public class BalanceCheckService extends Service {
     private CustomPreference customPreference;
 
     @MainThread
-    public static void startService(@NonNull Context context, Stabila tron) {
-        TRON = tron;
+    public static void startService(@NonNull Context context, Stabila stabila) {
+        TRON = stabila;
 
         Intent notificationIntent = new Intent(context, LoginActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);

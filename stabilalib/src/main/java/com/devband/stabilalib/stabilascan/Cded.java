@@ -2,14 +2,16 @@ package com.devband.stabilalib.stabilascan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FrozenTrx {
+public class Cded {
 
-    private long expires;
-    private long amount;
+    private long total;
+    private List<CdedStb> balances;
 }

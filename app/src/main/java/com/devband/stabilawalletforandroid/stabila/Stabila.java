@@ -52,14 +52,14 @@ public class Stabila {
     public static final int PRIVATE_KEY_SIZE = 64;
 
     private Context mContext;
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private CustomPreference mCustomPreference;
 
     private List<String> mFullNodeList;
 
     private List<String> mSolidityNodeList;
 
-    private ITronManager mTronManager;
+    private ITronManager mStabilaManager;
 
     private AccountManager mAccountManager;
 
@@ -69,10 +69,10 @@ public class Stabila {
 
     private boolean mFailConnectNode;
 
-    public Stabila(Context context, StabilaNetwork tronNetwork, CustomPreference customPreference, AccountManager accountManager,
+    public Stabila(Context context, StabilaNetwork stabilaNetwork, CustomPreference customPreference, AccountManager accountManager,
                    WalletAppManager walletAppManager, TokenManager tokenManager) {
         this.mContext = context;
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mCustomPreference = customPreference;
         this.mAccountManager = accountManager;
         this.mWalletAppManager = walletAppManager;
@@ -97,7 +97,7 @@ public class Stabila {
     public void initTronNode() {
         if (!TextUtils.isEmpty(mCustomPreference.getCustomFullNodeHost()) && !mFailConnectNode) {
             try {
-                mTronManager = new TronManager(mCustomPreference.getCustomFullNodeHost(),
+                mStabilaManager = new TronManager(mCustomPreference.getCustomFullNodeHost(),
                         mCustomPreference.getCustomFullNodeHost());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,14 +107,14 @@ public class Stabila {
             int randomFullNode = random.nextInt(mFullNodeList.size());
             int randomSolidityNode = random.nextInt(mSolidityNodeList.size());
 
-            mTronManager = new TronManager(mFullNodeList.get(randomFullNode), mSolidityNodeList.get(randomSolidityNode));
+            mStabilaManager = new TronManager(mFullNodeList.get(randomFullNode), mSolidityNodeList.get(randomSolidityNode));
         } else {
             // exception
         }
     }
 
     public Single<Long> getBlockHeight() {
-        return mTronManager.getBlockHeight()
+        return mStabilaManager.getBlockHeight()
                 .map(block -> {
                     if (block.hasBlockHeader()) {
                         return block.getBlockHeader().getRawData().getNumber();
@@ -223,7 +223,7 @@ public class Stabila {
     }
 
     public Single<Account> getAccount(@NonNull String address) {
-        return mTronNetwork.getAccountInfo(address)
+        return mStabilaNetwork.getAccountInfo(address)
                 .map(accountInfo -> {
                     for (Balance trc10TokenBalance : accountInfo.getTrc10TokenBalances()) {
                         trc10TokenBalance.setDisplayName(mTokenManager.getTokenInfo(trc10TokenBalance.getName()).blockingGet().getName());
@@ -250,25 +250,25 @@ public class Stabila {
             } else {
                 throw new IllegalArgumentException("address is required.");
             }
-        }).flatMap(addressBytes -> mTronManager.queryAccount(addressBytes));
+        }).flatMap(addressBytes -> mStabilaManager.queryAccount(addressBytes));
     }
 
     public Single<GrpcAPI.WitnessList> listWitnesses() {
-        return mTronManager.listWitnesses();
+        return mStabilaManager.listWitnesses();
     }
 
     public Single<GrpcAPI.AssetIssueList> getAssetIssueList() {
-        return mTronManager.getAssetIssueList();
+        return mStabilaManager.getAssetIssueList();
     }
 
     public Single<GrpcAPI.NodeList> listNodes() {
-        return mTronManager.listNodes();
+        return mStabilaManager.listNodes();
     }
 
     public Single<GrpcAPI.AssetIssueList> getAssetIssueByAccount(@NonNull String address) {
         if (!TextUtils.isEmpty(address)) {
             byte[] addressBytes = ByteArray.fromHexString(address);
-            return mTronManager.getAssetIssueByAccount(addressBytes);
+            return mStabilaManager.getAssetIssueByAccount(addressBytes);
         } else {
             throw new IllegalArgumentException("address is required.");
         }
@@ -277,7 +277,7 @@ public class Stabila {
 
     public void shutdown() {
         try {
-            mTronManager.shutdown();
+            mStabilaManager.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -321,11 +321,11 @@ public class Stabila {
     }
 
     public Single<GrpcAPI.WitnessList> getWitnessList() {
-        return mTronManager.listWitnesses();
+        return mStabilaManager.listWitnesses();
     }
 
     public Single<GrpcAPI.NodeList> getNodeList() {
-        return mTronManager.listNodes();
+        return mStabilaManager.listNodes();
     }
 
     public Single<Boolean> participateTokens(@Nullable String password, String tokenName, String issuerAddress, long amount) {
@@ -349,7 +349,7 @@ public class Stabila {
                     .setAmount(amount)
                     .build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -360,7 +360,7 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
@@ -391,7 +391,7 @@ public class Stabila {
 
             return builder.build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -402,11 +402,11 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
-    public Single<Boolean> freezeBalance(@Nullable String password, long freezeBalance, long freezeDuration) {
+    public Single<Boolean> cdBalance(@Nullable String password, long cdBalance, long cdDuration) {
         return Single.fromCallable(() -> {
             if (!mWalletAppManager.checkPassword(password)) {
                 throw new InvalidPasswordException();
@@ -415,13 +415,13 @@ public class Stabila {
             byte[] ownerAddressBytes = AccountManager.decodeFromBase58Check(mAccountManager.getLoginAddress());
             ByteString byteAddress = ByteString.copyFrom(ownerAddressBytes);
 
-            return Contract.FreezeBalanceContract.newBuilder()
-                    .setFrozenBalance(freezeBalance)
-                    .setFrozenDuration(freezeDuration)
+            return Contract.CdBalanceContract.newBuilder()
+                    .setCdedBalance(cdBalance)
+                    .setCdedDuration(cdDuration)
                     .setOwnerAddress(byteAddress)
                     .build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -432,11 +432,11 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
-    public Single<Boolean> unfreezeBalance(@Nullable String password) {
+    public Single<Boolean> uncdBalance(@Nullable String password) {
         if (!mWalletAppManager.checkPassword(password)) {
             return Single.just(false);
         }
@@ -445,12 +445,12 @@ public class Stabila {
             byte[] ownerAddressBytes = AccountManager.decodeFromBase58Check(mAccountManager.getLoginAddress());
             ByteString byteAddress = ByteString.copyFrom(ownerAddressBytes);
 
-            return Contract.UnfreezeBalanceContract
+            return Contract.UncdBalanceContract
                     .newBuilder()
                     .setOwnerAddress(byteAddress)
                     .build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -461,7 +461,7 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
@@ -488,7 +488,7 @@ public class Stabila {
                     .setAmount(amount)
                     .build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -499,7 +499,7 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
@@ -528,7 +528,7 @@ public class Stabila {
                     .setAmount(amount)
                     .build();
         })
-        .flatMap(contract -> mTronManager.createTransaction(contract))
+        .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
                 throw new RuntimeException();
@@ -539,7 +539,7 @@ public class Stabila {
             }
 
             Protocol.Transaction transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey(password), transactionExtention.getTransaction());
-            return mTronManager.broadcastTransaction(transaction);
+            return mStabilaManager.broadcastTransaction(transaction);
         });
     }
 
@@ -579,7 +579,7 @@ public class Stabila {
 
     public Single<Protocol.SmartContract> getSmartContract(@NonNull String address) {
         return Single.fromCallable(() -> AccountManager.decodeFromBase58Check(address))
-                .flatMap(addressBytes -> mTronManager.getSmartContract(addressBytes));
+                .flatMap(addressBytes -> mStabilaManager.getSmartContract(addressBytes));
     }
 
     public Single<GrpcAPI.TransactionExtention> getTrc20Balance(@NonNull String ownerAddress, String contractAddress) {
@@ -597,7 +597,7 @@ public class Stabila {
                     }
 
                     byte[] input = Hex.decode(contractTrigger);
-                    return mTronManager.triggerContract(addressBytes, AccountManager.decodeFromBase58Check(contractAddress), 0L, input, 1_000_000_000L, 0, null);
+                    return mStabilaManager.triggerContract(addressBytes, AccountManager.decodeFromBase58Check(contractAddress), 0L, input, 1_000_000_000L, 0, null);
                 });
     }
 
@@ -614,7 +614,7 @@ public class Stabila {
     public Single<Boolean> callQueryContract(@NonNull String ownerAddress, byte[] contractAddress, long callValue,
             byte[] input, long feeLimit, long tokenCallValue, @Nullable String tokenId) {
         return Single.fromCallable(() -> AccountManager.decodeFromBase58Check(ownerAddress))
-                .flatMap(addressBytes -> mTronManager.triggerContract(addressBytes, contractAddress, callValue, input, feeLimit, tokenCallValue, tokenId))
+                .flatMap(addressBytes -> mStabilaManager.triggerContract(addressBytes, contractAddress, callValue, input, feeLimit, tokenCallValue, tokenId))
                 .map(transactionExtention -> {
                     if (transactionExtention == null || !transactionExtention.getResult().getResult()) {
                         Timber.d("RPC create call trx failed!");
@@ -671,7 +671,7 @@ public class Stabila {
                     System.out.println(
                             "Receive txid = " + ByteArray.toHexString(transactionExtention.getTxid().toByteArray()));
                     transaction = mAccountManager.signTransaction(WalletAppManager.getEncKey("12345678"), transaction);
-                    return mTronManager.broadcastTransaction(transaction).blockingGet();
+                    return mStabilaManager.broadcastTransaction(transaction).blockingGet();
                 });
     }
 
@@ -709,7 +709,7 @@ public class Stabila {
     }
 
     public Single<Contract.AssetIssueContract> getAssetIssueById(String id) {
-        return mTronManager.getAssetIssueById(id);
+        return mStabilaManager.getAssetIssueById(id);
     }
 
     public boolean checkPassword(String password) {

@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RequestCoinActivity extends CommonActivity {
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -63,7 +63,7 @@ public class RequestCoinActivity extends CommonActivity {
     public void onGenQrcodeClick() {
         hideDialog();
 
-        showProgressDialog("", getString(R.string.tron_price_title));
+        showProgressDialog("", getString(R.string.stabila_price_title));
 
         Single.fromCallable(() -> {
             String amount = mInputAmount.getText().toString();
@@ -77,7 +77,7 @@ public class RequestCoinActivity extends CommonActivity {
             double cnt = Double.parseDouble(amount);
 
             PayInfo payInfo = new PayInfo();
-            payInfo.address = mTron.getLoginAddress();
+            payInfo.address = mStabila.getLoginAddress();
             payInfo.amount = cnt;
 
             ObjectMapper objectMapper = new ObjectMapper();

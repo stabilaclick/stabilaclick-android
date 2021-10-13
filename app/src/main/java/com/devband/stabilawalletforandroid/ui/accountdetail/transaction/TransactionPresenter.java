@@ -13,12 +13,12 @@ import io.reactivex.disposables.Disposable;
 public class TransactionPresenter extends BasePresenter<TransactionView> {
 
     private AdapterDataModel<Transaction> mAdapterDataModel;
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TransactionPresenter(TransactionView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public TransactionPresenter(TransactionView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -48,7 +48,7 @@ public class TransactionPresenter extends BasePresenter<TransactionView> {
 
     public void getTransactions(long block, long startIndex, int pageSize) {
         mView.showLoadingDialog();
-        mTronNetwork.getTransactions(block, startIndex, pageSize, "-timestamp", true)
+        mStabilaNetwork.getTransactions(block, startIndex, pageSize, "-timestamp", true)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Transactions>() {
@@ -73,7 +73,7 @@ public class TransactionPresenter extends BasePresenter<TransactionView> {
     public void getTransactions(String address, long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        mTronNetwork.getTransactions(address, startIndex, pageSize, "-timestamp", true)
+        mStabilaNetwork.getTransactions(address, startIndex, pageSize, "-timestamp", true)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Transactions>() {

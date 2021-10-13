@@ -1,5 +1,5 @@
 # Setup
 
 ```
-$ npm install -g tronbox
+$ npm install -g stabilabox
 ```

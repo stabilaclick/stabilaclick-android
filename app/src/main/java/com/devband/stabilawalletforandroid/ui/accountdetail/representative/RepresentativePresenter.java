@@ -17,12 +17,12 @@ import io.reactivex.Single;
 
 public class RepresentativePresenter extends BasePresenter<RepresentativeView> {
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public RepresentativePresenter(RepresentativeView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public RepresentativePresenter(RepresentativeView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -84,8 +84,8 @@ public class RepresentativePresenter extends BasePresenter<RepresentativeView> {
 
     private Single<BlockStatModel> loadBlockStat(String address) {
         return Single.zip(
-                mTronNetwork.getAccountMedia(address),
-                mTronNetwork.getTransactionStats(address),
+                mStabilaNetwork.getAccountMedia(address),
+                mStabilaNetwork.getTransactionStats(address),
                 (accountMedia, transactionStats) ->
                         new BlockStatModel(
                                 address,
@@ -97,7 +97,7 @@ public class RepresentativePresenter extends BasePresenter<RepresentativeView> {
     }
 
     private Single<List<Transfer>> loadTransferHistory(String address) {
-        return mTronNetwork.getTransfers(0, 25, "-timestamp", true, address)
+        return mStabilaNetwork.getTransfers(0, 25, "-timestamp", true, address)
                 .map(value -> value.getData());
     }
 }

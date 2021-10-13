@@ -16,8 +16,8 @@ public abstract class MyTransferActivityModule {
     public abstract TransferView view(TransferActivity transferActivity);
 
     @Provides
-    static TransferPresenter provideTransferPresenter(TransferView transferView, Stabila tron,
-                                                      StabilaNetwork tronNetwork, TokenManager tokenManager, RxJavaSchedulers rxJavaSchedulers) {
-        return new TransferPresenter(transferView, tron, tronNetwork, tokenManager, rxJavaSchedulers);
+    static TransferPresenter provideTransferPresenter(TransferView transferView, Stabila stabila,
+                                                      StabilaNetwork stabilaNetwork, TokenManager tokenManager, RxJavaSchedulers rxJavaSchedulers) {
+        return new TransferPresenter(transferView, stabila, stabilaNetwork, tokenManager, rxJavaSchedulers);
     }
 }

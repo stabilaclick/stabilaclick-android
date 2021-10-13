@@ -58,7 +58,7 @@ public class SendTrc20Activity extends CommonActivity implements SendTrc20View {
     public Spinner mTokenSpinner;
 
     @BindView(R.id.btn_send_trx)
-    public Button mSendTrxBtn;
+    public Button mSendStbBtn;
 
     @BindView(R.id.btn_qrcode_scan)
     public ImageButton mQrCodeScanBtn;
@@ -208,7 +208,7 @@ public class SendTrc20Activity extends CommonActivity implements SendTrc20View {
     };
 
     @OnClick(R.id.btn_send_trx)
-    public void onSendTrxClick() {
+    public void onSendStbClick() {
         String address = mInputAddress.getText().toString();
         address = address.trim();
 

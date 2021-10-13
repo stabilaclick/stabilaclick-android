@@ -47,12 +47,12 @@ public class TokenInfo {
     private long availableSupply;
     private long totalSupply;
     private long index;
-    private long frozenTotal;
-    private List<Object> frozen;
+    private long cdedTotal;
+    private List<Object> cded;
     private long canShow;
     private long remaining;
     private String url;
-    private double frozenPercentage;
+    private double cdedPercentage;
     private String imgUrl;
     private boolean isBlack;
     private float remainingPercentage;

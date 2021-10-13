@@ -17,13 +17,13 @@ public class Account {
     private List<Object> allowExchange;
     private String address;
 
-    @JsonProperty("frozen_supply")
-    private List<Object> frozenSupply;
+    @JsonProperty("cded_supply")
+    private List<Object> cdedSupply;
 
     private Bandwidth bandwidth;
     private int accountType;
     private List<Object> exchanges;
-    private Frozen frozen;
+    private Cded cded;
     private AccountResource accountResource;
 
     @JsonProperty("tokenBalances")
@@ -39,7 +39,7 @@ public class Account {
         List<Balance> newBalance = new ArrayList<>();
 
         for (Balance tokenBalance : trc10TokenBalances) {
-            if ("TRX".equalsIgnoreCase(tokenBalance.getName()) || "_".equalsIgnoreCase(tokenBalance.getName())) {
+            if ("STB".equalsIgnoreCase(tokenBalance.getName()) || "_".equalsIgnoreCase(tokenBalance.getName())) {
                 continue;
             }
             newBalance.add(tokenBalance);

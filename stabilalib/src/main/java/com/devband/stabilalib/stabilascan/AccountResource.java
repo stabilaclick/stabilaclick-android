@@ -11,6 +11,6 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountResource {
 
-    @JsonProperty("frozen_balance_for_energy")
-    FrozenBalanceForEnergy frozenBalanceForEnergy;
+    @JsonProperty("cded_balance_for_ucr")
+    CdedBalanceForUcr cdedBalanceForUcr;
 }

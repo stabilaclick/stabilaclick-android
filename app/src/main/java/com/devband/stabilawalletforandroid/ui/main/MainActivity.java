@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.devband.stabilawalletforandroid.stabila.Stabila;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilalib.dto.CoinMarketCap;
 import com.devband.stabilawalletforandroid.BuildConfig;
 import com.devband.stabilawalletforandroid.R;
@@ -49,7 +49,7 @@ import com.devband.stabilawalletforandroid.ui.blockexplorer.BlockExplorerActivit
 import com.devband.stabilawalletforandroid.ui.intro.IntroActivity;
 import com.devband.stabilawalletforandroid.ui.login.LoginActivity;
 import com.devband.stabilawalletforandroid.ui.main.adapter.MyTokenListAdapter;
-import com.devband.stabilawalletforandroid.ui.main.dto.Frozen;
+import com.devband.stabilawalletforandroid.ui.main.dto.Cded;
 import com.devband.stabilawalletforandroid.ui.more.MoreActivity;
 import com.devband.stabilawalletforandroid.ui.myaccount.MyAccountActivity;
 import com.devband.stabilawalletforandroid.ui.mytransfer.TransferActivity;
@@ -104,8 +104,8 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     @BindView(R.id.login_account_price_text)
     TextView mLoginAccountPriceText;
 
-    @BindView(R.id.login_frozen_balance_text)
-    TextView mLoginFrozenBalanceText;
+    @BindView(R.id.login_cded_balance_text)
+    TextView mLoginCdedBalanceText;
 
     @BindView(R.id.login_bandwidth_text)
     TextView mLoginBandwidthText;
@@ -146,7 +146,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
 
     String mLoginAccountName;
 
-    private TronAccount mLoginTronAccount;
+    private StabilaAccount mLoginTronAccount;
 
     private CoinMarketCap mCoinMarketCapPriceInfo;
 
@@ -207,7 +207,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
                     mLoginAccountPriceText.setVisibility(View.GONE);
                     mPriceHelpImage.setVisibility(View.GONE);
                     mEditAccountNameImage.setVisibility(View.GONE);
-                    mLoginFrozenBalanceText.setVisibility(View.GONE);
+                    mLoginCdedBalanceText.setVisibility(View.GONE);
                     mLoginBandwidthText.setVisibility(View.GONE);
                     isShow = true;
                 } else if(isShow) {
@@ -217,7 +217,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
                     mLoginAccountPriceText.setVisibility(View.VISIBLE);
                     mPriceHelpImage.setVisibility(View.VISIBLE);
                     mEditAccountNameImage.setVisibility(View.VISIBLE);
-                    mLoginFrozenBalanceText.setVisibility(View.VISIBLE);
+                    mLoginCdedBalanceText.setVisibility(View.VISIBLE);
                     mLoginBandwidthText.setVisibility(View.VISIBLE);
                     isShow = false;
                 }
@@ -584,7 +584,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     }
 
     @Override
-    public void displayAccountInfo(@NonNull TronAccount account) {
+    public void displayAccountInfo(@NonNull StabilaAccount account) {
         hideDialog();
         mLoginTronAccount = account;
         mShowOnlyFavoritesCheckBox.setEnabled(true);
@@ -597,20 +597,20 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
             mMyTokenListView.setVisibility(View.VISIBLE);
         }
 
-        double balance = ((double) account.getBalance()) / Constants.ONE_TRX;
-        long frozenBalance = 0;
+        double balance = ((double) account.getBalance()) / Constants.ONE_STB;
+        long cdedBalance = 0;
 
-        for (int i = 0; i < account.getFrozenList().size(); i++) {
-            Frozen frozen = account.getFrozenList().get(i);
+        for (int i = 0; i < account.getCdedList().size(); i++) {
+            Cded cded = account.getCdedList().get(i);
 
-            frozenBalance += frozen.getFrozenBalance();
+            cdedBalance += cded.getCdedBalance();
         }
 
-        double fz = frozenBalance / Constants.ONE_TRX;
+        double fz = cdedBalance / Constants.ONE_STB;
         double bandwidth = account.getBandwidth();
 
         mLoginAccountBalanceText.setText(Constants.tokenBalanceFormat.format(balance) + " " + getString(R.string.currency_text));
-        mLoginFrozenBalanceText.setText(Constants.numberFormat.format(fz));
+        mLoginCdedBalanceText.setText(Constants.numberFormat.format(fz));
         mLoginBandwidthText.setText(bandwidth == 0 ? "-" : Constants.numberFormat.format(bandwidth));
 
         mLoadingAccountInfo = false;
@@ -621,7 +621,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     @SuppressLint("SetTextI18n")
     @Override
     public void setTronMarketInfo(CoinMarketCap coinMarketCap) {
-        double balance = ((double) mLoginTronAccount.getBalance()) / Constants.ONE_TRX;
+        double balance = ((double) mLoginTronAccount.getBalance()) / Constants.ONE_STB;
 
         mLoginAccountPriceText.setText("(" + Constants.usdFormat.format(balance * Double.parseDouble(coinMarketCap.getPriceUsd()))
                 + " " + getString(R.string.price_text) + ")");
@@ -769,7 +769,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
         hideDialog();
 
         new MaterialDialog.Builder(MainActivity.this)
-                .title(getString(R.string.tron_price_title))
+                .title(getString(R.string.stabila_price_title))
                 .content(sb.toString())
                 .titleColorRes(android.R.color.black)
                 .contentColorRes(android.R.color.black)

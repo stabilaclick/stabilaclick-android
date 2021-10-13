@@ -46,7 +46,7 @@ public class BlockAdapter extends RecyclerView.Adapter<BlockAdapter.BlockViewHol
         Block block = mList.get(position);
 
         holder.txtNumber.setText("#" + Constants.numberFormat.format(block.getNumber()));
-        holder.txtTransaction.setText(String.valueOf(block.getNrOfTrx()));
+        holder.txtTransaction.setText(String.valueOf(block.getNrOfStb()));
 
         Utils.setAccountDetailAction(holder.txtProducedBy.getContext(), holder.txtProducedBy, block.getWitnessAddress());
 

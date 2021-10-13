@@ -13,12 +13,12 @@ import io.reactivex.disposables.Disposable;
 
 public class ImportPrivateKeyPresenter extends BasePresenter<ImportPrivateKeyView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public ImportPrivateKeyPresenter(ImportPrivateKeyView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
+    public ImportPrivateKeyPresenter(ImportPrivateKeyView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -43,10 +43,10 @@ public class ImportPrivateKeyPresenter extends BasePresenter<ImportPrivateKeyVie
     }
 
     public void createWallet(String privateKey, String password) {
-        mTron.createWallet(password)
+        mStabila.createWallet(password)
                 .flatMap(result -> {
                     if (result == WalletAppManager.SUCCESS) {
-                        return mTron.importAccount(Constants.PREFIX_ACCOUNT_NAME, privateKey, password);
+                        return mStabila.importAccount(Constants.PREFIX_ACCOUNT_NAME, privateKey, password);
                     }
 
                     return Single.just(result);
@@ -56,13 +56,13 @@ public class ImportPrivateKeyPresenter extends BasePresenter<ImportPrivateKeyVie
                         return result;
                     }
 
-                    result = mTron.login(password);
+                    result = mStabila.login(password);
 
                     if (result != Stabila.SUCCESS) {
                         return result;
                     }
 
-                    mTron.agreeTerms(true);
+                    mStabila.agreeTerms(true);
                     return Stabila.SUCCESS;
                 })
                 .subscribeOn(mRxJavaSchedulers.getIo())

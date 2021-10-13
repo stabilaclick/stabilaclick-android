@@ -3,12 +3,12 @@ package com.devband.stabilawalletforandroid.ui.myaccount;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.ui.mvp.IView;
 
 public interface MyAccountView extends IView {
 
-    void displayAccountInfo(@NonNull String address, @Nullable TronAccount account);
+    void displayAccountInfo(@NonNull String address, @Nullable StabilaAccount account);
 
     void showLoadingDialog();
 
@@ -16,9 +16,9 @@ public interface MyAccountView extends IView {
 
     void showServerError();
 
-    void successFreezeBalance();
+    void successCdBalance();
 
-    void unableToUnfreeze();
+    void unableToUncd();
 
     void showInvalidPasswordMsg();
 

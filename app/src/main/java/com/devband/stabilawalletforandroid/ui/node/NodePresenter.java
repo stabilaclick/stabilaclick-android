@@ -13,12 +13,12 @@ import io.reactivex.disposables.Disposable;
 public class NodePresenter extends BasePresenter<NodeView> {
 
     private AdapterImmutableDataModel<GrpcAPI.NodeList,GrpcAPI.Node> adapterDataModel;
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public NodePresenter(NodeView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
+    public NodePresenter(NodeView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -48,7 +48,7 @@ public class NodePresenter extends BasePresenter<NodeView> {
 
 
     public void getTronNodeList(){
-        mTron.getNodeList()
+        mStabila.getNodeList()
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<GrpcAPI.NodeList>() {

@@ -24,16 +24,16 @@ import io.reactivex.disposables.Disposable;
 public class TransferPresenter extends BasePresenter<TransferView> {
 
     private AdapterDataModel<TransferInfo> mAdapterDataModel;
-    private Stabila mTron;
-    private StabilaNetwork mTronNetwork;
+    private Stabila mStabila;
+    private StabilaNetwork mStabilaNetwork;
     private TokenManager mTokenManager;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TransferPresenter(TransferView view, Stabila tron, StabilaNetwork tronNetwork, TokenManager tokenManager,
+    public TransferPresenter(TransferView view, Stabila stabila, StabilaNetwork stabilaNetwork, TokenManager tokenManager,
                              RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
-        this.mTronNetwork = tronNetwork;
+        this.mStabila = stabila;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mTokenManager = tokenManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -65,9 +65,9 @@ public class TransferPresenter extends BasePresenter<TransferView> {
     public void loadTransfer(long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        String address = mTron.getLoginAddress();
+        String address = mStabila.getLoginAddress();
 
-        mTronNetwork.getTransfersByAddress("-timestamp", true, pageSize, startIndex, address)
+        mStabilaNetwork.getTransfersByAddress("-timestamp", true, pageSize, startIndex, address)
         .map(transactions -> {
             List<TransferInfo> infos = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class TransferPresenter extends BasePresenter<TransferView> {
                 info.setTimestamp(t.getTimestamp());
                 if ("_".equalsIgnoreCase(t.getTokenName())) {
                     info.setTokenName(Constants.TRON_SYMBOL);
-                    info.setPrecision(Constants.TRX_PRECISION);
+                    info.setPrecision(Constants.STB_PRECISION);
                 } else {
                     Trc10AssetModel trc10AssetModel = mTokenManager.getTokenInfo(t.getTokenName()).blockingGet();
                     info.setTokenName(trc10AssetModel.getName());

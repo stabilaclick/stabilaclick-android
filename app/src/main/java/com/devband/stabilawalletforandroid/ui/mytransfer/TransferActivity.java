@@ -157,7 +157,7 @@ public class TransferActivity extends CommonActivity implements TransferView {
             long amount = item.getAmount();
 
             if (item.getTokenName().equalsIgnoreCase(Constants.TRON_SYMBOL)) {
-                amount = (long) (amount / Constants.ONE_TRX);
+                amount = (long) (amount / Constants.ONE_STB);
             }
 
             hashText.setText(item.getHash());

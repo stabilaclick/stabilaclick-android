@@ -70,7 +70,7 @@ public class TokenActivity extends CommonActivity implements TokenView {
 
     private AdapterView mAdapterView;
 
-    private long mLoginAccountTrx;
+    private long mLoginAccountStb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -220,10 +220,10 @@ public class TokenActivity extends CommonActivity implements TokenView {
                 CheckBox agreePartCheckBox = (CheckBox) dialog.getCustomView().findViewById(R.id.agree_participate_token);
                 TextView totalText = (TextView) dialog.getCustomView().findViewById(R.id.total_trx_text);
                 TextView priceText = (TextView) dialog.getCustomView().findViewById(R.id.price_text);
-                TextView yourTrxText = (TextView) dialog.getCustomView().findViewById(R.id.your_trx_text);
+                TextView yourStbText = (TextView) dialog.getCustomView().findViewById(R.id.your_trx_text);
 
-                priceText.setText(Utils.getRealTrxFormat(item.getPrice()) + " " + Constants.TRON_SYMBOL);
-                yourTrxText.setText(Utils.getRealTrxFormat(mLoginAccountTrx) + " " + Constants.TRON_SYMBOL);
+                priceText.setText(Utils.getRealStbFormat(item.getPrice()) + " " + Constants.TRON_SYMBOL);
+                yourStbText.setText(Utils.getRealStbFormat(mLoginAccountStb) + " " + Constants.TRON_SYMBOL);
 
                 inputAmount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -236,7 +236,7 @@ public class TokenActivity extends CommonActivity implements TokenView {
                         try {
                             if (!TextUtils.isEmpty(inputAmount.getText().toString())) {
                                 long amountBalance = Long.parseLong(inputAmount.getText().toString());
-                                totalText.setText(Utils.getRealTrxFormat(amountBalance * item.getPrice()) + " " + Constants.TRON_SYMBOL);
+                                totalText.setText(Utils.getRealStbFormat(amountBalance * item.getPrice()) + " " + Constants.TRON_SYMBOL);
                             } else {
                                 totalText.setText("0 " + Constants.TRON_SYMBOL);
                             }
@@ -282,7 +282,7 @@ public class TokenActivity extends CommonActivity implements TokenView {
                         // check trx balance
                         tokenAmount *= item.getPrice();
 
-                        if (tokenAmount == 0 || tokenAmount > mLoginAccountTrx) {
+                        if (tokenAmount == 0 || tokenAmount > mLoginAccountStb) {
                             Toast.makeText(TokenActivity.this, getString(R.string.invalid_amount),
                                     Toast.LENGTH_SHORT).show();
                             return;
@@ -334,7 +334,7 @@ public class TokenActivity extends CommonActivity implements TokenView {
 
             mStartIndex += PAGE_SIZE;
 
-            mLoginAccountTrx = account.getBalance();
+            mLoginAccountStb = account.getBalance();
 
             if (mStartIndex >= total) {
                 mIsLastPage = true;

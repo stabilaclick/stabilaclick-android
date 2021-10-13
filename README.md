@@ -9,14 +9,14 @@
 A Tron wallet for android.
 
 ## Download App in PlayStore
-<a href="https://play.google.com/store/apps/details?id=com.devband.tronwalletforandroid"><img src="https://raw.githubusercontent.com/hummatli/MAHAndroidUpdater/master/imgs/google-play-badge.png" height="90px"/></a>
+<a href="https://play.google.com/store/apps/details?id=com.devband.stabilawalletforandroid"><img src="https://raw.githubusercontent.com/hummatli/MAHAndroidUpdater/master/imgs/google-play-badge.png" height="90px"/></a>
 
 ## Screenshots
-<img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/device-2018-04-27-215149.png" width="250"> <img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/Screenshot_20181016-212549.png" width="250"> <img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/device-2018-04-27-215251.png" width="250"><br/>
-<img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/device-2018-05-31-123858.png" width="250"> <img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/device-2018-05-31-123743.png" width="250"> <img src="https://github.com/lky1001/tron-android-wallet/blob/develop/screenshots/Screenshot_20181016-212733.png" width="250">
+<img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/device-2018-04-27-215149.png" width="250"> <img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/Screenshot_20181016-212549.png" width="250"> <img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/device-2018-04-27-215251.png" width="250"><br/>
+<img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/device-2018-05-31-123858.png" width="250"> <img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/device-2018-05-31-123743.png" width="250"> <img src="https://github.com/lky1001/stabila-android-wallet/blob/develop/screenshots/Screenshot_20181016-212733.png" width="250">
 
 ## Reference
-- https://github.com/tronprotocol/wallet-cli
+- https://github.com/stabilaprotocol/wallet-cli
 
 ## Required.
  - android 4.0.3 (API 15)
@@ -30,8 +30,8 @@ A Tron wallet for android.
 
 - Create wallet
 - Import wallet
-- Send tron & token
-- Receive tron & token
+- Send stabila & token
+- Receive stabila & token
 - My address QR code
 - TRC-10 Token balance
 - TRC-20 Token balance

@@ -20,14 +20,14 @@ public class SendTrc20Presenter extends BasePresenter<SendTrc20View> {
 
     private static String TRANSFER_METHOD = "transfer(address,uint256)";
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private Trc20ContractDao mTrc20ContractDao;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public SendTrc20Presenter(SendTrc20View view, Stabila tron, AppDatabase appDatabase,
+    public SendTrc20Presenter(SendTrc20View view, Stabila stabila, AppDatabase appDatabase,
                               RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mTrc20ContractDao = appDatabase.trc20ContractDao();
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -64,17 +64,17 @@ public class SendTrc20Presenter extends BasePresenter<SendTrc20View> {
     }
 
     public void transferAsset(String password, String toAddress, String name, long amount) {
-        if (!mTron.isLogin()) {
+        if (!mStabila.isLogin()) {
             mView.invalidPassword();
             return;
         }
 
-        if (!mTron.checkPassword(password)) {
+        if (!mStabila.checkPassword(password)) {
             mView.invalidPassword();
             return;
         }
 
-        String loginAddress = mTron.getLoginAddress();
+        String loginAddress = mStabila.getLoginAddress();
 
         if (TextUtils.isEmpty(loginAddress)) {
             mView.failed();
@@ -95,7 +95,7 @@ public class SendTrc20Presenter extends BasePresenter<SendTrc20View> {
             byte[] input = Hex.decode(contractTrigger);
             byte[] contractAddress = AccountManager.decodeFromBase58Check(toAddress);
 
-            return mTron.callQueryContract(loginAddress, contractAddress, 0L, input, 1_000_000_000L, 0L, null);
+            return mStabila.callQueryContract(loginAddress, contractAddress, 0L, input, 1_000_000_000L, 0L, null);
         })
                 .flatMap(result -> result)
                 .subscribe(result -> {

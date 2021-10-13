@@ -16,12 +16,12 @@ import lombok.Builder;
 
 public class AddressPresenter extends BasePresenter<AddressView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public AddressPresenter(AddressView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
+    public AddressPresenter(AddressView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -37,7 +37,7 @@ public class AddressPresenter extends BasePresenter<AddressView> {
     @Override
     public void onResume() {
         Single.fromCallable(() -> {
-            String address = mTron.getLoginAddress();
+            String address = mStabila.getLoginAddress();
 
             if (address == null || address.isEmpty()) {
                 return null;

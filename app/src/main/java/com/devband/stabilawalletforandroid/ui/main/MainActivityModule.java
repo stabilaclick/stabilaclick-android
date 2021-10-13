@@ -18,10 +18,10 @@ public abstract class MainActivityModule {
     public abstract MainView view(MainActivity mainActivity);
 
     @Provides
-    static MainPresenter provideMainPresenter(MainView mainView, Stabila tron, WalletAppManager walletAppManager,
-                                              StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference,
+    static MainPresenter provideMainPresenter(MainView mainView, Stabila stabila, WalletAppManager walletAppManager,
+                                              StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference,
                                               AppDatabase appDatabase) {
-        return new MainPresenter(mainView, tron, walletAppManager, tronNetwork, rxJavaSchedulers,
+        return new MainPresenter(mainView, stabila, walletAppManager, stabilaNetwork, rxJavaSchedulers,
                 customPreference, appDatabase);
     }
 }

@@ -10,12 +10,12 @@ import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
 
 public class MarketPresenter extends BasePresenter<MarketView> {
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public MarketPresenter(MarketView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public MarketPresenter(MarketView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -42,7 +42,7 @@ public class MarketPresenter extends BasePresenter<MarketView> {
     private void loadMarket() {
         mView.showLoadingDialog();
 
-        this.mTronNetwork
+        this.mStabilaNetwork
         .getMarkets()
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())

@@ -100,10 +100,10 @@
                     android:layout_alignBaseline="@+id/balance_title_text"
                     android:textSize="12sp"
                     android:gravity="center"
-                    tools:text="1,000,000,000 TRX" />
+                    tools:text="1,000,000,000 STB" />
 
                 <TextView
-                    android:id="@+id/tron_power_title_text"
+                    android:id="@+id/stabila_power_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -111,18 +111,18 @@
                     android:layout_below="@+id/balance_title_text"
                     android:textSize="14sp"
                     android:gravity="center"
-                    android:text="@string/my_account_tron_power_title_text" />
+                    android:text="@string/my_account_stabila_power_title_text" />
 
                 <TextView
-                    android:id="@+id/tron_power_text"
+                    android:id="@+id/stabila_power_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/tron_power_title_text"
-                    android:layout_alignBaseline="@+id/tron_power_title_text"
+                    android:layout_toRightOf="@+id/stabila_power_title_text"
+                    android:layout_alignBaseline="@+id/stabila_power_title_text"
                     android:textSize="12sp"
                     android:gravity="center"
                     tools:text="1,000,000,000" />
@@ -130,7 +130,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tron_power_title_text"
+                    android:layout_below="@+id/stabila_power_title_text"
                     android:layout_marginBottom="25dp"
                     android:orientation="vertical">
                     <LinearLayout
@@ -235,7 +235,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tron_power_layout"
+                android:id="@+id/stabila_power_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -244,11 +244,11 @@
                 android:background="@android:color/white"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/frozen_trx_title_text"
+                    android:id="@+id/cded_trx_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:text="@string/my_account_tron_power_text" />
+                    android:text="@string/my_account_stabila_power_text" />
 
                 <ImageView
                     android:id="@+id/votes_help_image"
@@ -277,14 +277,14 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/frozen_trx_balance_text"
+                        android:id="@+id/cded_trx_balance_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        tools:text="1,000,000,000 TRX" />
+                        tools:text="1,000,000,000 STB" />
 
                     <TextView
-                        android:id="@+id/frozen_trx_expired_text"
+                        android:id="@+id/cded_trx_expired_text"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -301,25 +301,25 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <Button
-                        android:id="@+id/unfreeze_button"
+                        android:id="@+id/uncd_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:visibility="gone"
-                        android:background="@color/freeze_button_color"
+                        android:background="@color/cd_button_color"
                         android:textColor="@android:color/white"
-                        android:text="@string/unfreeze_text" />
+                        android:text="@string/uncd_text" />
 
                     <Button
-                        android:id="@+id/freeze_button"
+                        android:id="@+id/cd_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:background="@color/colorAccent"
                         android:textColor="@android:color/white"
-                        android:text="@string/freeze_text" />
+                        android:text="@string/cd_text" />
                 </LinearLayout>
             </LinearLayout>
 

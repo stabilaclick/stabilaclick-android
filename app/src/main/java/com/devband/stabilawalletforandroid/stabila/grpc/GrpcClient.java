@@ -27,7 +27,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 /**
- * https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/walletserver/GrpcClient.java
+ * https://github.com/stabilaprotocol/wallet-cli/blob/master/src/main/java/org/stabila/walletserver/GrpcClient.java
  */
 public class GrpcClient {
 
@@ -87,20 +87,20 @@ public class GrpcClient {
         return blockingStubFullNode.createWitness2(contract);
     }
 
-    public GrpcAPI.TransactionExtention createFreezeBalance(Contract.FreezeBalanceContract contract) {
-        return blockingStubFullNode.freezeBalance2(contract);
+    public GrpcAPI.TransactionExtention createCdBalance(Contract.CdBalanceContract contract) {
+        return blockingStubFullNode.cdBalance2(contract);
     }
 
     public GrpcAPI.TransactionExtention createWithdrawBalance(Contract.WithdrawBalanceContract contract) {
         return blockingStubFullNode.withdrawBalance2(contract);
     }
 
-    public GrpcAPI.TransactionExtention createUnfreezeBalance(Contract.UnfreezeBalanceContract contract) {
-        return blockingStubFullNode.unfreezeBalance2(contract);
+    public GrpcAPI.TransactionExtention createUncdBalance(Contract.UncdBalanceContract contract) {
+        return blockingStubFullNode.uncdBalance2(contract);
     }
 
-    public GrpcAPI.TransactionExtention createUnfreezeAsset(Contract.UnfreezeAssetContract contract) {
-        return blockingStubFullNode.unfreezeAsset2(contract);
+    public GrpcAPI.TransactionExtention createUncdAsset(Contract.UncdAssetContract contract) {
+        return blockingStubFullNode.uncdAsset2(contract);
     }
 
     public boolean broadcastTransaction(Transaction signaturedTransaction) {

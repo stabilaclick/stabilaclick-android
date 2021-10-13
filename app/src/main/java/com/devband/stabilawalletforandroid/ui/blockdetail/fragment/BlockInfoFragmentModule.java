@@ -14,8 +14,8 @@ public abstract class BlockInfoFragmentModule {
     public abstract BlockInfoView view(BlockInfoFragment fragment);
 
     @Provides
-    static BlockInfoPresenter provideBlockInfoPresenter(BlockInfoView view, StabilaNetwork tronNetwork,
+    static BlockInfoPresenter provideBlockInfoPresenter(BlockInfoView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new BlockInfoPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new BlockInfoPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

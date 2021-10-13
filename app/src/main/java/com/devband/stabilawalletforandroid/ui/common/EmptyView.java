@@ -43,7 +43,7 @@ public class EmptyView extends LinearLayout {
         lp.gravity = Gravity.CENTER;
 
         ImageView imgLogo = new ImageView(context);
-        imgLogo.setImageDrawable(context.getResources().getDrawable(R.drawable.tron));
+        imgLogo.setImageDrawable(context.getResources().getDrawable(R.drawable.stabila));
 
         TextView txtTitle = new TextView(context);
         txtTitle.setText(titleResId);

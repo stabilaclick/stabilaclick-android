@@ -1,10 +1,10 @@
 /*
- * java-tron is free software: you can redistribute it and/or modify
+ * java-stabila is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * java-tron is distributed in the hope that it will be useful,
+ * java-stabila is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -78,10 +78,10 @@ message UpdateSettingContract {
   int64 consume_user_resource_percent = 3;
 }
 
-message UpdateEnergyLimitContract {
+message UpdateUcrLimitContract {
   bytes owner_address = 1;
   bytes contract_address = 2;
-  int64 origin_energy_limit = 3;
+  int64 origin_ucr_limit = 3;
 }
 
 message WitnessCreateContract {
@@ -97,15 +97,15 @@ message WitnessUpdateContract {
 message AssetIssueContract {
   string id = 41;
 
-  message FrozenSupply {
-    int64 frozen_amount = 1;
-    int64 frozen_days = 2;
+  message CdedSupply {
+    int64 cded_amount = 1;
+    int64 cded_days = 2;
   }
   bytes owner_address = 1;
   bytes name = 2;
   bytes abbr = 3;
   int64 total_supply = 4;
-  repeated FrozenSupply frozen_supply = 5;
+  repeated CdedSupply cded_supply = 5;
   int32 trx_num = 6;
   int32 precision = 7;
   int32 num = 8;
@@ -131,26 +131,26 @@ message ParticipateAssetIssueContract {
 
 enum ResourceCode {
   BANDWIDTH = 0x00;
-  ENERGY = 0x01;
+  UCR = 0x01;
 }
 
-message FreezeBalanceContract {
+message CdBalanceContract {
   bytes owner_address = 1;
-  int64 frozen_balance = 2;
-  int64 frozen_duration = 3;
+  int64 cded_balance = 2;
+  int64 cded_duration = 3;
 
   ResourceCode resource = 10;
   bytes receiver_address = 15;
 }
 
-message UnfreezeBalanceContract {
+message UncdBalanceContract {
   bytes owner_address = 1;
 
   ResourceCode resource = 10;
   bytes receiver_address = 15;
 }
 
-message UnfreezeAssetContract {
+message UncdAssetContract {
   bytes owner_address = 1;
 }
 

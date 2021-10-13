@@ -16,9 +16,9 @@ public abstract class MyAccountActivityModule {
     public abstract MyAccountView view(MyAccountActivity myAccountActivity);
 
     @Provides
-    static MyAccountPresenter provideMyAccountPresenter(MyAccountView myAccountView, Stabila tron,
+    static MyAccountPresenter provideMyAccountPresenter(MyAccountView myAccountView, Stabila stabila,
             WalletAppManager walletAppManager, RxJavaSchedulers rxJavaSchedulers, AppDatabase appDatabase) {
-        return new MyAccountPresenter(myAccountView, tron, walletAppManager, rxJavaSchedulers,
+        return new MyAccountPresenter(myAccountView, stabila, walletAppManager, rxJavaSchedulers,
                 appDatabase);
     }
 }

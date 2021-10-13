@@ -4,12 +4,12 @@ import android.support.annotation.NonNull;
 
 import com.devband.stabilawalletforandroid.stabila.Stabila;
 import com.devband.stabilawalletforandroid.ui.main.dto.Asset;
-import com.devband.stabilawalletforandroid.ui.main.dto.Frozen;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.Cded;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.ui.mvp.BasePresenter;
 import com.devband.stabilalib.StabilaNetwork;
 import com.devband.stabilalib.stabilascan.Balance;
-import com.devband.stabilalib.stabilascan.FrozenTrx;
+import com.devband.stabilalib.stabilascan.CdedStb;
 import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
 
 import java.net.ConnectException;
@@ -22,14 +22,14 @@ import io.reactivex.disposables.Disposable;
 
 public class OverviewPresenter extends BasePresenter<OverviewView> {
 
-    private StabilaNetwork mTronNetwork;
-    private Stabila mTron;
+    private StabilaNetwork mStabilaNetwork;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public OverviewPresenter(OverviewView view, Stabila tron, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public OverviewPresenter(OverviewView view, Stabila stabila, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
-        this.mTronNetwork = tronNetwork;
+        this.mStabila = stabila;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -56,13 +56,13 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
     public void getAccount(@NonNull String address) {
         mView.showLoadingDialog();
 
-        Single.zip(mTron.getAccount(address), mTronNetwork.getTransactionStats(address), ((account, transactionStats) -> {
-            List<Frozen> frozenList = new ArrayList<>();
+        Single.zip(mStabila.getAccount(address), mStabilaNetwork.getTransactionStats(address), ((account, transactionStats) -> {
+            List<Cded> cdedList = new ArrayList<>();
 
-            for (FrozenTrx frozen : account.getFrozen().getBalances()) {
-                frozenList.add(Frozen.builder()
-                        .frozenBalance(frozen.getAmount())
-                        .expireTime(frozen.getExpires())
+            for (CdedStb cded : account.getCded().getBalances()) {
+                cdedList.add(Cded.builder()
+                        .cdedBalance(cded.getAmount())
+                        .expireTime(cded.getExpires())
                         .build());
             }
 
@@ -75,11 +75,11 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
                         .build());
             }
 
-            return TronAccount.builder()
+            return StabilaAccount.builder()
                     .balance(account.getBalance())
                     .bandwidth(account.getBandwidth().getNetRemaining())
                     .assetList(assetList)
-                    .frozenList(frozenList)
+                    .cdedList(cdedList)
                     .transactions(transactionStats.getTransactions())
                     .transactionIn(transactionStats.getTransactionsIn())
                     .transactionOut(transactionStats.getTransactionsOut())
@@ -88,14 +88,14 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
         }))
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
-        .subscribe(new SingleObserver<TronAccount>() {
+        .subscribe(new SingleObserver<StabilaAccount>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onSuccess(TronAccount account) {
+            public void onSuccess(StabilaAccount account) {
                 mView.finishLoading(account);
             }
 

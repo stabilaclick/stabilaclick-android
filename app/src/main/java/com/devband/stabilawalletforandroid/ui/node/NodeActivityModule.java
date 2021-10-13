@@ -14,7 +14,7 @@ public abstract class NodeActivityModule {
     public abstract NodeView view(NodeActivity nodeActivity);
 
     @Provides
-    static NodePresenter provideNodePresenter(NodeView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
-        return new NodePresenter(view, tron, rxJavaSchedulers);
+    static NodePresenter provideNodePresenter(NodeView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
+        return new NodePresenter(view, stabila, rxJavaSchedulers);
     }
 }

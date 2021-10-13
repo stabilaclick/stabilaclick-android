@@ -2,7 +2,7 @@ package com.devband.stabilalib.services;
 
 import com.devband.stabilalib.dto.AccountMedia;
 import com.devband.stabilalib.dto.RichData;
-import com.devband.stabilalib.dto.TronAccounts;
+import com.devband.stabilalib.dto.StabilaAccounts;
 import com.devband.stabilalib.stabilascan.Account;
 
 import io.reactivex.Single;
@@ -16,8 +16,8 @@ public interface AccountService {
     Single<Account> getAccountInfo(@Query("address") String address);
 
     @GET("api/account/list")
-    Single<TronAccounts> getAccounts(@Query("start") long start, @Query("limit") int limit,
-            @Query("sort") String sort);
+    Single<StabilaAccounts> getAccounts(@Query("start") long start, @Query("limit") int limit,
+                                        @Query("sort") String sort);
     
     @GET("api/account/{address}/media")
     Single<AccountMedia> getAccountMedia(@Path("address") String address);

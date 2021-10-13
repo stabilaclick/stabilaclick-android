@@ -2,8 +2,8 @@ package com.devband.stabilawalletforandroid.ui.blockexplorer.account;
 
 import com.devband.stabilawalletforandroid.ui.mvp.BasePresenter;
 import com.devband.stabilalib.StabilaNetwork;
-import com.devband.stabilalib.dto.TronAccount;
-import com.devband.stabilalib.dto.TronAccounts;
+import com.devband.stabilalib.dto.StabilaAccount;
+import com.devband.stabilalib.dto.StabilaAccounts;
 import com.devband.stabilawalletforandroid.common.AdapterDataModel;
 import com.devband.stabilawalletforandroid.common.Constants;
 import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
@@ -14,17 +14,17 @@ import io.reactivex.disposables.Disposable;
 
 public class AccountPresenter extends BasePresenter<AccountView> {
 
-    private AdapterDataModel<TronAccount> mAdapterDataModel;
-    private StabilaNetwork mTronNetwork;
+    private AdapterDataModel<StabilaAccount> mAdapterDataModel;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public AccountPresenter(AccountView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public AccountPresenter(AccountView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
-    public void setAdapterDataModel(AdapterDataModel<TronAccount> adapterDataModel) {
+    public void setAdapterDataModel(AdapterDataModel<StabilaAccount> adapterDataModel) {
         this.mAdapterDataModel = adapterDataModel;
     }
 
@@ -51,28 +51,28 @@ public class AccountPresenter extends BasePresenter<AccountView> {
     public void getTronAccounts(long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        Single.zip(mTronNetwork.getAccounts(startIndex, pageSize, "-balance"), mTronNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME),
-                ((tronAccounts, coinMarketCaps) -> {
-                    for (TronAccount tronAccount : tronAccounts.getData()) {
-                        tronAccount.setTotalSupply((long) Double.parseDouble(coinMarketCaps.get(0).getTotalSupply()));
-                        tronAccount.setAvailableSypply((long) Double.parseDouble(coinMarketCaps.get(0).getAvailableSupply()));
-                        tronAccount.setBalancePercent(((double) tronAccount.getBalance() / Constants.ONE_TRX / (double) tronAccount.getAvailableSypply()) * 100f);
+        Single.zip(mStabilaNetwork.getAccounts(startIndex, pageSize, "-balance"), mStabilaNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME),
+                ((stabilaAccounts, coinMarketCaps) -> {
+                    for (StabilaAccount stabilaAccount : stabilaAccounts.getData()) {
+                        stabilaAccount.setTotalSupply((long) Double.parseDouble(coinMarketCaps.get(0).getTotalSupply()));
+                        stabilaAccount.setAvailableSypply((long) Double.parseDouble(coinMarketCaps.get(0).getAvailableSupply()));
+                        stabilaAccount.setBalancePercent(((double) stabilaAccount.getBalance() / Constants.ONE_STB / (double) stabilaAccount.getAvailableSypply()) * 100f);
                     }
 
-                    return tronAccounts;
+                    return stabilaAccounts;
                 }))
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
-                .subscribe(new SingleObserver<TronAccounts>() {
+                .subscribe(new SingleObserver<StabilaAccounts>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(TronAccounts tronAccounts) {
-                        mAdapterDataModel.addAll(tronAccounts.getData());
-                        mView.finishLoading(tronAccounts.getTotal());
+                    public void onSuccess(StabilaAccounts stabilaAccounts) {
+                        mAdapterDataModel.addAll(stabilaAccounts.getData());
+                        mView.finishLoading(stabilaAccounts.getTotal());
                     }
 
                     @Override

@@ -14,8 +14,8 @@ public abstract class RepresentativeFragmentModule {
     public abstract RepresentativeView view(RepresentativeFragment fragment);
 
     @Provides
-    static RepresentativePresenter provideRepresentativePresenter(RepresentativeView view, StabilaNetwork tronNetwork,
+    static RepresentativePresenter provideRepresentativePresenter(RepresentativeView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new RepresentativePresenter(view, tronNetwork, rxJavaSchedulers);
+        return new RepresentativePresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

@@ -10,12 +10,12 @@ import io.reactivex.disposables.Disposable;
 
 public class BlockInfoPresenter extends BasePresenter<BlockInfoView> {
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public BlockInfoPresenter(BlockInfoView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public BlockInfoPresenter(BlockInfoView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -41,7 +41,7 @@ public class BlockInfoPresenter extends BasePresenter<BlockInfoView> {
 
     public void getBlock(long blockNumber) {
         mView.showLoadingDialog();
-        mTronNetwork.getBlock(blockNumber)
+        mStabilaNetwork.getBlock(blockNumber)
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Blocks>() {

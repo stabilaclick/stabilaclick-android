@@ -31,7 +31,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 /**
- * https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/walletserver/WalletClient.java
+ * https://github.com/stabilaprotocol/wallet-cli/blob/master/src/main/java/org/stabila/walletserver/WalletClient.java
  */
 public class AccountManager {
 
@@ -39,7 +39,7 @@ public class AccountManager {
 
     public static final long DEFAULT_ACCOUNT_INDEX = 1;
 
-    private static final String ACCOUNT_FILE_PATH = "tron/tron.dat";
+    private static final String ACCOUNT_FILE_PATH = "stabila/stabila.dat";
 
     private static final int KEY_SIZE = 16;
 

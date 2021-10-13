@@ -90,7 +90,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:visibility="invisible"
-                        tools:text="375,912,342,123 TRX" />
+                        tools:text="375,912,342,123 STB" />
                 </LinearLayout>
 
                 <TextView

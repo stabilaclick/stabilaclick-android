@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.devband.stabilalib.dto.Stat;
-import com.devband.stabilalib.dto.TronAccount;
-import com.devband.stabilalib.dto.TronAccounts;
+import com.devband.stabilalib.dto.StabilaAccount;
+import com.devband.stabilalib.dto.StabilaAccounts;
 import com.devband.stabilawalletforandroid.R;
 import com.devband.stabilawalletforandroid.common.CommonFragment;
 import com.devband.stabilawalletforandroid.common.Constants;
@@ -142,7 +142,7 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
         });
     }
 
-    private void setTopAddressData(List<TronAccount> data) {
+    private void setTopAddressData(List<StabilaAccount> data) {
         if (data == null || data.size() == 0) {
             return;
         }
@@ -150,8 +150,8 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
         List<PieEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            TronAccount account = data.get(i);
-            double balance = account.getBalance() / Constants.ONE_TRX;
+            StabilaAccount account = data.get(i);
+            double balance = account.getBalance() / Constants.ONE_STB;
             entries.add(new PieEntry((float) balance));
         }
 
@@ -219,7 +219,7 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
     }
 
     @Override
-    public void overviewDataLoadSuccess(TronAccounts topAddressAccounts) {
+    public void overviewDataLoadSuccess(StabilaAccounts topAddressAccounts) {
         if (!isAdded()) {
             return;
         }

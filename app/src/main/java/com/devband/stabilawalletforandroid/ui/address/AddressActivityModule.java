@@ -14,8 +14,8 @@ public abstract class AddressActivityModule {
     public abstract AddressView view(AddressActivity addressActivity);
 
     @Provides
-    static AddressPresenter provideAddressPresenter(AddressView addressView, Stabila tron,
+    static AddressPresenter provideAddressPresenter(AddressView addressView, Stabila stabila,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new AddressPresenter(addressView, tron, rxJavaSchedulers);
+        return new AddressPresenter(addressView, stabila, rxJavaSchedulers);
     }
 }

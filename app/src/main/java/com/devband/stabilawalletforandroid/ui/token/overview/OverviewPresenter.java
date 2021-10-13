@@ -13,12 +13,12 @@ import io.reactivex.disposables.Disposable;
 public class OverviewPresenter extends BasePresenter<OverviewView> {
 
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public OverviewPresenter(OverviewView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public OverviewPresenter(OverviewView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -45,7 +45,7 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
     public void loadTokenInfo(@NonNull String tokenName) {
         mView.showLoadingDialog();
 
-        mTronNetwork
+        mStabilaNetwork
                 .getTokenDetail(tokenName)
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Token>() {

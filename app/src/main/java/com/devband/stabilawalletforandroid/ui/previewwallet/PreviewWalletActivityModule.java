@@ -15,8 +15,8 @@ public abstract class PreviewWalletActivityModule {
     public abstract PreviewWalletView view(PreviewWalletActivity previewWalletActivity);
 
     @Provides
-    static PreviewWalletPresenter providePreviewWalletPresenter(PreviewWalletView previewWalletView, Stabila tron,
-                                                                StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
-        return new PreviewWalletPresenter(previewWalletView, tron, tronNetwork, rxJavaSchedulers);
+    static PreviewWalletPresenter providePreviewWalletPresenter(PreviewWalletView previewWalletView, Stabila stabila,
+                                                                StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
+        return new PreviewWalletPresenter(previewWalletView, stabila, stabilaNetwork, rxJavaSchedulers);
     }
 }

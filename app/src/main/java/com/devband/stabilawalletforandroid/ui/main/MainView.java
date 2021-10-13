@@ -2,7 +2,7 @@ package com.devband.stabilawalletforandroid.ui.main;
 
 import android.support.annotation.NonNull;
 
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.ui.mvp.IView;
 import com.devband.stabilalib.dto.CoinMarketCap;
 
@@ -10,7 +10,7 @@ public interface MainView extends IView {
 
     void showLoadingDialog();
 
-    void displayAccountInfo(@NonNull TronAccount account);
+    void displayAccountInfo(@NonNull StabilaAccount account);
 
     void setTronMarketInfo(CoinMarketCap coinMarketCap);
 

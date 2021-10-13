@@ -37,7 +37,7 @@ public class MarketAdapter extends RecyclerView.Adapter<MarketAdapter.MarketView
         Market market = mList.get(position);
         holder.txtMarket.setText(market.getName());
         holder.txtPair.setText(market.getPair());
-        holder.txtVolume.setText(Constants.numberFormat.format(market.getVolume()) + " TRX");
+        holder.txtVolume.setText(Constants.numberFormat.format(market.getVolume()) + " STB");
         holder.txtPercentage.setText("(" + Constants.percentFormat.format(market.getVolumePercentage()) + "%)");
         holder.txtPrice.setText("$" + Constants.usdFormat.format(market.getPrice()));
     }

@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.devband.stabilawalletforandroid.ui.accountdetail.AccountDetailActivity;
 import com.devband.stabilawalletforandroid.ui.main.dto.Asset;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.R;
 import com.devband.stabilawalletforandroid.common.CommonFragment;
 import com.devband.stabilawalletforandroid.common.Constants;
@@ -48,8 +48,8 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
     @BindView(R.id.balance_text)
     TextView mBalanceText;
 
-    @BindView(R.id.tron_power_text)
-    TextView mTronPowerText;
+    @BindView(R.id.stabila_power_text)
+    TextView mStabilaPowerText;
 
     @BindView(R.id.transaction_out_text)
     TextView mTransactionOutText;
@@ -110,7 +110,7 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
     }
 
     @Override
-    public void finishLoading(@NonNull TronAccount account) {
+    public void finishLoading(@NonNull StabilaAccount account) {
         if (!isAdded()) {
             return;
         }
@@ -122,9 +122,9 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
         } else {
             mAccountNameText.setText("-");
         }
-        mBalanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_TRX)
+        mBalanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_STB)
                 + " " + Constants.TRON_SYMBOL);
-        mTronPowerText.setText(Constants.numberFormat.format(account.getBandwidth()));
+        mStabilaPowerText.setText(Constants.numberFormat.format(account.getBandwidth()));
         mTransactionInText.setText(Constants.numberFormat.format(account.getTransactionIn()));
         mTransactionOutText.setText(Constants.numberFormat.format(account.getTransactionOut()));
 

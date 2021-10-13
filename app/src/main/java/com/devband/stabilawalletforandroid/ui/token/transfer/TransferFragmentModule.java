@@ -14,8 +14,8 @@ public abstract class TransferFragmentModule {
     public abstract TransferView view(TransferFragment fragment);
 
     @Provides
-    static TransferPresenter provideHolderPresenter(TransferView view, StabilaNetwork tronNetwork,
+    static TransferPresenter provideHolderPresenter(TransferView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new TransferPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new TransferPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

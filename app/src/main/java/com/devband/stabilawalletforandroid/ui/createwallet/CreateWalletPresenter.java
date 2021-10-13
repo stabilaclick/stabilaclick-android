@@ -17,14 +17,14 @@ import io.reactivex.disposables.Disposable;
 
 public class CreateWalletPresenter extends BasePresenter<CreateWalletView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
     private CustomPreference mCustomPreference;
 
-    public CreateWalletPresenter(CreateWalletView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers,
+    public CreateWalletPresenter(CreateWalletView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers,
                                  CustomPreference customPreference) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
         this.mCustomPreference = customPreference;
     }
@@ -49,10 +49,10 @@ public class CreateWalletPresenter extends BasePresenter<CreateWalletView> {
     }
 
     public void createWallet(@NonNull String password) {
-        mTron.createWallet(password)
+        mStabila.createWallet(password)
                 .flatMap(createWalletResult -> {
                     if (createWalletResult == WalletAppManager.SUCCESS) {
-                        return mTron.createAccount(Constants.PREFIX_ACCOUNT_NAME, password);
+                        return mStabila.createAccount(Constants.PREFIX_ACCOUNT_NAME, password);
                     } else {
                         return Single.just(Stabila.ERROR);
                     }
@@ -61,7 +61,7 @@ public class CreateWalletPresenter extends BasePresenter<CreateWalletView> {
                     if (registerAccountResult != Stabila.SUCCESS) {
                         return registerAccountResult;
                     } else {
-                        int result = mTron.login(password);
+                        int result = mStabila.login(password);
 
                         if (result == WalletAppManager.SUCCESS) {
                             mCustomPreference.setInitWallet(true);

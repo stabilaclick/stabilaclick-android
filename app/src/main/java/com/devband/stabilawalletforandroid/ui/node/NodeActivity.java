@@ -32,8 +32,8 @@ public class NodeActivity extends CommonActivity implements NodeView {
     CollapsingToolbarLayout toolbarLayout;
     @BindView(R.id.appbar_layout)
     AppBarLayout mAppBarLayout;
-    @BindView(R.id.tronnode_listview)
-    RecyclerView tronnodeListview;
+    @BindView(R.id.stabilanode_listview)
+    RecyclerView stabilanodeListview;
     @BindView(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
     @BindView(R.id.nodelist_title_text)
@@ -62,11 +62,11 @@ public class NodeActivity extends CommonActivity implements NodeView {
 
         mLayoutManager = new LinearLayoutManager(NodeActivity.this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        tronnodeListview.setLayoutManager(mLayoutManager);
-        tronnodeListview.setNestedScrollingEnabled(false);
+        stabilanodeListview.setLayoutManager(mLayoutManager);
+        stabilanodeListview.setNestedScrollingEnabled(false);
 
         nodeListAdapter = new NodeListAdapter(NodeActivity.this);
-        tronnodeListview.setAdapter(nodeListAdapter);
+        stabilanodeListview.setAdapter(nodeListAdapter);
 
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -106,14 +106,14 @@ public class NodeActivity extends CommonActivity implements NodeView {
     @Override
     public void displayNodeList(int count) {
         hideDialog();
-        tronnodeListview.setVisibility(View.VISIBLE);
+        stabilanodeListview.setVisibility(View.VISIBLE);
         countNodeText.setText("Found "+count+" node(s).");
     }
 
     @Override
     public void errorNodeList() {
         hideDialog();
-        tronnodeListview.setVisibility(View.GONE);
+        stabilanodeListview.setVisibility(View.GONE);
         Toast.makeText(NodeActivity.this, "Failed to get node list.", Toast.LENGTH_SHORT).show();
     }
 }

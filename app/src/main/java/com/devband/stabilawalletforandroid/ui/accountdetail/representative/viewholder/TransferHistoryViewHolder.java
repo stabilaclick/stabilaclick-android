@@ -45,7 +45,7 @@ public class TransferHistoryViewHolder extends BaseViewHolder<TransferHistoryMod
         mTxtFromAddress.setText(transfer.getTransferFromAddress());
         mTxtToAddress.setText(transfer.getTransferToAddress());
 
-        StringBuilder sb = new StringBuilder(Utils.getRealTrxFormat(transfer.getAmount()) + "")
+        StringBuilder sb = new StringBuilder(Utils.getRealStbFormat(transfer.getAmount()) + "")
                 .append(" ").append(transfer.getTokenName());
         mTxtAmout.setText(sb.toString());
 

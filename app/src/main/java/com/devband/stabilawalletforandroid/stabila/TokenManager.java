@@ -10,15 +10,15 @@ import io.reactivex.Single;
 
 public class TokenManager {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private Trc10AssetDao mTrc10AssetDao;
 
     public TokenManager(Trc10AssetDao trc10AssetDao) {
         this.mTrc10AssetDao = trc10AssetDao;
     }
 
-    public void setTron(Stabila tron) {
-        this.mTron = tron;
+    public void setTron(Stabila stabila) {
+        this.mStabila = stabila;
     }
 
     public Single<Trc10AssetModel> getTokenInfo(String id) {
@@ -28,7 +28,7 @@ public class TokenManager {
                 .toSingle()
                 .map(trc10AssetModel -> {
                     if (trc10AssetModel.getId() == 0) {
-                        Contract.AssetIssueContract assetIssueContract = mTron.getAssetIssueById(id).blockingGet();
+                        Contract.AssetIssueContract assetIssueContract = mStabila.getAssetIssueById(id).blockingGet();
 
                         if (assetIssueContract != null) {
                             Trc10AssetModel trc10Asset = Trc10AssetModel.builder()

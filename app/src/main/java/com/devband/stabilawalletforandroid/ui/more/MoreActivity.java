@@ -44,7 +44,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
     MorePresenter mMorePresenter;
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @Inject
     CustomPreference mCustomPreference;
@@ -54,8 +54,8 @@ public class MoreActivity extends CommonActivity implements MoreView {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.tron_app_info_text)
-    TextView mTronAppInfoText;
+    @BindView(R.id.stabila_app_info_text)
+    TextView mStabilaAppInfoText;
 
     @BindView(R.id.more_fingerprint_checkbox)
     CheckBox mFingerprintAuthCheckBox;
@@ -106,7 +106,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
             mFingerprintAuthCheckBox.setEnabled(false);
         }
 
-        mTronAppInfoText.setText("Tron Wallet for Android\nApp Version : v" + BuildConfig.VERSION_NAME);
+        mStabilaAppInfoText.setText("Tron Wallet for Android\nApp Version : v" + BuildConfig.VERSION_NAME);
 
         mMorePresenter.onCreate();
     }
@@ -120,7 +120,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
         mCustomPreference.setUseFingerprint(!checked);
     }
 
-    @OnClick(R.id.more_about_tron_button)
+    @OnClick(R.id.more_about_stabila_button)
     public void onAboutTronClick() {
         startActivity(AboutActivity.class);
     }
@@ -214,7 +214,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
                 }
 
                 try {
-                    mTron.initTronNode();
+                    mStabila.initTronNode();
                 } catch (Exception e) {
                     mCustomPreference.setCustomFullNodeHost("");
                     Toast.makeText(MoreActivity.this, getString(R.string.invalid_host),

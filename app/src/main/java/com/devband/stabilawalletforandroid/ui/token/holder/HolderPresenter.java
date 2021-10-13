@@ -14,12 +14,12 @@ import io.reactivex.disposables.Disposable;
 public class HolderPresenter extends BasePresenter<HolderView> {
 
     private AdapterDataModel<TokenHolder>  mAdapterDataModel;
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public HolderPresenter(HolderView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public HolderPresenter(HolderView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -50,7 +50,7 @@ public class HolderPresenter extends BasePresenter<HolderView> {
     public void getTokenHolders(String tokenName, long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        Single.zip(mTronNetwork.getTokenHolders(tokenName, startIndex, pageSize, "-balance"), mTronNetwork.getTokenDetail(tokenName),
+        Single.zip(mStabilaNetwork.getTokenHolders(tokenName, startIndex, pageSize, "-balance"), mStabilaNetwork.getTokenDetail(tokenName),
                 ((tokenHolders, token) -> {
                     for (TokenHolder tokenHolder : tokenHolders.getData()) {
                         tokenHolder.setTotalSupply(token.getTotalSupply());

@@ -55,8 +55,8 @@ class TronManager implements ITronManager {
     }
 
     @Override
-    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.FreezeBalanceContract contract) {
-        return Single.fromCallable(() -> grpcClient.createFreezeBalance(contract));
+    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.CdBalanceContract contract) {
+        return Single.fromCallable(() -> grpcClient.createCdBalance(contract));
     }
 
     @Override
@@ -65,13 +65,13 @@ class TronManager implements ITronManager {
     }
 
     @Override
-    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UnfreezeBalanceContract contract) {
-        return Single.fromCallable(() -> grpcClient.createUnfreezeBalance(contract));
+    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UncdBalanceContract contract) {
+        return Single.fromCallable(() -> grpcClient.createUncdBalance(contract));
     }
 
     @Override
-    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UnfreezeAssetContract contract) {
-        return Single.fromCallable(() -> grpcClient.createUnfreezeAsset(contract));
+    public Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UncdAssetContract contract) {
+        return Single.fromCallable(() -> grpcClient.createUncdAsset(contract));
     }
 
     @Override

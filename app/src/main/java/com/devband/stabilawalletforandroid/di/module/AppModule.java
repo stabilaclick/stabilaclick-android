@@ -91,8 +91,8 @@ public abstract class AppModule {
     @Provides
     @Singleton
     static StabilaNetwork provideTronNetwork(VoteService voteService, CoinMarketCapService coinMarketCapService,
-                                             StabilaScanService tronScanService, TokenService tokenService, AccountService accountService) {
-        return new StabilaNetwork(voteService, coinMarketCapService, tronScanService,
+                                             StabilaScanService stabilaScanService, TokenService tokenService, AccountService accountService) {
+        return new StabilaNetwork(voteService, coinMarketCapService, stabilaScanService,
                 tokenService, accountService);
     }
 
@@ -156,9 +156,9 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static Stabila provideTron(@ApplicationContext Context context, StabilaNetwork tronNetwork, TokenManager tokenManager,
+    static Stabila provideTron(@ApplicationContext Context context, StabilaNetwork stabilaNetwork, TokenManager tokenManager,
                                CustomPreference customPreference, AccountManager accountManager, WalletAppManager walletAppManager) {
-        return new Stabila(context, tronNetwork, customPreference, accountManager, walletAppManager, tokenManager);
+        return new Stabila(context, stabilaNetwork, customPreference, accountManager, walletAppManager, tokenManager);
     }
 
     @Provides

@@ -14,8 +14,8 @@ public abstract class TransactionFragmentModule {
     public abstract TransactionView view(TransactionFragment fragment);
 
     @Provides
-    static TransactionPresenter provideTransactionPresenter(TransactionView view, StabilaNetwork tronNetwork,
+    static TransactionPresenter provideTransactionPresenter(TransactionView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new TransactionPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new TransactionPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

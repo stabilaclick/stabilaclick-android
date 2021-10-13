@@ -50,12 +50,12 @@ public class Utils {
         return Constants.numberFormat.format(number);
     }
 
-    public static String getTrxFormat(double number) {
+    public static String getStbFormat(double number) {
         return Constants.tokenBalanceFormat.format(number);
     }
 
-    public static String getRealTrxFormat(long number) {
-        return Constants.tokenBalanceFormat.format((double) number / Constants.ONE_TRX);
+    public static String getRealStbFormat(long number) {
+        return Constants.tokenBalanceFormat.format((double) number / Constants.ONE_STB);
     }
 
     public static String getPercentFormat(float number) {

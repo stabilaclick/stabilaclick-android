@@ -27,14 +27,14 @@ public class PreviewWalletAdapter extends RecyclerView.Adapter<PreviewWalletAdap
 
     private List<AccountModel> mList = new ArrayList<>();
 
-    private Stabila mTron;
+    private Stabila mStabila;
 
     private Context mContext;
 
     private View.OnClickListener mOnItemClickListener;
 
-    public PreviewWalletAdapter(Stabila tron, Context context, View.OnClickListener onClickListener) {
-        this.mTron = tron;
+    public PreviewWalletAdapter(Stabila stabila, Context context, View.OnClickListener onClickListener) {
+        this.mStabila = stabila;
         this.mContext = context;
         this.mOnItemClickListener = onClickListener;
     }
@@ -56,11 +56,11 @@ public class PreviewWalletAdapter extends RecyclerView.Adapter<PreviewWalletAdap
         holder.walletNameText.setText(wallet.getName());
 
         // get balance
-        mTron.getEncryptAccount(wallet.getAddress())
+        mStabila.getEncryptAccount(wallet.getAddress())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(account -> {
-                    holder.balanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_TRX) + " " + Constants.TRON_SYMBOL);
+                    holder.balanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
                 }, e -> e.printStackTrace());
     }
 

@@ -24,8 +24,8 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.devband.stabilawalletforandroid.ui.address.AddressActivity;
 import com.devband.stabilawalletforandroid.ui.main.dto.Asset;
-import com.devband.stabilawalletforandroid.ui.main.dto.Frozen;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.Cded;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.R;
 import com.devband.stabilawalletforandroid.common.CommonActivity;
 import com.devband.stabilawalletforandroid.common.Constants;
@@ -63,23 +63,23 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
     @BindView(R.id.balance_text)
     TextView mBalanceText;
 
-    @BindView(R.id.tron_power_text)
-    TextView mTronPowerText;
+    @BindView(R.id.stabila_power_text)
+    TextView mStabilaPowerText;
 
     @BindView(R.id.bandwidth_text)
     TextView mBandwidthText;
 
-    @BindView(R.id.freeze_button)
-    Button mFreezeButton;
+    @BindView(R.id.cd_button)
+    Button mCdButton;
 
-    @BindView(R.id.unfreeze_button)
-    Button mUnFreezeButton;
+    @BindView(R.id.uncd_button)
+    Button mUnCdButton;
 
-    @BindView(R.id.frozen_trx_balance_text)
-    TextView mFrozenTrxBalanceText;
+    @BindView(R.id.cded_trx_balance_text)
+    TextView mCdedStbBalanceText;
 
-    @BindView(R.id.frozen_trx_expired_text)
-    TextView mFrozenTrxExpiredText;
+    @BindView(R.id.cded_trx_expired_text)
+    TextView mCdedStbExpiredText;
 
     @BindView(R.id.tokens_layout)
     LinearLayout mTokensLayout;
@@ -136,7 +136,7 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
     }
 
     @Override
-    public void displayAccountInfo(@NonNull String address, @Nullable TronAccount account) {
+    public void displayAccountInfo(@NonNull String address, @Nullable StabilaAccount account) {
         if (isFinishing()) {
             return;
         }
@@ -144,7 +144,7 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
         mAddressText.setText(address);
 
         if (account != null) {
-            mAccountBalance = (long) (account.getBalance() / Constants.ONE_TRX);
+            mAccountBalance = (long) (account.getBalance() / Constants.ONE_STB);
 
             if (TextUtils.isEmpty(account.getName())) {
                 mNameText.setText("-");
@@ -206,30 +206,30 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
                 mTokensLayout.addView(v);
             }
 
-            mFreezeButton.setVisibility(View.VISIBLE);
+            mCdButton.setVisibility(View.VISIBLE);
 
-            long frozenBalance = 0;
+            long cdedBalance = 0;
             long expiredTime = 0;
 
-            if (!account.getFrozenList().isEmpty()) {
-                for (Frozen frozen : account.getFrozenList()) {
-                    frozenBalance += frozen.getFrozenBalance();
-                    if (frozen.getExpireTime() > expiredTime) {
-                        expiredTime = frozen.getExpireTime();
+            if (!account.getCdedList().isEmpty()) {
+                for (Cded cded : account.getCdedList()) {
+                    cdedBalance += cded.getCdedBalance();
+                    if (cded.getExpireTime() > expiredTime) {
+                        expiredTime = cded.getExpireTime();
                     }
                 }
 
-                mUnFreezeButton.setVisibility(View.VISIBLE);
+                mUnCdButton.setVisibility(View.VISIBLE);
             } else {
-                mUnFreezeButton.setVisibility(View.GONE);
+                mUnCdButton.setVisibility(View.GONE);
             }
 
-            mTronPowerText.setText(Constants.tokenBalanceFormat.format(frozenBalance / Constants.ONE_TRX) + " " + Constants.TRON_SYMBOL);
-            mFrozenTrxBalanceText.setText(Constants.tokenBalanceFormat.format(frozenBalance / Constants.ONE_TRX) + " " + Constants.TRON_SYMBOL);
+            mStabilaPowerText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
+            mCdedStbBalanceText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
             if (expiredTime > 0) {
-                mFrozenTrxExpiredText.setText(Constants.sdf.format(new Date(expiredTime)));
+                mCdedStbExpiredText.setText(Constants.sdf.format(new Date(expiredTime)));
             } else {
-                mFrozenTrxExpiredText.setText("-");
+                mCdedStbExpiredText.setText("-");
             }
         }
 
@@ -253,14 +253,14 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
     }
 
     @Override
-    public void successFreezeBalance() {
+    public void successCdBalance() {
         mMyAccountPresenter.getAccountAccountInfo();
     }
 
     @Override
-    public void unableToUnfreeze() {
+    public void unableToUncd() {
         hideDialog();
-        Toast.makeText(MyAccountActivity.this, getString(R.string.unable_to_unfreeze_msg), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyAccountActivity.this, getString(R.string.unable_to_uncd_msg), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -363,26 +363,26 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
         startActivity(AddressActivity.class);
     }
 
-    @OnClick(R.id.freeze_button)
-    public void onFreezeClick() {
+    @OnClick(R.id.cd_button)
+    public void onCdClick() {
         if (mAccountBalance == 0) {
-            Toast.makeText(MyAccountActivity.this, getString(R.string.invalid_freeze_amount),
+            Toast.makeText(MyAccountActivity.this, getString(R.string.invalid_cd_amount),
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                .title(R.string.title_freeze_trx)
+                .title(R.string.title_cd_trx)
                 .titleColorRes(R.color.colorAccent)
                 .contentColorRes(R.color.colorAccent)
                 .backgroundColorRes(android.R.color.white)
-                .customView(R.layout.dialog_freeze_trx, false);
+                .customView(R.layout.dialog_cd_stb, false);
 
         MaterialDialog dialog = builder.build();
 
         Button maxButton = (Button) dialog.getCustomView().findViewById(R.id.max_button);
-        Button freezeButton = (Button) dialog.getCustomView().findViewById(R.id.btn_freeze);
-        CheckBox agreeFreezeCheckBox = (CheckBox) dialog.getCustomView().findViewById(R.id.agree_freeze_balance);
+        Button cdButton = (Button) dialog.getCustomView().findViewById(R.id.btn_cd);
+        CheckBox agreeCdCheckBox = (CheckBox) dialog.getCustomView().findViewById(R.id.agree_cd_balance);
         EditText inputAmount = (EditText) dialog.getCustomView().findViewById(R.id.input_amount);
         EditText inputPassword = (EditText) dialog.getCustomView().findViewById(R.id.input_password);
 
@@ -390,18 +390,18 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
             inputAmount.setText(String.valueOf(mAccountBalance));
         });
 
-        freezeButton.setOnClickListener(view -> {
-            // check freeze balance
-            long freezeBalance = 0;
+        cdButton.setOnClickListener(view -> {
+            // check cd balance
+            long cdBalance = 0;
             try {
-                freezeBalance = Long.parseLong(inputAmount.getText().toString());
+                cdBalance = Long.parseLong(inputAmount.getText().toString());
             } catch (NumberFormatException e) {
                 Toast.makeText(MyAccountActivity.this, getString(R.string.invalid_amount),
                         Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (freezeBalance > mAccountBalance) {
+            if (cdBalance > mAccountBalance) {
                 Toast.makeText(MyAccountActivity.this, getString(R.string.invalid_amount),
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -414,7 +414,7 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
                 return;
             }
 
-            boolean agree = agreeFreezeCheckBox.isChecked();
+            boolean agree = agreeCdCheckBox.isChecked();
 
             if (!agree) {
                 Toast.makeText(MyAccountActivity.this, getString(R.string.need_all_agree),
@@ -423,16 +423,16 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
             }
 
             dialog.dismiss();
-            mMyAccountPresenter.freezeBalance(password, (long) (freezeBalance * Constants.ONE_TRX));
+            mMyAccountPresenter.cdBalance(password, (long) (cdBalance * Constants.ONE_STB));
         });
 
         dialog.show();
     }
 
-    @OnClick(R.id.unfreeze_button)
-    public void onUnFreezeClick() {
+    @OnClick(R.id.uncd_button)
+    public void onUnCdClick() {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                .title(R.string.title_unfreeze_trx)
+                .title(R.string.title_uncd_trx)
                 .titleColorRes(R.color.colorAccent)
                 .contentColorRes(R.color.colorAccent)
                 .backgroundColorRes(android.R.color.white)
@@ -444,7 +444,7 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
                         String password = input.toString();
 
                         if (!TextUtils.isEmpty(password) && mMyAccountPresenter.matchPassword(password)) {
-                            mMyAccountPresenter.unfreezeBalance(password);
+                            mMyAccountPresenter.uncdBalance(password);
                         } else {
                             Toast.makeText(MyAccountActivity.this, getString(R.string.invalid_password),
                                     Toast.LENGTH_SHORT).show();
@@ -456,11 +456,11 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
         dialog.show();
     }
 
-    @OnClick(R.id.tron_power_layout)
+    @OnClick(R.id.stabila_power_layout)
     public void onTronPowerHelpClick() {
         new MaterialDialog.Builder(MyAccountActivity.this)
-                .title(getString(R.string.tron_power_text))
-                .content(getString(R.string.tron_power_help_text))
+                .title(getString(R.string.stabila_power_text))
+                .content(getString(R.string.stabila_power_help_text))
                 .titleColorRes(android.R.color.black)
                 .contentColorRes(android.R.color.black)
                 .backgroundColorRes(android.R.color.white)

@@ -27,7 +27,7 @@
             android:id="@+id/txt_volume"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="478,732,000 TRX"
+            android:text="478,732,000 STB"
             android:gravity="center"/>
         <TextView
             android:id="@+id/txt_percentage"

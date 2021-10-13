@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="22sp"
                             android:textColor="@android:color/white"
-                            tools:text="90,000,000,000 TRX" />
+                            tools:text="90,000,000,000 STB" />
 
                         <LinearLayout
                             android:id="@+id/login_account_price_layout"
@@ -128,10 +128,10 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/main_sub_title_color"
                                 android:textSize="12sp"
-                                android:text="@string/tron_power_text" />
+                                android:text="@string/stabila_power_text" />
 
                             <TextView
-                                android:id="@+id/login_frozen_balance_text"
+                                android:id="@+id/login_cded_balance_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"

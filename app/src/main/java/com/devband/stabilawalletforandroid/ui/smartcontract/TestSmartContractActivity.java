@@ -29,7 +29,7 @@ import timber.log.Timber;
 public class TestSmartContractActivity extends CommonActivity {
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @BindView(R.id.contract_address_edit)
     EditText contractAddressEdit;
@@ -59,7 +59,7 @@ public class TestSmartContractActivity extends CommonActivity {
 
     @OnClick(R.id.get_abi_button)
     public void onGetAbiClick() {
-        this.mTron.getSmartContract(contractAddressEdit.getText().toString())
+        this.mStabila.getSmartContract(contractAddressEdit.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contract -> abiText.setText(contract.getAbi().toString()), e -> e.printStackTrace());
@@ -86,15 +86,15 @@ public class TestSmartContractActivity extends CommonActivity {
 
             TriggerRequest triggerRequest = TriggerRequest.builder()
                     .contractAddress(ByteArray.toHexString(contractAddress))
-                    .ownerAddress(ByteArray.toHexString(AccountManager.decodeFromBase58Check(mTron.getLoginAddress())))
+                    .ownerAddress(ByteArray.toHexString(AccountManager.decodeFromBase58Check(mStabila.getLoginAddress())))
                     .functionSelector(transferMethod)
                     .parameter(contractTrigger)
                     .callValue(Long.parseLong(callValue.getText().toString()))
                     .feeLimit(Long.parseLong(feeLimit.getText().toString()))
                     .build();
 
-            //TriggerResult result = mTronGridService.triggerSmartContract(triggerRequest).blockingGet();
-            return mTron.callQueryContract(mTron.getLoginAddress(), contractAddress, Long.parseLong(callValue.getText().toString()), input, Long.parseLong(feeLimit.getText().toString()), 0L, null);
+            //TriggerResult result = mStabilaGridService.triggerSmartContract(triggerRequest).blockingGet();
+            return mStabila.callQueryContract(mStabila.getLoginAddress(), contractAddress, Long.parseLong(callValue.getText().toString()), input, Long.parseLong(feeLimit.getText().toString()), 0L, null);
         })
         .flatMap(result -> result)
         .subscribe(result -> {

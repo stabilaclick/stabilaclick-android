@@ -14,8 +14,8 @@ public abstract class MarketActivityModule {
     public abstract MarketView view(MarketActivity marketActivity);
 
     @Provides
-    static MarketPresenter provideMarketPresenter(MarketView marketView, StabilaNetwork tronNetwork,
+    static MarketPresenter provideMarketPresenter(MarketView marketView, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new MarketPresenter(marketView, tronNetwork, rxJavaSchedulers);
+        return new MarketPresenter(marketView, stabilaNetwork, rxJavaSchedulers);
     }
 }

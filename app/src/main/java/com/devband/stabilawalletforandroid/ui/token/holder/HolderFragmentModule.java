@@ -14,8 +14,8 @@ public abstract class HolderFragmentModule {
     public abstract HolderView view(HolderFragment fragment);
 
     @Provides
-    static HolderPresenter provideHolderPresenter(HolderView view, StabilaNetwork tronNetwork,
+    static HolderPresenter provideHolderPresenter(HolderView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new HolderPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new HolderPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

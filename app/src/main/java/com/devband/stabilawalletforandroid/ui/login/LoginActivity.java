@@ -25,7 +25,7 @@ import butterknife.OnClick;
 public class LoginActivity extends CommonActivity implements LoginView {
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @Inject
     LoginPresenter mLoginPresenter;
@@ -70,7 +70,7 @@ public class LoginActivity extends CommonActivity implements LoginView {
                     .setOnFingerAuthListener(new FingerAuth.OnFingerAuthListener() {
                         @Override
                         public void onSuccess() {
-                            mTron.loginWithFingerPrint();
+                            mStabila.loginWithFingerPrint();
                             loginResult(Stabila.SUCCESS);
                         }
 

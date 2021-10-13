@@ -13,7 +13,7 @@ import com.devband.stabilalib.dto.Tokens;
 import com.devband.stabilalib.dto.TransactionStats;
 import com.devband.stabilalib.dto.Transactions;
 import com.devband.stabilalib.dto.Transfers;
-import com.devband.stabilalib.dto.TronAccounts;
+import com.devband.stabilalib.dto.StabilaAccounts;
 import com.devband.stabilalib.dto.Votes;
 import com.devband.stabilalib.dto.Witnesses;
 import com.devband.stabilalib.services.AccountService;
@@ -132,7 +132,7 @@ public class StabilaNetwork {
         return mAccountService.getAccountInfo(address);
     }
 
-    public Single<TronAccounts> getAccounts(long start, int limit, String sort) {
+    public Single<StabilaAccounts> getAccounts(long start, int limit, String sort) {
         return mAccountService.getAccounts(start, limit, sort);
     }
 

@@ -1,7 +1,7 @@
 package com.devband.stabilawalletforandroid.ui.blockexplorer.overview;
 
 import com.devband.stabilawalletforandroid.ui.mvp.IView;
-import com.devband.stabilalib.dto.TronAccounts;
+import com.devband.stabilalib.dto.StabilaAccounts;
 
 /**
  * Created by user on 2018. 5. 28..
@@ -9,7 +9,7 @@ import com.devband.stabilalib.dto.TronAccounts;
 
 public interface OverviewView extends IView {
 
-    void overviewDataLoadSuccess(TronAccounts topAddressAccounts);
+    void overviewDataLoadSuccess(StabilaAccounts topAddressAccounts);
     void showLoadingDialog();
     void showServerError();
 

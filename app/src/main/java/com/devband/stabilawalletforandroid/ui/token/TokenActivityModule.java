@@ -16,8 +16,8 @@ public abstract class TokenActivityModule {
     public abstract TokenView view(TokenActivity tokenActivity);
 
     @Provides
-    static TokenPresenter provideTokenPresenter(TokenView view, Stabila tron, StabilaNetwork tronNetwork,
+    static TokenPresenter provideTokenPresenter(TokenView view, Stabila stabila, StabilaNetwork stabilaNetwork,
                                                 WalletAppManager walletAppManager, RxJavaSchedulers rxJavaSchedulers) {
-        return new TokenPresenter(view, tron, tronNetwork, walletAppManager, rxJavaSchedulers);
+        return new TokenPresenter(view, stabila, stabilaNetwork, walletAppManager, rxJavaSchedulers);
     }
 }

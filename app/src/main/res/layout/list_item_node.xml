@@ -10,7 +10,7 @@
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/tron_node_ip_text"
+            android:id="@+id/stabila_node_ip_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -20,7 +20,7 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_tron_red" />
+            app:srcCompat="@drawable/ic_stabila_red" />
 
     </LinearLayout>
 

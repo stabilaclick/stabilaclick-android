@@ -30,7 +30,7 @@ public class AddressActivity extends CommonActivity implements AddressView {
     AddressPresenter mAddressPresenter;
 
     @Inject
-    Stabila mTron;
+    Stabila mStabila;
 
     @BindView(R.id.toolbar)
     public Toolbar mToolbar;
@@ -109,7 +109,7 @@ public class AddressActivity extends CommonActivity implements AddressView {
     }
 
     private void shareMyAddress() {
-        String address = mTron.getLoginAddress();
+        String address = mStabila.getLoginAddress();
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, address);

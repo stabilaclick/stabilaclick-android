@@ -15,7 +15,7 @@ public abstract class ImportPrivateKeyActivityModule {
 
     @Provides
     static ImportPrivateKeyPresenter provideImportPrivateKeyPresenter(ImportPrivateKeyView importPrivateKeyView,
-                                                                      Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
-        return new ImportPrivateKeyPresenter(importPrivateKeyView, tron, rxJavaSchedulers);
+                                                                      Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
+        return new ImportPrivateKeyPresenter(importPrivateKeyView, stabila, rxJavaSchedulers);
     }
 }

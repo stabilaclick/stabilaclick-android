@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Frozen {
+public class Cded {
 
-    private long frozenBalance;
+    private long cdedBalance;
 
     private long expireTime;
 }

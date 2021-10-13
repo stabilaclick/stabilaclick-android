@@ -11,14 +11,14 @@ import io.reactivex.disposables.Disposable;
 
 public class BackupAccountPresenter extends BasePresenter<BackupAccountView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public BackupAccountPresenter(BackupAccountView view, Stabila tron, WalletAppManager walletAppManager,
+    public BackupAccountPresenter(BackupAccountView view, Stabila stabila, WalletAppManager walletAppManager,
                                   RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -69,8 +69,8 @@ public class BackupAccountPresenter extends BasePresenter<BackupAccountView> {
     }
 
     public void getAccountAndPrivateKey(byte[] aesKey) {
-        String address = mTron.getLoginAddress();
-        String privateKey = mTron.getLoginPrivateKey(aesKey);
+        String address = mStabila.getLoginAddress();
+        String privateKey = mStabila.getLoginPrivateKey(aesKey);
 
         mView.displayAccountInfo(address, privateKey);
     }

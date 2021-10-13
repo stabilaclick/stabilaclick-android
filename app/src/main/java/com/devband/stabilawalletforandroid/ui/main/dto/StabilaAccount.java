@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TronAccount {
+public class StabilaAccount {
 
     private String name;
 
@@ -29,7 +29,7 @@ public class TronAccount {
 
     private long transactionOut;
 
-    private List<Frozen> frozenList;
+    private List<Cded> cdedList;
 
     private List<Asset> assetList;
 

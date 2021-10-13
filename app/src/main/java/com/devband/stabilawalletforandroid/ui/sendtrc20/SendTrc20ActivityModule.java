@@ -15,8 +15,8 @@ public abstract class SendTrc20ActivityModule {
     public abstract SendTrc20View view(SendTrc20Activity sendTrc20Activity);
 
     @Provides
-    static SendTrc20Presenter provideRepresentativePresenter(SendTrc20View view, Stabila tron,
+    static SendTrc20Presenter provideRepresentativePresenter(SendTrc20View view, Stabila stabila,
             AppDatabase appDatabase, RxJavaSchedulers rxJavaSchedulers) {
-        return new SendTrc20Presenter(view, tron, appDatabase, rxJavaSchedulers);
+        return new SendTrc20Presenter(view, stabila, appDatabase, rxJavaSchedulers);
     }
 }

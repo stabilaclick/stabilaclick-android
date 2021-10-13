@@ -200,7 +200,7 @@ public class RepresentativeActivity extends CommonActivity implements Representa
                 .append(item.getUrl())
                 .append("\n")
                 .append(getString(R.string.vote_representative_amount_text))
-                .append(Constants.numberFormat.format(amount) + " " + Constants.ONE_TRX);
+                .append(Constants.numberFormat.format(amount) + " " + Constants.ONE_STB);
 
         new MaterialDialog.Builder(RepresentativeActivity.this)
                 .title(R.string.send_token_title)

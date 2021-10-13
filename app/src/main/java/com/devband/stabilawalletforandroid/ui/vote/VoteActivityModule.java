@@ -16,8 +16,8 @@ public abstract class VoteActivityModule {
     public abstract VoteView view(VoteActivity voteActivity);
 
     @Provides
-    static VotePresenter provideVotePresenter(VoteView view, Stabila tron, StabilaNetwork tronNetwork,
+    static VotePresenter provideVotePresenter(VoteView view, Stabila stabila, StabilaNetwork stabilaNetwork,
                                               WalletAppManager walletAppManager, RxJavaSchedulers rxJavaSchedulers) {
-        return new VotePresenter(view, tron, tronNetwork, walletAppManager, rxJavaSchedulers);
+        return new VotePresenter(view, stabila, stabilaNetwork, walletAppManager, rxJavaSchedulers);
     }
 }

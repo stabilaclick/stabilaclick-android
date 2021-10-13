@@ -14,15 +14,15 @@ import io.reactivex.disposables.Disposable;
 
 public class LoginPresenter extends BasePresenter<LoginView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
     private final CustomPreference mCustomPreference;
 
-    public LoginPresenter(LoginView view, Stabila tron, WalletAppManager walletAppManager,
+    public LoginPresenter(LoginView view, Stabila stabila, WalletAppManager walletAppManager,
                           RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
         this.mCustomPreference = customPreference;
@@ -56,10 +56,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 if (!loginResult) {
                     return WalletAppManager.ERROR;
                 } else {
-                    mTron.migrationOldData(password);
+                    mStabila.migrationOldData(password);
                     mCustomPreference.setMigrationDb(true);
 
-                    int res = mTron.login(password);
+                    int res = mStabila.login(password);
 
                     if (res != Stabila.SUCCESS) {
                         return WalletAppManager.ERROR;
@@ -71,7 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 int result = mWalletAppManager.login(password);
 
                 if (result == WalletAppManager.SUCCESS) {
-                    int res = mTron.login(password);
+                    int res = mStabila.login(password);
                     if (res != Stabila.SUCCESS) {
                         return WalletAppManager.ERROR;
                     }

@@ -12,9 +12,9 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bandwidth {
 
-    private long energyRemaining;
-    private long totalEnergyLimit;
-    private long totalEnergyWeight;
+    private long ucrRemaining;
+    private long totalUcrLimit;
+    private long totalUcrWeight;
     private long netUsed;
     private long storageLimit;
     private long storagePercentage;
@@ -23,14 +23,14 @@ public class Bandwidth {
     private long storageUsed;
     private long storageRemaining;
     private long freeNetLimit;
-    private long energyUsed;
+    private long ucrUsed;
     private long freeNetRemaining;
     private long netLimit;
     private long netRemaining;
-    private long energyLimit;
+    private long ucrLimit;
     private long freeNetUsed;
     private long totalNetWeight;
     private long freeNetPercentage;
-    private long energyPercentage;
+    private long ucrPercentage;
     private long totalNetLimit;
 }

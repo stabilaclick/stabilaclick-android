@@ -26,13 +26,13 @@ public interface ITronManager {
 
     Single<GrpcAPI.TransactionExtention> createTransaction(Contract.TransferContract contract);
 
-    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.FreezeBalanceContract contract);
+    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.CdBalanceContract contract);
 
     Single<GrpcAPI.TransactionExtention> createTransaction(Contract.WithdrawBalanceContract contract);
 
-    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UnfreezeBalanceContract contract);
+    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UncdBalanceContract contract);
 
-    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UnfreezeAssetContract contract);
+    Single<GrpcAPI.TransactionExtention> createTransaction(Contract.UncdAssetContract contract);
 
     Single<GrpcAPI.TransactionExtention> createTransaction(Contract.VoteWitnessContract contract);
 

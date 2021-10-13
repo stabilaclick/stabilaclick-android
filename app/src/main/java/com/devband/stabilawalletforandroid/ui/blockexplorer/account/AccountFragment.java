@@ -38,7 +38,7 @@ public class AccountFragment extends CommonFragment implements AccountView {
 
     private LinearLayoutManager mLayoutManager;
     private AdapterView mAdapterView;
-    private TronAccountAdapter mTronAccountAdapter;
+    private TronAccountAdapter mStabilaAccountAdapter;
 
     private long mStartIndex = 0;
 
@@ -58,23 +58,23 @@ public class AccountFragment extends CommonFragment implements AccountView {
         ButterKnife.bind(this, view);
         initUi();
 
-        mAccountPresenter.setAdapterDataModel(mTronAccountAdapter);
+        mAccountPresenter.setAdapterDataModel(mStabilaAccountAdapter);
         mAccountPresenter.onCreate();
 
         return view;
     }
 
     private void initUi() {
-        mTronAccountAdapter = new TronAccountAdapter(getActivity(), mOnItemClickListener);
+        mStabilaAccountAdapter = new TronAccountAdapter(getActivity(), mOnItemClickListener);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mAccountListView.setLayoutManager(mLayoutManager);
         mAccountListView.addItemDecoration(new DividerItemDecoration(0));
-        mAccountListView.setAdapter(mTronAccountAdapter);
+        mAccountListView.setAdapter(mStabilaAccountAdapter);
         mAccountListView.addOnScrollListener(mRecyclerViewOnScrollListener);
 
-        mAdapterView = mTronAccountAdapter;
+        mAdapterView = mStabilaAccountAdapter;
     }
 
     private RecyclerView.OnScrollListener mRecyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {

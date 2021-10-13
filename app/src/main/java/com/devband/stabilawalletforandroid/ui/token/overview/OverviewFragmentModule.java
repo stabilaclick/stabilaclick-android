@@ -14,8 +14,8 @@ public abstract class OverviewFragmentModule {
     public abstract OverviewView view(OverviewFragment fragment);
 
     @Provides
-    static OverviewPresenter provideHolderPresenter(OverviewView view, StabilaNetwork tronNetwork,
+    static OverviewPresenter provideHolderPresenter(OverviewView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new OverviewPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new OverviewPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

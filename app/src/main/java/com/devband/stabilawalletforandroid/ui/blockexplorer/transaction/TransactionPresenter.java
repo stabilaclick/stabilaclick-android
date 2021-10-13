@@ -14,12 +14,12 @@ public class TransactionPresenter extends BasePresenter<TransactionView> {
 
     private AdapterDataModel<Transaction> mAdapterDataModel;
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TransactionPresenter(TransactionView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public TransactionPresenter(TransactionView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -50,7 +50,7 @@ public class TransactionPresenter extends BasePresenter<TransactionView> {
     public void getTransactions(long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        mTronNetwork.getTransactions(startIndex, pageSize, "-timestamp", true)
+        mStabilaNetwork.getTransactions(startIndex, pageSize, "-timestamp", true)
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Transactions>() {
                     @Override

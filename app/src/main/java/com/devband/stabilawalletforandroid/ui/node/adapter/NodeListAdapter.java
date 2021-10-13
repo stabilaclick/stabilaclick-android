@@ -41,7 +41,7 @@ public class NodeListAdapter extends RecyclerView.Adapter<NodeListAdapter.MyNode
     public void onBindViewHolder(@NonNull NodeListAdapter.MyNodeViewHolder holder, int position) {
         GrpcAPI.Node node = nodeList.getNodes(position);
 
-        holder.tronNodeIp.setText(node.getAddress().getHost().toStringUtf8()+":"+String.valueOf(node.getAddress().getPort()));
+        holder.stabilaNodeIp.setText(node.getAddress().getHost().toStringUtf8()+":"+String.valueOf(node.getAddress().getPort()));
 
     }
 
@@ -79,8 +79,8 @@ public class NodeListAdapter extends RecyclerView.Adapter<NodeListAdapter.MyNode
     }
 
     public class MyNodeViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tron_node_ip_text)
-        TextView tronNodeIp;
+        @BindView(R.id.stabila_node_ip_text)
+        TextView stabilaNodeIp;
 
         public MyNodeViewHolder(View itemView) {
             super(itemView);

@@ -32,14 +32,14 @@
                 android:background="@android:color/white">
 
                 <Button
-                    android:id="@+id/more_about_tron_button"
+                    android:id="@+id/more_about_stabila_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical|left"
                     android:paddingLeft="23dp"
                     android:paddingRight="0dp"
-                    android:text="@string/about_tron"
+                    android:text="@string/about_stabila"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
 
@@ -383,7 +383,7 @@
                     android:background="@color/more_border_color"/>
 
                 <TextView
-                    android:id="@+id/tron_app_info_text"
+                    android:id="@+id/stabila_app_info_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"

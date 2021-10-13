@@ -16,12 +16,12 @@ import io.reactivex.disposables.Disposable;
 public class TransferPresenter extends BasePresenter<TransferView> {
 
     private AdapterDataModel<TransferInfo> mAdapterDataModel;
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TransferPresenter(TransferView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public TransferPresenter(TransferView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -52,7 +52,7 @@ public class TransferPresenter extends BasePresenter<TransferView> {
     public void getTransfers(String address, long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        mTronNetwork
+        mStabilaNetwork
         .getTransfers(address, startIndex, pageSize, "-timestamp", true)
         .map(transactions -> {
             List<TransferInfo> infos = new ArrayList<>();

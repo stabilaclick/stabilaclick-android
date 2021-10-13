@@ -14,12 +14,12 @@ public class TransferPresenter extends BasePresenter<TransferView> {
 
     private AdapterDataModel<Transfer> mAdapterDataModel;
 
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public TransferPresenter(TransferView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public TransferPresenter(TransferView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -50,7 +50,7 @@ public class TransferPresenter extends BasePresenter<TransferView> {
     public void getTransfer(long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        mTronNetwork
+        mStabilaNetwork
                 .getTransfers(startIndex, pageSize, "-timestamp", true)
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Transfers>() {
@@ -74,7 +74,7 @@ public class TransferPresenter extends BasePresenter<TransferView> {
 
     public void getTransfer(long block, long startIndex, int pageSize) {
         mView.showLoadingDialog();
-        mTronNetwork
+        mStabilaNetwork
                 .getTransfers("-timestamp", true, pageSize, startIndex, block)
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Transfers>() {

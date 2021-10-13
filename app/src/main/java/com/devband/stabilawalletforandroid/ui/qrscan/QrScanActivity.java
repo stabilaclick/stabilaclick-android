@@ -23,14 +23,14 @@ public class QrScanActivity extends CommonActivity {
 
     public static final String EXTRA_QR_CODE_ADDRESS = "qr_code_address";
     public static final String EXTRA_QR_CODE_AMOUNT = "qr_code_amount";
-    public static final String EXTRA_FROM_TRON_PAY_MENU = "from_tron_pay_menu";
+    public static final String EXTRA_FROM_TRON_PAY_MENU = "from_stabila_pay_menu";
 
     @BindView(R.id.camera_view)
     SurfaceView mSurfaceView;
 
     private QREader mQrEader;
 
-    private boolean mFromTronPayMenu;
+    private boolean mFromStabilaPayMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class QrScanActivity extends CommonActivity {
 
         ButterKnife.bind(this);
 
-        mFromTronPayMenu = getIntent().getBooleanExtra(EXTRA_FROM_TRON_PAY_MENU, false);
+        mFromStabilaPayMenu = getIntent().getBooleanExtra(EXTRA_FROM_TRON_PAY_MENU, false);
 
         initQrEader();
     }
@@ -50,7 +50,7 @@ public class QrScanActivity extends CommonActivity {
             public void onDetected(final String data) {
                 Intent intent;
 
-                if (mFromTronPayMenu) {
+                if (mFromStabilaPayMenu) {
                     ObjectMapper objectMapper = new ObjectMapper();
                     RequestCoinActivity.PayInfo payInfo;
 
@@ -64,7 +64,7 @@ public class QrScanActivity extends CommonActivity {
                     intent = new Intent(QrScanActivity.this, SendTrc10Activity.class);
                     intent.putExtra(EXTRA_QR_CODE_ADDRESS, payInfo.address);
                     intent.putExtra(EXTRA_QR_CODE_AMOUNT, payInfo.amount);
-                    intent.putExtra(EXTRA_FROM_TRON_PAY_MENU, mFromTronPayMenu);
+                    intent.putExtra(EXTRA_FROM_TRON_PAY_MENU, mFromStabilaPayMenu);
                     startActivity(intent);
                 } else {
                     intent = new Intent();

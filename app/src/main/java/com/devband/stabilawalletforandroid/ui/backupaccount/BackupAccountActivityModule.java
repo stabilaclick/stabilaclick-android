@@ -16,8 +16,8 @@ public abstract class BackupAccountActivityModule {
 
     @Provides
     static BackupAccountPresenter provideBackupAccountPresenter(BackupAccountView backupAccountView,
-                                                                Stabila tron, WalletAppManager walletAppManager, RxJavaSchedulers rxJavaSchedulers) {
-        return new BackupAccountPresenter(backupAccountView, tron, walletAppManager,
+                                                                Stabila stabila, WalletAppManager walletAppManager, RxJavaSchedulers rxJavaSchedulers) {
+        return new BackupAccountPresenter(backupAccountView, stabila, walletAppManager,
                 rxJavaSchedulers);
     }
 }

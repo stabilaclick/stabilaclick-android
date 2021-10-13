@@ -17,12 +17,12 @@ import io.reactivex.disposables.Disposable;
 
 public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public SendTrc10Presenter(SendTrc10View view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
+    public SendTrc10Presenter(SendTrc10View view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -37,7 +37,7 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
 
     @Override
     public void onResume() {
-        mTron.queryAccount(mTron.getLoginAddress())
+        mStabila.queryAccount(mStabila.getLoginAddress())
             .subscribeOn(mRxJavaSchedulers.getIo())
             .map(account -> {
                 List<Asset> assets = new ArrayList<>();
@@ -45,11 +45,11 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
                 assets.add(Asset.builder()
                         .name(Constants.TRON_SYMBOL)
                         .displayName(Constants.TRON_SYMBOL)
-                        .balance(((double) account.getBalance()) / Constants.ONE_TRX)
+                        .balance(((double) account.getBalance()) / Constants.ONE_STB)
                         .build());
 
                 for (String key : account.getAssetV2Map().keySet()) {
-                    Trc10AssetModel trc10Asset = mTron.getTrc10Asset(key);
+                    Trc10AssetModel trc10Asset = mStabila.getTrc10Asset(key);
 
                     assets.add(Asset.builder()
                             .name(key)
@@ -75,12 +75,12 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
     }
 
     public void sendTron(String password, String toAddress, long amount) {
-        if (!mTron.isLogin()) {
+        if (!mStabila.isLogin()) {
             mView.invalidPassword();
             return;
         }
 
-        mTron.sendCoin(password, toAddress, amount)
+        mStabila.sendCoin(password, toAddress, amount)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {
@@ -111,12 +111,12 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
     }
 
     public void transferAsset(String password, String toAddress, String assetName, long amount) {
-        if (!mTron.isLogin()) {
+        if (!mStabila.isLogin()) {
             mView.invalidPassword();
             return;
         }
 
-        mTron.transferAsset(password, toAddress, assetName, amount)
+        mStabila.transferAsset(password, toAddress, assetName, amount)
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {

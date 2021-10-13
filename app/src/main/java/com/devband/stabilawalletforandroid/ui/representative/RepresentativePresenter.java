@@ -24,14 +24,14 @@ import io.reactivex.disposables.Disposable;
 public class RepresentativePresenter extends BasePresenter<RepresentativeView> {
 
     private AdapterDataModel<Representative> mAdapterDataModel;
-    private Stabila mTron;
+    private Stabila mStabila;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public RepresentativePresenter(RepresentativeView view, Stabila tron, WalletAppManager walletAppManager,
+    public RepresentativePresenter(RepresentativeView view, Stabila stabila, WalletAppManager walletAppManager,
                                    RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -62,7 +62,7 @@ public class RepresentativePresenter extends BasePresenter<RepresentativeView> {
     }
 
     public void getRepresentativeList() {
-        mTron.getWitnessList()
+        mStabila.getWitnessList()
         .map(witnessList -> {
             List<Representative> representatives = new ArrayList<>();
 

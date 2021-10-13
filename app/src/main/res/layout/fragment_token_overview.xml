@@ -30,7 +30,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:textSize="20sp"
-                tools:text="TRXC" />
+                tools:text="STBC" />
 
             <ImageView
                 android:id="@+id/visit_website_button"

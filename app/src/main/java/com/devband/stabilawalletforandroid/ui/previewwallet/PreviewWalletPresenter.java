@@ -9,16 +9,16 @@ import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
 
 public class PreviewWalletPresenter extends BasePresenter<PreviewWalletView> {
 
-    private Stabila mTron;
-    private StabilaNetwork mTronNetwork;
+    private Stabila mStabila;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
     private AdapterDataModel<AccountModel> mAdapterDataModel;
 
-    public PreviewWalletPresenter(PreviewWalletView view, Stabila tron, StabilaNetwork tronNetwork,
+    public PreviewWalletPresenter(PreviewWalletView view, Stabila stabila, StabilaNetwork stabilaNetwork,
                                   RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
-        this.mTronNetwork = tronNetwork;
+        this.mStabila = stabila;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -32,7 +32,7 @@ public class PreviewWalletPresenter extends BasePresenter<PreviewWalletView> {
     }
 
     public void refreshAccount() {
-        mTron.getAccountList()
+        mStabila.getAccountList()
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(accountList -> {

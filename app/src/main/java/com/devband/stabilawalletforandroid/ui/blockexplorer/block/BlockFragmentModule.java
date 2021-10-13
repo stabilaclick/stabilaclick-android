@@ -14,8 +14,8 @@ public abstract class BlockFragmentModule {
     public abstract BlockView view(BlockFragment fragment);
 
     @Provides
-    static BlockPresenter provideBlockPresenter(BlockView view, StabilaNetwork tronNetwork,
+    static BlockPresenter provideBlockPresenter(BlockView view, StabilaNetwork stabilaNetwork,
             RxJavaSchedulers rxJavaSchedulers) {
-        return new BlockPresenter(view, tronNetwork, rxJavaSchedulers);
+        return new BlockPresenter(view, stabilaNetwork, rxJavaSchedulers);
     }
 }

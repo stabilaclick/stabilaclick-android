@@ -34,16 +34,16 @@ public class VotePresenter extends BasePresenter<VoteView> {
     private List<VoteItem> mAllVotes;
 
     private List<VoteItem> mMyVotes;
-    private Stabila mTron;
-    private StabilaNetwork mTronNetwork;
+    private Stabila mStabila;
+    private StabilaNetwork mStabilaNetwork;
     private WalletAppManager mWalletAppManager;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public VotePresenter(VoteView view, Stabila tron, StabilaNetwork tronNetwork, WalletAppManager walletAppManager,
+    public VotePresenter(VoteView view, Stabila stabila, StabilaNetwork stabilaNetwork, WalletAppManager walletAppManager,
                          RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
-        this.mTronNetwork = tronNetwork;
+        this.mStabila = stabila;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mWalletAppManager = walletAppManager;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
@@ -75,7 +75,7 @@ public class VotePresenter extends BasePresenter<VoteView> {
     public void getRepresentativeList(boolean isMyVotes) {
         mView.showLoadingDialog();
 
-        Single.zip(mTronNetwork.getVoteWitnesses(), mTron.queryAccount(mTron.getLoginAddress()), (votes, myAccount) -> {
+        Single.zip(mStabilaNetwork.getVoteWitnesses(), mStabila.queryAccount(mStabila.getLoginAddress()), (votes, myAccount) -> {
             List<VoteItem> representatives = new ArrayList<>();
 
             int cnt = votes.getData().size();
@@ -119,11 +119,11 @@ public class VotePresenter extends BasePresenter<VoteView> {
 
             long myVotePoint = 0;
 
-            for (Protocol.Account.Frozen frozen : myAccount.getFrozenList()) {
-                myVotePoint += frozen.getFrozenBalance();
+            for (Protocol.Account.Cded cded : myAccount.getCdedList()) {
+                myVotePoint += cded.getCdedBalance();
             }
 
-            myVotePoint = (long) (myVotePoint / Constants.ONE_TRX);
+            myVotePoint = (long) (myVotePoint / Constants.ONE_STB);
 
             mAllVotes = new ArrayList<>();
             mMyVotes = new ArrayList<>();
@@ -200,7 +200,7 @@ public class VotePresenter extends BasePresenter<VoteView> {
 
             return witness;
         })
-        .flatMap(witness -> mTron.voteWitness(password, witness))
+        .flatMap(witness -> mStabila.voteWitness(password, witness))
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())
         .subscribe(new SingleObserver<Boolean>() {

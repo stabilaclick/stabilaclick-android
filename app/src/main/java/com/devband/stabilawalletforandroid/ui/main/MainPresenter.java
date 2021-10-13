@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.crashlytics.android.Crashlytics;
 import com.devband.stabilawalletforandroid.stabila.Stabila;
 import com.devband.stabilawalletforandroid.ui.main.dto.Asset;
-import com.devband.stabilawalletforandroid.ui.main.dto.TronAccount;
+import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilawalletforandroid.ui.mvp.BasePresenter;
 import com.devband.stabilalib.StabilaNetwork;
 import com.devband.stabilalib.dto.CoinMarketCap;
@@ -24,7 +24,7 @@ import com.devband.stabilawalletforandroid.database.model.Trc10AssetModel;
 import com.devband.stabilawalletforandroid.database.model.Trc20ContractModel;
 import com.devband.stabilawalletforandroid.rxjava.RxJavaSchedulers;
 import com.devband.stabilawalletforandroid.stabila.WalletAppManager;
-import com.devband.stabilawalletforandroid.ui.main.dto.Frozen;
+import com.devband.stabilawalletforandroid.ui.main.dto.Cded;
 
 import org.spongycastle.util.encoders.Hex;
 import org.stabila.api.GrpcAPI;
@@ -42,20 +42,20 @@ import timber.log.Timber;
 public class MainPresenter extends BasePresenter<MainView> {
 
     private AdapterDataModel<Asset> mAdapterDataModel;
-    private Stabila mTron;
-    private StabilaNetwork mTronNetwork;
+    private Stabila mStabila;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
     private CustomPreference mCustomPreference;
     private FavoriteTokenDao mFavoriteTokenDao;
     private Trc20ContractDao mTrc20ContractDao;
     private WalletAppManager mWalletAppManager;
 
-    public MainPresenter(MainView view, Stabila tron, WalletAppManager walletAppManager, StabilaNetwork tronNetwork,
+    public MainPresenter(MainView view, Stabila stabila, WalletAppManager walletAppManager, StabilaNetwork stabilaNetwork,
                          RxJavaSchedulers rxJavaSchedulers, CustomPreference customPreference, AppDatabase appDatabase) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mWalletAppManager = walletAppManager;
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
         this.mCustomPreference = customPreference;
         this.mFavoriteTokenDao = appDatabase.favoriteTokenDao();
@@ -87,26 +87,26 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public boolean isLogin() {
-        return mTron.isLogin();
+        return mStabila.isLogin();
     }
 
     public void getMyAccountTrc10Info() {
         mView.showLoadingDialog();
-        String loginAddress = mTron.getLoginAddress();
+        String loginAddress = mStabila.getLoginAddress();
 
         if (!TextUtils.isEmpty(loginAddress)) {
-            mTron.queryAccount(loginAddress)
+            mStabila.queryAccount(loginAddress)
                     .map((account -> {
-                        List<Frozen> frozenList = new ArrayList<>();
+                        List<Cded> cdedList = new ArrayList<>();
 
-                        for (Protocol.Account.Frozen frozen : account.getFrozenList()) {
-                            frozenList.add(Frozen.builder()
-                                    .frozenBalance(frozen.getFrozenBalance())
-                                    .expireTime(frozen.getExpireTime())
+                        for (Protocol.Account.Cded cded : account.getCdedList()) {
+                            cdedList.add(Cded.builder()
+                                    .cdedBalance(cded.getCdedBalance())
+                                    .expireTime(cded.getExpireTime())
                                     .build());
                         }
 
-                        long accountId = mTron.getLoginAccount().getId();
+                        long accountId = mStabila.getLoginAccount().getId();
                         List<Asset> assetList = new ArrayList<>();
 
 //                        for (Trc20Token trc20TokenBalance : account.getTrc20TokenBalances()) {
@@ -121,7 +121,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                             boolean isFavorite = mCustomPreference.isFavoriteToken(accountId);
 
                             if (!isFavorite || (isFavorite && mFavoriteTokenDao.findByAccountIdAndTokenName(accountId, key) != null)) {
-                                Trc10AssetModel trc10Asset = mTron.getTrc10Asset(key);
+                                Trc10AssetModel trc10Asset = mStabila.getTrc10Asset(key);
 
                                 assetList.add(Asset.builder()
                                         .name(key)
@@ -134,23 +134,23 @@ public class MainPresenter extends BasePresenter<MainView> {
                             }
                         }
 
-                        return TronAccount.builder()
+                        return StabilaAccount.builder()
                                 .balance(account.getBalance())
-                                .bandwidth(account.getDelegatedFrozenBalanceForBandwidth())
+                                .bandwidth(account.getDelegatedCdedBalanceForBandwidth())
                                 .assetList(assetList)
-                                .frozenList(frozenList)
+                                .cdedList(cdedList)
                                 .build();
                     }))
                     .subscribeOn(mRxJavaSchedulers.getIo())
                     .observeOn(mRxJavaSchedulers.getMainThread())
-                    .subscribe(new SingleObserver<TronAccount>() {
+                    .subscribe(new SingleObserver<StabilaAccount>() {
                         @Override
                         public void onSubscribe(Disposable d) {
 
                         }
 
                         @Override
-                        public void onSuccess(TronAccount account) {
+                        public void onSuccess(StabilaAccount account) {
                             mView.displayAccountInfo(account);
                             mAdapterDataModel.clear();
                             mAdapterDataModel.addAll(account.getAssetList());
@@ -179,7 +179,7 @@ public class MainPresenter extends BasePresenter<MainView> {
         mAdapterDataModel.clear();
 
         mView.showLoadingDialog();
-        String loginAddress = mTron.getLoginAddress();
+        String loginAddress = mStabila.getLoginAddress();
 
         if (!TextUtils.isEmpty(loginAddress)) {
             Single<List<Asset>> trc20List = Single.fromCallable(() -> {
@@ -188,7 +188,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                 List<Asset> assetList = new ArrayList<>();
 
                 for (Trc20ContractModel trc20ContractModel : list) {
-                    GrpcAPI.TransactionExtention transactionExtention = mTron.getTrc20Balance(loginAddress, trc20ContractModel.getAddress()).blockingGet();
+                    GrpcAPI.TransactionExtention transactionExtention = mStabila.getTrc20Balance(loginAddress, trc20ContractModel.getAddress()).blockingGet();
 
                     if (transactionExtention == null || !transactionExtention.getResult().getResult()) {
                         Timber.d("RPC create call trx failed!");
@@ -225,33 +225,33 @@ public class MainPresenter extends BasePresenter<MainView> {
                 return assetList;
             });
 
-            Single.zip(mTron.queryAccount(loginAddress), trc20List, (account, trc20) -> {
-                List<Frozen> frozenList = new ArrayList<>();
+            Single.zip(mStabila.queryAccount(loginAddress), trc20List, (account, trc20) -> {
+                List<Cded> cdedList = new ArrayList<>();
 
-                for (Protocol.Account.Frozen frozen : account.getFrozenList()) {
-                    frozenList.add(Frozen.builder()
-                            .frozenBalance(frozen.getFrozenBalance())
-                            .expireTime(frozen.getExpireTime())
+                for (Protocol.Account.Cded cded : account.getCdedList()) {
+                    cdedList.add(Cded.builder()
+                            .cdedBalance(cded.getCdedBalance())
+                            .expireTime(cded.getExpireTime())
                             .build());
                 }
 
-                return TronAccount.builder()
+                return StabilaAccount.builder()
                         .balance(account.getBalance())
-                        .bandwidth(account.getDelegatedFrozenBalanceForBandwidth())
+                        .bandwidth(account.getDelegatedCdedBalanceForBandwidth())
                         .assetList(trc20)
-                        .frozenList(frozenList)
+                        .cdedList(cdedList)
                         .build();
             })
                     .subscribeOn(mRxJavaSchedulers.getIo())
                     .observeOn(mRxJavaSchedulers.getMainThread())
-                    .subscribe(new SingleObserver<TronAccount>() {
+                    .subscribe(new SingleObserver<StabilaAccount>() {
                         @Override
                         public void onSubscribe(Disposable d) {
 
                         }
 
                         @Override
-                        public void onSuccess(TronAccount account) {
+                        public void onSuccess(StabilaAccount account) {
                             mView.displayAccountInfo(account);
                             mAdapterDataModel.clear();
                             mAdapterDataModel.addAll(account.getAssetList());
@@ -276,7 +276,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void getTronMarketInfo() {
-        mTronNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME)
+        mStabilaNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME)
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<List<CoinMarketCap>>() {
@@ -300,22 +300,22 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public boolean logout() {
-        mTron.logout();
+        mStabila.logout();
 
         return true;
     }
 
     @Nullable
     public AccountModel getLoginAccount() {
-        return mTron.getLoginAccount();
+        return mStabila.getLoginAccount();
     }
 
     public Single<Boolean> changeLoginAccountName(@NonNull String accountName) {
-        return mTron.changeLoginAccountName(accountName);
+        return mStabila.changeLoginAccountName(accountName);
     }
 
     public void createAccount(@NonNull String nickname, @NonNull String password) {
-        mTron.createAccount(nickname, password)
+        mStabila.createAccount(nickname, password)
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Integer>() {
@@ -341,15 +341,15 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public Single<List<AccountModel>> getAccountList() {
-        return mTron.getAccountList();
+        return mStabila.getAccountList();
     }
 
     public boolean changeLoginAccount(@NonNull AccountModel accountModel) {
-        return mTron.changeLoginAccount(accountModel);
+        return mStabila.changeLoginAccount(accountModel);
     }
 
     public void importAccount(@NonNull String nickname, @NonNull String privateKey, @NonNull String password) {
-        mTron.importAccount(nickname, privateKey, password)
+        mStabila.importAccount(nickname, privateKey, password)
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Integer>() {
@@ -379,18 +379,18 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public long getLoginAccountIndex() {
-        return mTron.getLoginAccount().getId();
+        return mStabila.getLoginAccount().getId();
     }
 
     public void setOnlyFavorites(boolean isFavorites) {
-        if (mTron.getLoginAccount() != null) {
-            mCustomPreference.setFavoriteToken(mTron.getLoginAccount().getId(), isFavorites);
+        if (mStabila.getLoginAccount() != null) {
+            mCustomPreference.setFavoriteToken(mStabila.getLoginAccount().getId(), isFavorites);
         }
     }
 
     public boolean getIsFavoritesTokens() {
-        if (mTron.getLoginAccount() != null) {
-            return mCustomPreference.isFavoriteToken(mTron.getLoginAccount().getId());
+        if (mStabila.getLoginAccount() != null) {
+            return mCustomPreference.isFavoriteToken(mStabila.getLoginAccount().getId());
         }
 
         return false;
@@ -403,7 +403,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void changePassword(@NonNull String oldPassword, @NonNull String newPassword) {
         mView.showChangePasswordDialog();
 
-        Single.fromCallable(() -> mTron.changePassword(oldPassword, newPassword))
+        Single.fromCallable(() -> mStabila.changePassword(oldPassword, newPassword))
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .subscribe(new SingleObserver<Boolean>() {
@@ -427,7 +427,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void addTrc20Contract(String name, String symbol, String contractAddress, int precision) {
         mView.showLoadingDialog();
 
-        mTron.checkTrc20Contract(contractAddress)
+        mStabila.checkTrc20Contract(contractAddress)
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .map(result -> {
                     if (result == Stabila.SUCCESS) {
@@ -459,7 +459,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void syncTrc20TokenContracts() {
         mView.showSyncTrc20Loading();
 
-        mTronNetwork.getTrc20TokenList()
+        mStabilaNetwork.getTrc20TokenList()
                 .subscribeOn(mRxJavaSchedulers.getIo())
                 .map(trc20Tokens -> {
                     List<Trc20ContractModel> savedTokens = mTrc20ContractDao.getAll();

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--https://tron-wiki.readthedocs.io/en/latest/Technical_Overview_of_TRON.html-->
+    <!--https://stabila-wiki.readthedocs.io/en/latest/Technical_Overview_of_TRON.html-->
     <array name="fullnode.ip.list">
-        <item>157.230.17.155:50051</item>
+        <item>206.81.22.207:50051</item>
     </array>
 
     <array name="solidity.ip.list">
-        <item>157.230.17.155:50052</item>
+        <item>206.81.22.207:50052</item>
     </array>
 
     <string-array name="feedback_email_recipient">
@@ -25,10 +25,10 @@
         <item>WitnessUpdateContract</item>
         <item>ParticipateAssetIssueContract</item>
         <item>AccountUpdateContract</item>
-        <item>FreezeBalanceContract</item>
-        <item>UnfreezeBalanceContract</item>
+        <item>CdBalanceContract</item>
+        <item>UncdBalanceContract</item>
         <item>WithdrawBalanceContract</item>
-        <item>UnfreezeAssetContract</item>
+        <item>UncdAssetContract</item>
         <item>UpdateAssetContract</item>
         <item>CustomContract</item>
     </array>

@@ -16,7 +16,7 @@
     <color name="main_my_token_color">#7c7b81</color>
     <color name="my_account_background_color">#f3f3f3</color>
     <color name="my_account_border_color">#e5e5e5</color>
-    <color name="freeze_button_color">#7c7b81</color>
+    <color name="cd_button_color">#7c7b81</color>
     <color name="main_sub_title_color">#aaffffff</color>
     <color name="super_representative_background_color">#7c7b81</color>
     <color name="token_participate_button_color">#0084ff</color>

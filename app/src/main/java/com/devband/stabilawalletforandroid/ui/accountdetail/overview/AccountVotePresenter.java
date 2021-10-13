@@ -15,12 +15,12 @@ import io.reactivex.disposables.Disposable;
 public class AccountVotePresenter extends BasePresenter<AccountVoteView> {
 
     private AdapterDataModel<AccountVote> mAdapterDataModel;
-    private StabilaNetwork mTronNetwork;
+    private StabilaNetwork mStabilaNetwork;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public AccountVotePresenter(AccountVoteView view, StabilaNetwork tronNetwork, RxJavaSchedulers rxJavaSchedulers) {
+    public AccountVotePresenter(AccountVoteView view, StabilaNetwork stabilaNetwork, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTronNetwork = tronNetwork;
+        this.mStabilaNetwork = stabilaNetwork;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
@@ -51,7 +51,7 @@ public class AccountVotePresenter extends BasePresenter<AccountVoteView> {
     public void getVotes(@NonNull String address, long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        mTronNetwork.getAccountVotes(address, startIndex, pageSize, "-votes")
+        mStabilaNetwork.getAccountVotes(address, startIndex, pageSize, "-votes")
                 .observeOn(mRxJavaSchedulers.getMainThread())
                 .map(accountVotes -> {
                     for (AccountVote accountVote : accountVotes.getData()) {

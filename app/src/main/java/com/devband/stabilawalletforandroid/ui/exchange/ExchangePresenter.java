@@ -6,12 +6,12 @@ import com.devband.stabilawalletforandroid.stabila.Stabila;
 
 public class ExchangePresenter extends BasePresenter<ExchangeView> {
 
-    private Stabila mTron;
+    private Stabila mStabila;
     private RxJavaSchedulers mRxJavaSchedulers;
 
-    public ExchangePresenter(ExchangeView view, Stabila tron, RxJavaSchedulers rxJavaSchedulers) {
+    public ExchangePresenter(ExchangeView view, Stabila stabila, RxJavaSchedulers rxJavaSchedulers) {
         super(view);
-        this.mTron = tron;
+        this.mStabila = stabila;
         this.mRxJavaSchedulers = rxJavaSchedulers;
     }
 
