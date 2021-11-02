@@ -88,7 +88,7 @@ public class TransferAdapter extends RecyclerView.Adapter<TransferAdapter.Transf
 
         double amount = item.getAmount();
 
-        if (Constants.TRON_SYMBOL.equalsIgnoreCase(item.getTokenName())) {
+        if (Constants.STABILA_SYMBOL.equalsIgnoreCase(item.getTokenName())) {
             amount /= Constants.ONE_STB;
         }
 

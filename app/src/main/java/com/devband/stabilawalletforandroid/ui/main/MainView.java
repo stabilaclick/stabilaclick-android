@@ -12,7 +12,7 @@ public interface MainView extends IView {
 
     void displayAccountInfo(@NonNull StabilaAccount account);
 
-    void setTronMarketInfo(CoinMarketCap coinMarketCap);
+    void setStabilaMarketInfo(CoinMarketCap coinMarketCap);
 
     void showInvalidPasswordMsg();
 

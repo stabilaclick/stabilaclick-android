@@ -222,8 +222,8 @@ public class TokenActivity extends CommonActivity implements TokenView {
                 TextView priceText = (TextView) dialog.getCustomView().findViewById(R.id.price_text);
                 TextView yourStbText = (TextView) dialog.getCustomView().findViewById(R.id.your_trx_text);
 
-                priceText.setText(Utils.getRealStbFormat(item.getPrice()) + " " + Constants.TRON_SYMBOL);
-                yourStbText.setText(Utils.getRealStbFormat(mLoginAccountStb) + " " + Constants.TRON_SYMBOL);
+                priceText.setText(Utils.getRealStbFormat(item.getPrice()) + " " + Constants.STABILA_SYMBOL);
+                yourStbText.setText(Utils.getRealStbFormat(mLoginAccountStb) + " " + Constants.STABILA_SYMBOL);
 
                 inputAmount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -236,9 +236,9 @@ public class TokenActivity extends CommonActivity implements TokenView {
                         try {
                             if (!TextUtils.isEmpty(inputAmount.getText().toString())) {
                                 long amountBalance = Long.parseLong(inputAmount.getText().toString());
-                                totalText.setText(Utils.getRealStbFormat(amountBalance * item.getPrice()) + " " + Constants.TRON_SYMBOL);
+                                totalText.setText(Utils.getRealStbFormat(amountBalance * item.getPrice()) + " " + Constants.STABILA_SYMBOL);
                             } else {
-                                totalText.setText("0 " + Constants.TRON_SYMBOL);
+                                totalText.setText("0 " + Constants.STABILA_SYMBOL);
                             }
                         } catch (NumberFormatException e) {
                             e.printStackTrace();

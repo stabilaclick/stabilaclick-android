@@ -5,5 +5,5 @@ public class Hosts {
     public static final String COINMARKETCAP_API = "https://api.coinmarketcap.com/";
     public static final String STABILASCAN_API_LIST = "https://apilist.stabilascan.org/";
     public static final String STABILAGRID_API = "https://api.stabilagrid.io/";
-
+    public static final String JAVASTABILA_API = "https://api.stabilascan.org/";
 }

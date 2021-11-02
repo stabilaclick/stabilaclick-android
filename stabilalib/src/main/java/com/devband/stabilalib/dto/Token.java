@@ -40,7 +40,7 @@ public class Token {
 
     private String transaction;
 
-    private long trxNum;
+    private long stbNum;
 
     private String url;
 

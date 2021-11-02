@@ -4,9 +4,9 @@
   <img src="https://img.shields.io/badge/LICENSE-Apache--2.0-blue.svg">
 </p>
 
-# Tron Wallet for android
+# Stabila Wallet for android
 
-A Tron wallet for android.
+A Stabila wallet for android.
 
 ## Download App in PlayStore
 <a href="https://play.google.com/store/apps/details?id=com.devband.stabilawalletforandroid"><img src="https://raw.githubusercontent.com/hummatli/MAHAndroidUpdater/master/imgs/google-play-badge.png" height="90px"/></a>
@@ -43,13 +43,13 @@ A Tron wallet for android.
 - Token list
 - Node list
 - Representative list
-- Tron market listing & price
+- Stabila market listing & price
 - Fingerprint authorization
 
 ## TODO list
 
 - Decentralized exchange
-- Tron pay
+- Stabila pay
 - BIP 32, 39, 44
 
 ## Q&A

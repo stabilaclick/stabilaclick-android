@@ -60,7 +60,7 @@ public class PreviewWalletAdapter extends RecyclerView.Adapter<PreviewWalletAdap
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(account -> {
-                    holder.balanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
+                    holder.balanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_STB) + " " + Constants.STABILA_SYMBOL);
                 }, e -> e.printStackTrace());
     }
 

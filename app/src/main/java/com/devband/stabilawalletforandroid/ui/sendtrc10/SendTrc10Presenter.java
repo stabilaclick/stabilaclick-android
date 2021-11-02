@@ -10,6 +10,7 @@ import com.devband.stabilawalletforandroid.stabila.exception.InvalidAddressExcep
 import com.devband.stabilawalletforandroid.stabila.exception.InvalidPasswordException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -43,8 +44,8 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
                 List<Asset> assets = new ArrayList<>();
 
                 assets.add(Asset.builder()
-                        .name(Constants.TRON_SYMBOL)
-                        .displayName(Constants.TRON_SYMBOL)
+                        .name(Constants.STABILA_SYMBOL)
+                        .displayName(Constants.STABILA_SYMBOL)
                         .balance(((double) account.getBalance()) / Constants.ONE_STB)
                         .build());
 
@@ -52,7 +53,7 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
                     Trc10AssetModel trc10Asset = mStabila.getTrc10Asset(key);
 
                     assets.add(Asset.builder()
-                            .name(key)
+                            .name(trc10Asset.getName())
                             .displayName("[" + key + "]" + trc10Asset.getName())
                             .balance(trc10Asset.getPrecision() > 0 ?
                                     account.getAssetV2Map().get(key) / Math.pow(10, trc10Asset.getPrecision())
@@ -74,7 +75,7 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
 
     }
 
-    public void sendTron(String password, String toAddress, long amount) {
+    public void sendStabila(String password, String toAddress, long amount) {
         if (!mStabila.isLogin()) {
             mView.invalidPassword();
             return;
@@ -102,6 +103,8 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
                 } else if (e instanceof InvalidPasswordException) {
                     mView.invalidPassword();
                 } else if (e instanceof RuntimeException) {
+                    System.out.println("=======================================================3");
+                    e.printStackTrace();
                     mView.connectionError();
                 } else {
                     e.printStackTrace();
@@ -138,6 +141,8 @@ public class SendTrc10Presenter extends BasePresenter<SendTrc10View> {
                 } else if (e instanceof InvalidPasswordException) {
                     mView.invalidPassword();
                 } else if (e instanceof RuntimeException) {
+                    System.out.println("=======================================================1");
+                    e.printStackTrace();
                     mView.connectionError();
                 } else {
                     e.printStackTrace();

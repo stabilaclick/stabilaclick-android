@@ -75,7 +75,7 @@
                     android:layout_alignBaseline="@+id/name_title_text"
                     android:textSize="12sp"
                     android:gravity="center"
-                    tools:text="Tron wallet" />
+                    tools:text="Stabila wallet" />
 
                 <TextView
                     android:id="@+id/balance_title_text"

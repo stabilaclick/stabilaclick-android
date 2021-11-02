@@ -53,7 +53,7 @@ import org.stabila.common.crypto.jce.ECKeyAgreement;
 import org.stabila.common.crypto.jce.ECKeyFactory;
 import org.stabila.common.crypto.jce.ECKeyPairGenerator;
 import org.stabila.common.crypto.jce.ECSignatureFactory;
-import org.stabila.common.crypto.jce.TronCastleProvider;
+import org.stabila.common.crypto.jce.StabilaCastleProvider;
 import org.stabila.common.utils.ByteUtil;
 
 import java.io.IOException;
@@ -168,7 +168,7 @@ public class ECKey implements Serializable {
    * @param secureRandom -
    */
   public ECKey(SecureRandom secureRandom) {
-    this(TronCastleProvider.getInstance(), secureRandom);
+    this(StabilaCastleProvider.getInstance(), secureRandom);
   }
 
   /**
@@ -201,7 +201,7 @@ public class ECKey implements Serializable {
    */
   public ECKey(@Nullable BigInteger priv, ECPoint pub) {
     this(
-        TronCastleProvider.getInstance(),
+        StabilaCastleProvider.getInstance(),
         privateKeyFromBigInteger(priv),
         pub
     );
@@ -236,7 +236,7 @@ public class ECKey implements Serializable {
     } else {
       try {
         return ECKeyFactory
-            .getInstance(TronCastleProvider.getInstance())
+            .getInstance(StabilaCastleProvider.getInstance())
             .generatePrivate(new ECPrivateKeySpec(priv,
                 CURVE_SPEC));
       } catch (InvalidKeySpecException ex) {

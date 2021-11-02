@@ -39,7 +39,7 @@ public class IntroPresenter extends BasePresenter<IntroView> {
 
             while (tryCnt < Constants.CONNECTION_RETRY) {
                 try {
-                    mStabila.initTronNode();
+                    mStabila.initStabilaNode();
                     long height = mStabila.getBlockHeight().blockingGet();
                     Log.d(IntroPresenter.class.getSimpleName(), "block height : " + height);
                     break;

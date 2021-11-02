@@ -18,6 +18,9 @@ import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TokenPresenter extends BasePresenter<TokenView> {
 
     private AdapterDataModel<Token> mAdapterDataModel;
@@ -105,11 +108,45 @@ public class TokenPresenter extends BasePresenter<TokenView> {
 
         mView.showLoadingDialog();
 
-        Single.zip(mStabila.queryAccount(acc), mStabilaNetwork.getTokens(startIndex, pageSize, "-name", "ico"),
-                (account, tokens) -> {
+        Single<Tokens> tokens = mStabilaNetwork.getPaginatedAssetIssueList((int)startIndex, pageSize).map(ail -> {
+            Tokens ret = new Tokens();
+            ret.setTotal(ail.getAssetIssue().size());
+            List<Token> tks = new ArrayList<>(ret.getTotal());
+            ail.getAssetIssue().forEach(aic -> {
+                Token token = new Token();
+                token.setId(aic.getId());
+                //token.setBlock();
+                token.setNum(aic.getNum());
+                token.setName(aic.getName());
+                token.setAbbr(aic.getAbbr());
+                token.setDescription(aic.getDescription());
+                token.setStartTime(aic.getStartTime());
+                token.setEndTime(aic.getEndTime());
+                token.setPrice(aic.getStbNum() / aic.getNum());
+                token.setTotalSupply(aic.getTotalSupply());
+                token.setIssued(aic.getTotalSupply());
+                //token.setIssuedPercentage();
+                //token.setPercentage();
+                token.setOwnerAddress(aic.getOwnerAddress());
+                //token.setTransaction();
+                token.setStbNum(aic.getStbNum());
+                token.setUrl(aic.getUrl());
+                token.setVoteScore(aic.getVoteScore());
+                //token.setCreated();
+                //token.setDateCreated();
+                token.setNrOfTokenHolders(aic.getNum());
+                token.setTotalTransactions(aic.getStbNum());
+                tks.add(token);
+            });
+            ret.setData(tks);
+
+            return ret;
+        });
+        Single.zip(mStabila.queryAccount(acc), tokens,// mStabilaNetwork.getTokens(startIndex, pageSize, "-name", "ico"),
+                (account, ts) -> {
                     AccountInfo accountInfo = new AccountInfo();
                     accountInfo.account = account;
-                    accountInfo.tokens = tokens;
+                    accountInfo.tokens = ts;
 
                     return accountInfo;
                 })

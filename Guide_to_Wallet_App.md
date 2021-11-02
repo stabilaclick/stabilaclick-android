@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This app is a multifunctional Android wallet for the TRON network.
+This app is a multifunctional Android wallet for the STABILA network.
 
 ## Features
 
@@ -20,7 +20,7 @@ This app is a multifunctional Android wallet for the TRON network.
 - check balance (STB, tokens)
 - account info (name, balance, tokens, cded amount)
 - send STB and tokens
-- cd STB to get TRON Power and bandwidth
+- cd STB to get STABILA Power and bandwidth
 - submit votes for representatives
 - participate in token distributions
 - manually set your node connection

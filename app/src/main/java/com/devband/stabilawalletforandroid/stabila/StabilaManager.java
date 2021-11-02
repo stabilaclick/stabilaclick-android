@@ -11,11 +11,11 @@ import org.stabila.protos.Protocol;
 
 import io.reactivex.Single;
 
-class TronManager implements ITronManager {
+class StabilaManager implements IStabilaManager {
 
     private GrpcClient grpcClient;
 
-    TronManager(String fullNodeHost, String solidityNodeHost) {
+    StabilaManager(String fullNodeHost, String solidityNodeHost) {
         grpcClient = new GrpcClient(fullNodeHost, solidityNodeHost);
     }
 
@@ -27,6 +27,11 @@ class TronManager implements ITronManager {
     @Override
     public Single<Protocol.Account> queryAccount(byte[] address) {
         return Single.fromCallable(() -> grpcClient.queryAccount(address));
+    }
+
+    @Override
+    public Single<GrpcAPI.AccountResourceMessage> queryAccountResourceMessage(byte[] address) {
+        return Single.fromCallable(() -> grpcClient.queryAccountResource(address));
     }
 
     @Override

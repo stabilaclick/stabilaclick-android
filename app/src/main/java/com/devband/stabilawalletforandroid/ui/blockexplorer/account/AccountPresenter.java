@@ -48,10 +48,10 @@ public class AccountPresenter extends BasePresenter<AccountView> {
 
     }
 
-    public void getTronAccounts(long startIndex, int pageSize) {
+    public void getStabilaAccounts(long startIndex, int pageSize) {
         mView.showLoadingDialog();
 
-        Single.zip(mStabilaNetwork.getAccounts(startIndex, pageSize, "-balance"), mStabilaNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME),
+        Single.zip(mStabilaNetwork.getAccounts(startIndex, pageSize, "-balance"), mStabilaNetwork.getCoinInfo(Constants.STABILA_COINMARKET_NAME),
                 ((stabilaAccounts, coinMarketCaps) -> {
                     for (StabilaAccount stabilaAccount : stabilaAccounts.getData()) {
                         stabilaAccount.setTotalSupply((long) Double.parseDouble(coinMarketCaps.get(0).getTotalSupply()));

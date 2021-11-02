@@ -73,7 +73,7 @@ public class RepresentativeListAdapter extends RecyclerView.Adapter<Representati
             }
         });
 
-        holder.representativeVotesText.setText(Constants.numberFormat.format(item.getVoteCount()) + Constants.TRON_SYMBOL);
+        holder.representativeVotesText.setText(Constants.numberFormat.format(item.getVoteCount()) + Constants.STABILA_SYMBOL);
         holder.latestBlockText.setText(Constants.numberFormat.format(item.getLatestBlockNum()));
         holder.producedBlockText.setText(Constants.numberFormat.format(item.getTotalProduced()));
         holder.missedBlockText.setText(Constants.numberFormat.format(item.getTotalMissed()));

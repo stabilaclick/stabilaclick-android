@@ -196,7 +196,7 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("TRON\nWallet Top 10 Address");
+        SpannableString s = new SpannableString("STABILA\nWallet Top 10 Address");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 4, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 4, s.length()-1, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 4, s.length(), 0);

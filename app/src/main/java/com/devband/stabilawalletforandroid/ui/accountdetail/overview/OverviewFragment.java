@@ -123,8 +123,8 @@ public class OverviewFragment extends CommonFragment implements OverviewView {
             mAccountNameText.setText("-");
         }
         mBalanceText.setText(Constants.tokenBalanceFormat.format(account.getBalance() / Constants.ONE_STB)
-                + " " + Constants.TRON_SYMBOL);
-        mStabilaPowerText.setText(Constants.numberFormat.format(account.getBandwidth()));
+                + " " + Constants.STABILA_SYMBOL);
+        mStabilaPowerText.setText(Constants.numberFormat.format(account.getBandwidthUsed()));
         mTransactionInText.setText(Constants.numberFormat.format(account.getTransactionIn()));
         mTransactionOutText.setText(Constants.numberFormat.format(account.getTransactionOut()));
 

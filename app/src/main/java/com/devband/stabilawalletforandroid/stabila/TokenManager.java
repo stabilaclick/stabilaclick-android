@@ -17,7 +17,7 @@ public class TokenManager {
         this.mTrc10AssetDao = trc10AssetDao;
     }
 
-    public void setTron(Stabila stabila) {
+    public void setStabila(Stabila stabila) {
         this.mStabila = stabila;
     }
 

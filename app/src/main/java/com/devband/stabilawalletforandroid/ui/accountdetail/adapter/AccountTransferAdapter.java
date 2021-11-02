@@ -58,7 +58,7 @@ public class AccountTransferAdapter extends RecyclerView.Adapter<AccountTransfer
 
         long amount = info.getAmount();
 
-        if (Constants.TRON_SYMBOL.equalsIgnoreCase(info.getTokenName())) {
+        if (Constants.STABILA_SYMBOL.equalsIgnoreCase(info.getTokenName())) {
             amount = (long) (amount / Constants.ONE_STB);
         }
 

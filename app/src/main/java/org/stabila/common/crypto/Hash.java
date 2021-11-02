@@ -20,7 +20,7 @@ package org.stabila.common.crypto;
 
 import android.util.Log;
 
-import org.stabila.common.crypto.jce.TronCastleProvider;
+import org.stabila.common.crypto.jce.StabilaCastleProvider;
 import org.stabila.core.config.Parameter.CommonConstant;
 
 import java.security.MessageDigest;
@@ -41,7 +41,7 @@ public class Hash {
   private static final MessageDigest sha256digest;
 
   static {
-    Security.addProvider(TronCastleProvider.getInstance());
+    Security.addProvider(StabilaCastleProvider.getInstance());
     CRYPTO_PROVIDER = Security.getProvider("SC");
     HASH_256_ALGORITHM_NAME = "TRON-KECCAK-256";
     HASH_512_ALGORITHM_NAME = "TRON-KECCAK-512";

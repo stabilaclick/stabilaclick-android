@@ -223,7 +223,7 @@ public class RepresentativeActivity extends CommonActivity implements Representa
         mRetryButton.setVisibility(View.GONE);
 
         mRepresentativeCountText.setText(Constants.numberFormat.format(witnessCount));
-        mHighestVotesText.setText(Constants.numberFormat.format(highestVotes) + " " + Constants.TRON_SYMBOL);
+        mHighestVotesText.setText(Constants.numberFormat.format(highestVotes) + " " + Constants.STABILA_SYMBOL);
 
         mRepresentativeCountTitleText.setVisibility(View.VISIBLE);
         mHighestVotesTitleText.setVisibility(View.VISIBLE);

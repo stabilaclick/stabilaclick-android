@@ -63,6 +63,12 @@ public class GrpcClient {
         return blockingStubFullNode.getAccount(request);
     }
 
+    public GrpcAPI.AccountResourceMessage queryAccountResource(byte[] address) {
+        ByteString addressBS = ByteString.copyFrom(address);
+        Account request = Account.newBuilder().setAddress(addressBS).build();
+        return blockingStubFullNode.getAccountResource(request);
+    }
+
     public GrpcAPI.TransactionExtention createTransaction(Contract.TransferContract contract) {
         return blockingStubFullNode.createTransaction2(contract);
     }

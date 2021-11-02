@@ -31,7 +31,7 @@ public class CustomPreference {
 
     private Context mContext;
 
-    private TronSettings mSettings;
+    private StabilaSettings mSettings;
 
     public CustomPreference(Context context) {
         mContext = context;
@@ -46,12 +46,12 @@ public class CustomPreference {
 
         if (!TextUtils.isEmpty(data)) {
             try {
-                mSettings = mapper.readValue(data, TronSettings.class);
+                mSettings = mapper.readValue(data, StabilaSettings.class);
             } catch (IOException e) {
-                mSettings = new TronSettings();
+                mSettings = new StabilaSettings();
             }
         } else {
-            mSettings = new TronSettings();
+            mSettings = new StabilaSettings();
         }
     }
 
@@ -171,7 +171,7 @@ public class CustomPreference {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class TronSettings {
+    public static class StabilaSettings {
 
         public String fullNodeHost;
         public boolean useFingerprint;

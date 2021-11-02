@@ -128,7 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/main_sub_title_color"
                                 android:textSize="12sp"
-                                android:text="@string/stabila_power_text" />
+                                android:text="@string/ucr_text" />
 
                             <TextView
                                 android:id="@+id/login_cded_balance_text"
@@ -185,6 +185,47 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                    <ImageButton
+                            android:id="@+id/send_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            app:srcCompat="@drawable/ic_arrow_up"
+                            android:layout_margin="16dp" />
+                    <ImageButton
+                            android:id="@+id/receive_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            app:srcCompat="@drawable/ic_arrow_down"
+                            android:layout_margin="16dp" />
+                    <ImageButton
+                            android:id="@+id/swap_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            app:srcCompat="@drawable/ic_swap"
+                            android:layout_margin="16dp" />
+                    <ImageButton
+                            android:id="@+id/cd_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            app:srcCompat="@drawable/ic_send"
+                            android:layout_margin="16dp" />
+                    <ImageButton
+                            android:id="@+id/vote_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            app:srcCompat="@drawable/ic_send"
+                            android:layout_margin="16dp" />
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/my_token_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -193,27 +234,28 @@
                     android:paddingLeft="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-                    <LinearLayout
+                    <!--LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
-                        <Button
+                        android:orientation="horizontal"-->
+                        <!--Button
                             android:id="@+id/trc10_button"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
                             android:text="@string/trc10_button_text"
                             android:textColor="@android:color/white"
-                            android:background="@drawable/ic_trc10_selected"/>
-                        <Button
+                            android:background="@drawable/ic_trc10_selected"/-->
+                        <!--Button
                             android:id="@+id/trc20_button"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="@string/trc20_button_text"
                             android:textColor="@color/trc20_color"
-                            android:background="@drawable/ic_trc20_unselected"/>
-                    </LinearLayout>
+                            android:background="@drawable/ic_trc20_unselected"/-->
+
+                    <!--/LinearLayout-->
 
                     <!--<TextView-->
                         <!--android:id="@+id/my_token_text"-->
@@ -223,20 +265,37 @@
                         <!--android:textColor="@color/main_my_token_color"-->
                         <!--android:text="@string/my_tokens" />-->
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/favorites_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/main_my_token_color"
-                        android:text="@string/favorites_text" />
+                        android:text="@string/favorites_text" /-->
 
-                    <CheckBox
+                    <!--CheckBox
                         android:id="@+id/check_favorite_tokens"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:theme="@style/AppTheme"
                         android:layout_marginLeft="6dp"
-                        android:layout_marginRight="15dp" />
+                        android:layout_marginRight="15dp" /-->
+                    <TextView
+                        android:id="@+id/assets_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/defaultTitleSize"
+                        android:textColor="@color/Color_Black"
+                        android:layout_weight="10"
+                        android:text="Assets" />
+
+                    <ImageButton
+                        android:id="@+id/add_asset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/Color_Black"
+                        app:srcCompat="@drawable/ic_add" />
                 </LinearLayout>
 
                 <View
@@ -278,7 +337,7 @@
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
-        <android.support.design.widget.FloatingActionButton
+        <!--android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_trc20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -286,15 +345,15 @@
             android:layout_marginBottom="90dp"
             android:layout_marginRight="16dp"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_add" /-->
 
-        <android.support.design.widget.FloatingActionButton
+        <!--android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             app:srcCompat="@drawable/ic_refresh"
-            android:layout_margin="16dp" />
+            android:layout_margin="16dp" /-->
 
         <TextView
             android:id="@+id/trc20_sync_msg_text"

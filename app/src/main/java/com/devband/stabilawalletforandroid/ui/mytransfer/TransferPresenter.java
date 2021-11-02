@@ -78,7 +78,7 @@ public class TransferPresenter extends BasePresenter<TransferView> {
                 info.setBlock(t.getBlock());
                 info.setTimestamp(t.getTimestamp());
                 if ("_".equalsIgnoreCase(t.getTokenName())) {
-                    info.setTokenName(Constants.TRON_SYMBOL);
+                    info.setTokenName(Constants.STABILA_SYMBOL);
                     info.setPrecision(Constants.STB_PRECISION);
                 } else {
                     Trc10AssetModel trc10AssetModel = mTokenManager.getTokenInfo(t.getTokenName()).blockingGet();
@@ -118,6 +118,8 @@ public class TransferPresenter extends BasePresenter<TransferView> {
 
             @Override
             public void onError(Throwable e) {
+                System.out.println("=======================================================2");
+                e.printStackTrace();
                 mView.showServerError();
             }
         });

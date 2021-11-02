@@ -20,6 +20,7 @@ import com.google.protobuf.ByteString;
 
 import org.spongycastle.util.encoders.Hex;
 import org.stabila.api.GrpcAPI;
+import org.stabila.api.WalletGrpc;
 import org.stabila.common.utils.AbiUtil;
 import org.stabila.common.utils.ByteArray;
 import org.stabila.core.exception.EncodingException;
@@ -59,7 +60,7 @@ public class Stabila {
 
     private List<String> mSolidityNodeList;
 
-    private ITronManager mStabilaManager;
+    private IStabilaManager mStabilaManager;
 
     private AccountManager mAccountManager;
 
@@ -79,7 +80,7 @@ public class Stabila {
         this.mTokenManager = tokenManager;
         init();
 
-        this.mTokenManager.setTron(this);
+        this.mTokenManager.setStabila(this);
     }
 
     public void setFailConnectNode(boolean failCustomNode) {
@@ -91,13 +92,13 @@ public class Stabila {
     private void init() {
         mFullNodeList = Arrays.asList(mContext.getResources().getStringArray(R.array.fullnode_ip_list));
         mSolidityNodeList = Arrays.asList(mContext.getResources().getStringArray(R.array.solidity_ip_list));
-        initTronNode();
+        initStabilaNode();
     }
 
-    public void initTronNode() {
+    public void initStabilaNode() {
         if (!TextUtils.isEmpty(mCustomPreference.getCustomFullNodeHost()) && !mFailConnectNode) {
             try {
-                mStabilaManager = new TronManager(mCustomPreference.getCustomFullNodeHost(),
+                mStabilaManager = new StabilaManager(mCustomPreference.getCustomFullNodeHost(),
                         mCustomPreference.getCustomFullNodeHost());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +108,7 @@ public class Stabila {
             int randomFullNode = random.nextInt(mFullNodeList.size());
             int randomSolidityNode = random.nextInt(mSolidityNodeList.size());
 
-            mStabilaManager = new TronManager(mFullNodeList.get(randomFullNode), mSolidityNodeList.get(randomSolidityNode));
+            mStabilaManager = new StabilaManager(mFullNodeList.get(randomFullNode), mSolidityNodeList.get(randomSolidityNode));
         } else {
             // exception
         }
@@ -251,6 +252,22 @@ public class Stabila {
                 throw new IllegalArgumentException("address is required.");
             }
         }).flatMap(addressBytes -> mStabilaManager.queryAccount(addressBytes));
+    }
+
+    public Single<GrpcAPI.AccountResourceMessage> queryAccountResourceMessage(@NonNull String address) {
+        return Single.fromCallable(() -> {
+            if (!TextUtils.isEmpty(address)) {
+                byte[] addressBytes = AccountManager.decodeFromBase58Check(address);
+
+                if (addressBytes == null) {
+                    throw new IllegalArgumentException("Invalid address.");
+                }
+
+                return addressBytes;
+            } else {
+                throw new IllegalArgumentException("address is required.");
+            }
+        }).flatMap(addressBytes -> mStabilaManager.queryAccountResourceMessage(addressBytes));
     }
 
     public Single<GrpcAPI.WitnessList> listWitnesses() {
@@ -518,6 +535,8 @@ public class Stabila {
             byte[] ownerAddressBytes = AccountManager.decodeFromBase58Check(mAccountManager.getLoginAddress());
 
             ByteString bsTo = ByteString.copyFrom(toAddressBytes);
+                    System.out.println("===================================================----1");
+                    System.out.println(assetName);
             ByteString bsName = ByteString.copyFrom(assetName.getBytes());
             ByteString bsOwner = ByteString.copyFrom(ownerAddressBytes);
 
@@ -531,6 +550,9 @@ public class Stabila {
         .flatMap(contract -> mStabilaManager.createTransaction(contract))
         .flatMap(transactionExtention-> {
             if (!transactionExtention.getResult().getResult()) {
+                System.out.println("================================================0");
+                System.out.println(transactionExtention.getResult().getCode());
+                System.out.println(transactionExtention.getResult().getMessage().toStringUtf8());
                 throw new RuntimeException();
             }
 

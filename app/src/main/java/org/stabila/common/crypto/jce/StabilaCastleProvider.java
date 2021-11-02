@@ -23,7 +23,7 @@ import org.spongycastle.jce.provider.BouncyCastleProvider;
 import java.security.Provider;
 import java.security.Security;
 
-public final class TronCastleProvider {
+public final class StabilaCastleProvider {
 
     public static Provider getInstance() {
         return Holder.INSTANCE;

@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,21 +21,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.devband.stabilawalletforandroid.stabila.Stabila;
 import com.devband.stabilawalletforandroid.ui.main.dto.StabilaAccount;
 import com.devband.stabilalib.dto.CoinMarketCap;
-import com.devband.stabilawalletforandroid.BuildConfig;
 import com.devband.stabilawalletforandroid.R;
 import com.devband.stabilawalletforandroid.common.AdapterView;
 import com.devband.stabilawalletforandroid.common.CommonActivity;
@@ -54,9 +44,9 @@ import com.devband.stabilawalletforandroid.ui.more.MoreActivity;
 import com.devband.stabilawalletforandroid.ui.myaccount.MyAccountActivity;
 import com.devband.stabilawalletforandroid.ui.mytransfer.TransferActivity;
 import com.devband.stabilawalletforandroid.ui.previewwallet.PreviewWalletActivity;
+import com.devband.stabilawalletforandroid.ui.qrscan.QrScanActivity;
 import com.devband.stabilawalletforandroid.ui.sendtrc10.SendTrc10Activity;
 import com.devband.stabilawalletforandroid.ui.sendtrc20.SendTrc20Activity;
-import com.devband.stabilawalletforandroid.ui.smartcontract.TestSmartContractActivity;
 import com.devband.stabilawalletforandroid.ui.token.TokenActivity;
 import com.devband.stabilawalletforandroid.ui.vote.VoteActivity;
 
@@ -122,23 +112,41 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     @BindView(R.id.my_token_listview)
     RecyclerView mMyTokenListView;
 
-    @BindView(R.id.check_favorite_tokens)
-    CheckBox mShowOnlyFavoritesCheckBox;
+    //@BindView(R.id.check_favorite_tokens)
+    //CheckBox mShowOnlyFavoritesCheckBox;
 
-    @BindView(R.id.trc10_button)
-    Button mTrc10Button;
+    @BindView(R.id.send_button)
+    ImageButton mSendButton;
 
-    @BindView(R.id.trc20_button)
-    Button mTrc20Button;
+    @BindView(R.id.receive_button)
+    ImageButton mReceiveButton;
 
-    @BindView(R.id.fab_add_trc20)
-    FloatingActionButton fabAdd;
+    @BindView(R.id.swap_button)
+    ImageButton mSwapButton;
+
+    @BindView(R.id.cd_button)
+    ImageButton mCdButton;
+
+    @BindView(R.id.vote_button)
+    ImageButton mVoteButton;
+
+    @BindView(R.id.add_asset)
+    ImageButton mAddAssetButton;
+
+    //@BindView(R.id.trc10_button)
+    //Button mTrc10Button;
+
+    //@BindView(R.id.trc20_button)
+    //Button mTrc20Button;
+
+    //@BindView(R.id.fab_add_trc20)
+    //FloatingActionButton fabAdd;
 
     @BindView(R.id.trc20_sync_msg_text)
     TextView trc20SyncMsgText;
 
-    @BindView(R.id.favorites_text)
-    TextView mFavoritesText;
+    //@BindView(R.id.favorites_text)
+    //TextView mFavoritesText;
 
     Spinner mAccountSpinner;
 
@@ -146,7 +154,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
 
     String mLoginAccountName;
 
-    private StabilaAccount mLoginTronAccount;
+    private StabilaAccount mLoginStabilaAccount;
 
     private CoinMarketCap mCoinMarketCapPriceInfo;
 
@@ -160,7 +168,7 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
 
     private boolean mDoubleBackToExitPressedOnce;
 
-    private int mSelectedToken = Constants.TOKEN_TRC_10;
+    //private int mSelectedToken = Constants.TOKEN_TRC_10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -224,14 +232,14 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
             }
         });
 
-        mShowOnlyFavoritesCheckBox.setOnCheckedChangeListener((view, isChecked) -> {
+        /*mShowOnlyFavoritesCheckBox.setOnCheckedChangeListener((view, isChecked) -> {
             if (mSelectedToken == Constants.TOKEN_TRC_10) {
                 mMainPresenter.setOnlyFavorites(isChecked);
             }
 
             mShowOnlyFavoritesCheckBox.setEnabled(false);
             checkLoginState();
-        });
+        });*/
 
         initAccountList(false);
     }
@@ -302,33 +310,33 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
         checkLoginState();
     }
 
-    @SuppressLint("RestrictedApi")
+    /*@SuppressLint("RestrictedApi")
     @OnClick(R.id.trc10_button)
     public void onTrc10Click() {
         mSelectedToken = Constants.TOKEN_TRC_10;
-        mFavoritesText.setText(R.string.favorites_text);
-        mShowOnlyFavoritesCheckBox.setChecked(mMainPresenter.getIsFavoritesTokens());
+        //mFavoritesText.setText(R.string.favorites_text);
+        //mShowOnlyFavoritesCheckBox.setChecked(mMainPresenter.getIsFavoritesTokens());
         mTrc10Button.setBackgroundResource(R.drawable.ic_trc10_selected);
         mTrc10Button.setTextColor(getResources().getColor(android.R.color.white));
         mTrc20Button.setBackgroundResource(R.drawable.ic_trc20_unselected);
         mTrc20Button.setTextColor(getResources().getColor(R.color.trc20_color));
-        fabAdd.setVisibility(View.GONE);
+        //fabAdd.setVisibility(View.GONE);
         checkLoginState();
-    }
+    }*/
 
-    @SuppressLint("RestrictedApi")
+    /*@SuppressLint("RestrictedApi")
     @OnClick(R.id.trc20_button)
     public void onTrc20Click() {
         mSelectedToken = Constants.TOKEN_TRC_20;
-        mFavoritesText.setText(R.string.hide_no_balance_text);
-        mShowOnlyFavoritesCheckBox.setChecked(true);
+        //mFavoritesText.setText(R.string.hide_no_balance_text);
+        //mShowOnlyFavoritesCheckBox.setChecked(true);
         mTrc10Button.setBackgroundResource(R.drawable.ic_trc10_unselected);
         mTrc10Button.setTextColor(getResources().getColor(R.color.trc10_color));
         mTrc20Button.setBackgroundResource(R.drawable.ic_trc20_selected);
         mTrc20Button.setTextColor(getResources().getColor(android.R.color.white));
-        fabAdd.setVisibility(View.VISIBLE);
+        //fabAdd.setVisibility(View.VISIBLE);
         checkLoginState();
-    }
+    }*/
 
     private void checkLoginState() {
         if (mLoadingAccountInfo) {
@@ -338,11 +346,12 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
         if (mMainPresenter.isLogin()) {
             mLoadingAccountInfo = true;
             // get account info
-            if (mSelectedToken == Constants.TOKEN_TRC_10) {
+            mMainPresenter.getMyAccountAllAssetsInfo();
+            /*if (mSelectedToken == Constants.TOKEN_TRC_10) {
                 mMainPresenter.getMyAccountTrc10Info();
             } else if (mSelectedToken == Constants.TOKEN_TRC_20) {
-                mMainPresenter.getMyAccountTrc20Info(mShowOnlyFavoritesCheckBox.isChecked());
-            }
+                mMainPresenter.getMyAccountTrc20Info(false);//mShowOnlyFavoritesCheckBox.isChecked());
+            }*/
 
             Single.fromCallable(() -> mMainPresenter.getLoginAccount())
             .subscribeOn(Schedulers.io())
@@ -391,9 +400,9 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
                 mAccountAdapter.notifyDataSetChanged();
             }, (e) -> {});
 
-            if (mSelectedToken == Constants.TOKEN_TRC_10) {
+            /*if (mSelectedToken == Constants.TOKEN_TRC_10) {
                 mShowOnlyFavoritesCheckBox.setChecked(mMainPresenter.getIsFavoritesTokens());
-            }
+            }*/
         } else {
             finishActivity();
             startActivity(LoginActivity.class);
@@ -586,10 +595,10 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     @Override
     public void displayAccountInfo(@NonNull StabilaAccount account) {
         hideDialog();
-        mLoginTronAccount = account;
-        mShowOnlyFavoritesCheckBox.setEnabled(true);
+        mLoginStabilaAccount = account;
+        //mShowOnlyFavoritesCheckBox.setEnabled(true);
 
-        if (mLoginTronAccount.getAssetList().isEmpty()) {
+        if (mLoginStabilaAccount.getAssetList().isEmpty()) {
             mNoTokenLayout.setVisibility(View.VISIBLE);
             mMyTokenListView.setVisibility(View.GONE);
         } else {
@@ -598,30 +607,34 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
         }
 
         double balance = ((double) account.getBalance()) / Constants.ONE_STB;
-        long cdedBalance = 0;
+        //long cdedBalance = 0;
 
-        for (int i = 0; i < account.getCdedList().size(); i++) {
+        /*for (int i = 0; i < account.getCdedList().size(); i++) {
             Cded cded = account.getCdedList().get(i);
 
             cdedBalance += cded.getCdedBalance();
-        }
+        }*/
 
-        double fz = cdedBalance / Constants.ONE_STB;
-        double bandwidth = account.getBandwidth();
+        //double bandwidth = cdedBalance / Constants.ONE_STB;
+        //double bandwidth = account.getBandwidthUsed();
+        //double ucr = account.getUcrUsed();
 
         mLoginAccountBalanceText.setText(Constants.tokenBalanceFormat.format(balance) + " " + getString(R.string.currency_text));
-        mLoginCdedBalanceText.setText(Constants.numberFormat.format(fz));
-        mLoginBandwidthText.setText(bandwidth == 0 ? "-" : Constants.numberFormat.format(bandwidth));
+        //mLoginCdedBalanceText.setText(Constants.numberFormat.format(ucr));
+        //mLoginBandwidthText.setText(bandwidth == 0 ? "-" : Constants.numberFormat.format(bandwidth));
+
+        mLoginCdedBalanceText.setText((account.getUcrLimit() - account.getUcrUsed()) / Constants.ONE_STB + "/" + account.getUcrLimit() / Constants.ONE_STB);
+        mLoginBandwidthText.setText((account.getBandwidthLimit() - account.getBandwidthUsed()) / Constants.ONE_STB + "/" + account.getBandwidthLimit() / Constants.ONE_STB);
 
         mLoadingAccountInfo = false;
 
-        mMainPresenter.getTronMarketInfo();
+        mMainPresenter.getStabilaMarketInfo();
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void setTronMarketInfo(CoinMarketCap coinMarketCap) {
-        double balance = ((double) mLoginTronAccount.getBalance()) / Constants.ONE_STB;
+    public void setStabilaMarketInfo(CoinMarketCap coinMarketCap) {
+        double balance = ((double) mLoginStabilaAccount.getBalance()) / Constants.ONE_STB;
 
         mLoginAccountPriceText.setText("(" + Constants.usdFormat.format(balance * Double.parseDouble(coinMarketCap.getPriceUsd()))
                 + " " + getString(R.string.price_text) + ")");
@@ -680,12 +693,42 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
     public void connectionError() {
         hideDialog();
         mLoadingAccountInfo = false;
-        mShowOnlyFavoritesCheckBox.setEnabled(true);
+        //mShowOnlyFavoritesCheckBox.setEnabled(true);
         Toast.makeText(MainActivity.this, getString(R.string.connection_error_msg),
                 Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.fab_add_trc20)
+    @OnClick(R.id.send_button)
+    public void onSendClick() {
+        startActivity(SendTrc10Activity.class);
+    }
+
+    @OnClick(R.id.receive_button)
+    public void onReceiveClick() {
+        startActivity(AddressActivity.class);
+    }
+
+    @OnClick(R.id.swap_button)
+    public void onSwapClick() {
+        startActivity(SendTrc10Activity.class);
+    }
+
+    @OnClick(R.id.cd_button)
+    public void onCdClick() {
+        startActivity(QrScanActivity.class);
+    }
+
+    @OnClick(R.id.vote_button)
+    public void onVoteClick() {
+        startActivity(VoteActivity.class);
+    }
+
+    @OnClick(R.id.add_asset)
+    public void onAddAssetClick() {
+        startActivity(TokenActivity.class);
+    }
+
+    /*@OnClick(R.id.fab_add_trc20)
     public void onTrc20AddClick() {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.title_add_trc_20_contract)
@@ -734,16 +777,16 @@ public class MainActivity extends CommonActivity implements MainView, Navigation
         });
 
         dialog.show();
-    }
+    }*/
 
-    @OnClick(R.id.fab_refresh)
+    /*@OnClick(R.id.fab_refresh)
     public void onHistoryClick() {
         if (BuildConfig.DEBUG) {
             startActivity(TestSmartContractActivity.class);
         }
 
         checkLoginState();
-    }
+    }*/
 
     @OnClick({ R.id.login_account_price_layout })
     public void onPriceHelpImageClick() {

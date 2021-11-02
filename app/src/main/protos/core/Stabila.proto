@@ -79,7 +79,7 @@ message Account {
   AccountType type = 2;
   // the create address
   bytes address = 3;
-  // the trx balance
+  // the stb balance
   int64 balance = 4;
   // the votes
   repeated Vote votes = 5;

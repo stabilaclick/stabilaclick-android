@@ -31,7 +31,7 @@
                 android:gravity="right"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                tools:text="Tron Wallet1" />
+                tools:text="Stabila Wallet1" />
 
             <TextView
                 android:id="@+id/balance_text"

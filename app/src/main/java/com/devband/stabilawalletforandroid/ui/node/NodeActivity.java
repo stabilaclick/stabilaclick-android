@@ -100,7 +100,7 @@ public class NodeActivity extends CommonActivity implements NodeView {
 
     private void initNodeList() {
         showProgressDialog(null, getString(R.string.loading_msg));
-        mNodePresenter.getTronNodeList();
+        mNodePresenter.getStabilaNodeList();
     }
 
     @Override

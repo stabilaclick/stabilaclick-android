@@ -4,24 +4,27 @@ import com.devband.stabilalib.stabilascan.Account;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class StabilaAccount {
 
     private String name;
 
     private long balance;
 
-    private long bandwidth;
+    private long bandwidthUsed;
+
+    private long bandwidthLimit;
+
+    private long ucrUsed;
+
+    private long ucrLimit;
 
     private long transactions;
 

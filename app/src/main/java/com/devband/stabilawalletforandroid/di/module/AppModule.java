@@ -8,12 +8,7 @@ import android.os.Build;
 import com.devband.stabilalib.Hosts;
 import com.devband.stabilalib.ServiceBuilder;
 import com.devband.stabilalib.StabilaNetwork;
-import com.devband.stabilalib.services.AccountService;
-import com.devband.stabilalib.services.CoinMarketCapService;
-import com.devband.stabilalib.services.TokenService;
-import com.devband.stabilalib.services.StabilaGridService;
-import com.devband.stabilalib.services.StabilaScanService;
-import com.devband.stabilalib.services.VoteService;
+import com.devband.stabilalib.services.*;
 import com.devband.stabilawalletforandroid.common.Constants;
 import com.devband.stabilawalletforandroid.common.CustomPreference;
 import com.devband.stabilawalletforandroid.common.security.PasswordEncoder;
@@ -66,7 +61,7 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static StabilaScanService provideTronScanService() {
+    static StabilaScanService provideStabilaScanService() {
         return ServiceBuilder.createService(StabilaScanService.class, Hosts.STABILASCAN_API_LIST);
     }
 
@@ -84,16 +79,23 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static StabilaGridService provideTronGridService() {
+    static StabilaGridService provideStabilaGridService() {
         return ServiceBuilder.createService(StabilaGridService.class, Hosts.STABILAGRID_API);
     }
 
     @Provides
     @Singleton
-    static StabilaNetwork provideTronNetwork(VoteService voteService, CoinMarketCapService coinMarketCapService,
-                                             StabilaScanService stabilaScanService, TokenService tokenService, AccountService accountService) {
+    static JavaStabilaHttpService provideJavaStabilaHttpService() {
+        return ServiceBuilder.createService(JavaStabilaHttpService.class, Hosts.JAVASTABILA_API);
+    }
+
+    @Provides
+    @Singleton
+    static StabilaNetwork provideStabilaNetwork(VoteService voteService, CoinMarketCapService coinMarketCapService,
+                                                StabilaScanService stabilaScanService, TokenService tokenService,
+                                                AccountService accountService, JavaStabilaHttpService javaStabilaHttpService) {
         return new StabilaNetwork(voteService, coinMarketCapService, stabilaScanService,
-                tokenService, accountService);
+                tokenService, accountService, javaStabilaHttpService);
     }
 
     @Provides
@@ -156,7 +158,7 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static Stabila provideTron(@ApplicationContext Context context, StabilaNetwork stabilaNetwork, TokenManager tokenManager,
+    static Stabila provideStabila(@ApplicationContext Context context, StabilaNetwork stabilaNetwork, TokenManager tokenManager,
                                CustomPreference customPreference, AccountManager accountManager, WalletAppManager walletAppManager) {
         return new Stabila(context, stabilaNetwork, customPreference, accountManager, walletAppManager, tokenManager);
     }

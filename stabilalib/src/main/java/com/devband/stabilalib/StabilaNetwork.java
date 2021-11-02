@@ -16,11 +16,9 @@ import com.devband.stabilalib.dto.Transfers;
 import com.devband.stabilalib.dto.StabilaAccounts;
 import com.devband.stabilalib.dto.Votes;
 import com.devband.stabilalib.dto.Witnesses;
-import com.devband.stabilalib.services.AccountService;
-import com.devband.stabilalib.services.CoinMarketCapService;
-import com.devband.stabilalib.services.TokenService;
-import com.devband.stabilalib.services.StabilaScanService;
-import com.devband.stabilalib.services.VoteService;
+import com.devband.stabilalib.dto.javastabila.AssetIssueList;
+import com.devband.stabilalib.dto.javastabila.PaginatedRequest;
+import com.devband.stabilalib.services.*;
 import com.devband.stabilalib.stabilascan.Account;
 import com.devband.stabilalib.stabilascan.TokenInfos;
 import com.devband.stabilalib.stabilascan.Trc20Tokens;
@@ -40,14 +38,17 @@ public class StabilaNetwork {
     private StabilaScanService mStabilaScanService;
     private TokenService mTokenService;
     private AccountService mAccountService;
+    private JavaStabilaHttpService mJavaStabilaHttpService;
 
     public StabilaNetwork(VoteService voteService, CoinMarketCapService coinMarketCapService,
-                          StabilaScanService stabilaScanService, TokenService tokenService, AccountService accountService) {
+                          StabilaScanService stabilaScanService, TokenService tokenService,
+                          AccountService accountService, JavaStabilaHttpService javaStabilaHttpService) {
         this.mVoteService = voteService;
         this.mCoinMarketCapService = coinMarketCapService;
         this.mStabilaScanService = stabilaScanService;
         this.mTokenService = tokenService;
         this.mAccountService = accountService;
+        this.mJavaStabilaHttpService = javaStabilaHttpService;
     }
 
     public Single<Witnesses> getVoteWitnesses() {
@@ -174,5 +175,9 @@ public class StabilaNetwork {
 
     public Single<Trc20Tokens> getTrc20Token(@NonNull String contractAddress) {
         return mTokenService.getTrc20Tokens(contractAddress, 0, "issue_time");
+    }
+
+    public Single<AssetIssueList> getPaginatedAssetIssueList(int start, int limit) {
+        return mJavaStabilaHttpService.getPaginatedAssetIssueList(new PaginatedRequest(start, limit));
     }
 }

@@ -106,7 +106,7 @@ public class MyAccountPresenter extends BasePresenter<MyAccountView> {
 
                     return StabilaAccount.builder()
                             .balance(account.getBalance())
-                            .bandwidth(account.getDelegatedCdedBalanceForBandwidth())
+                            //.bandwidth(account.getDelegatedCdedBalanceForBandwidth())
                             .assetList(assetList)
                             .cdedList(cdedList)
                             .build();

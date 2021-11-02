@@ -86,7 +86,7 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
 
         mFromDonations = intent.getBooleanExtra(MoreActivity.EXTRA_FROM_DONATIONS, false);
 
-        if (intent.getBooleanExtra(QrScanActivity.EXTRA_FROM_TRON_PAY_MENU, false)) {
+        if (intent.getBooleanExtra(QrScanActivity.EXTRA_FROM_STABILA_PAY_MENU, false)) {
             String result = intent.getStringExtra(QrScanActivity.EXTRA_QR_CODE_ADDRESS);
             String amount = intent.getStringExtra(QrScanActivity.EXTRA_QR_CODE_AMOUNT);
             mInputAddress.setText(result);
@@ -174,11 +174,11 @@ public class SendTrc10Activity extends CommonActivity implements SendTrc10View {
                     dialog.dismiss();
                     String password = mInputPassword.getText().toString();
 
-                    if (Constants.TRON_SYMBOL.equals(mSelectedAsset.getName())) {
+                    if (Constants.STABILA_SYMBOL.equals(mSelectedAsset.getName())) {
                         long amount = (long) (finalAmountDouble * Constants.ONE_STB);
 
                         showProgressDialog(null, getString(R.string.loading_msg));
-                        mSendTrc10Presenter.sendTron(password, finalAddress, amount);
+                        mSendTrc10Presenter.sendStabila(password, finalAddress, amount);
                     } else {
                         long amount = (long) finalAmountDouble;
 

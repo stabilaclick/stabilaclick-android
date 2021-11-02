@@ -106,7 +106,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
             mFingerprintAuthCheckBox.setEnabled(false);
         }
 
-        mStabilaAppInfoText.setText("Tron Wallet for Android\nApp Version : v" + BuildConfig.VERSION_NAME);
+        mStabilaAppInfoText.setText("Stabila Wallet for Android\nApp Version : v" + BuildConfig.VERSION_NAME);
 
         mMorePresenter.onCreate();
     }
@@ -121,7 +121,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
     }
 
     @OnClick(R.id.more_about_stabila_button)
-    public void onAboutTronClick() {
+    public void onAboutStabilaClick() {
         startActivity(AboutActivity.class);
     }
 
@@ -214,7 +214,7 @@ public class MoreActivity extends CommonActivity implements MoreView {
                 }
 
                 try {
-                    mStabila.initTronNode();
+                    mStabila.initStabilaNode();
                 } catch (Exception e) {
                     mCustomPreference.setCustomFullNodeHost("");
                     Toast.makeText(MoreActivity.this, getString(R.string.invalid_host),

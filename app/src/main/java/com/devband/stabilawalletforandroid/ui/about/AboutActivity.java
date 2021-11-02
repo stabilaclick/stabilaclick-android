@@ -52,7 +52,7 @@ public class AboutActivity extends CommonActivity {
             getSupportActionBar().setTitle(R.string.title_about_stabila);
         }
 
-        mStabilaNetwork.getCoinInfo(Constants.TRON_COINMARKET_NAME)
+        mStabilaNetwork.getCoinInfo(Constants.STABILA_COINMARKET_NAME)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<CoinMarketCap>>() {
@@ -97,11 +97,11 @@ public class AboutActivity extends CommonActivity {
 
                             View aboutPage = new AboutPage(AboutActivity.this)
                                     .isRTL(false)
-                                    .setDescription("TRON is an ambitious project dedicated to building the infrastructure for a truly decentralized Internet. The Tron Protocol, one of the largest blockchain based operating systems in the world, offers scalable, high-availability and high-throughput support that underlies all the decentralized applications in the TRON ecosystem.\n" +
+                                    .setDescription("STABILA is an ambitious project dedicated to building the infrastructure for a truly decentralized Internet. The Stabila Protocol, one of the largest blockchain based operating systems in the world, offers scalable, high-availability and high-throughput support that underlies all the decentralized applications in the STABILA ecosystem.\n" +
                                             "\n" +
-                                            "TRON Protocol and the TVM allow anyone to develop DAPPs for themselves or their communities, with smart contracts making decentralized crowdfunding and token issuance easier than ever. Tron DAPP projects already include Peiwo, Obike, Uplive, game.com, Kitty live and Mico, with 100M+ active users from more than 100 countries and regions around the world.")
-                                    .addGroup("Tron info (" + Constants.sdf.format(updated) + ")")
-                                    .addItem(new Element().setTitle("Name : TRON"))
+                                            "STABILA Protocol and the SVM allow anyone to develop DAPPs for themselves or their communities, with smart contracts making decentralized crowdfunding and token issuance easier than ever. Stabila DAPP projects already include Peiwo, Obike, Uplive, game.com, Kitty live and Mico, with 100M+ active users from more than 100 countries and regions around the world.")
+                                    .addGroup("Stabila info (" + Constants.sdf.format(updated) + ")")
+                                    .addItem(new Element().setTitle("Name : STABILA"))
                                     .addItem(new Element().setTitle("Symbol : STB"))
                                     .addItem(new Element().setTitle("Total Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getTotalSupply())) + " STB"))
                                     .addItem(new Element().setTitle("Supply : " + Constants.numberFormat.format(Double.parseDouble(coinMarketCap.getAvailableSupply())) + " STB"))

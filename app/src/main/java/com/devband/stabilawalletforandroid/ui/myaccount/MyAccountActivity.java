@@ -152,8 +152,8 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
                 mNameText.setText(account.getName());
             }
 
-            mBalanceText.setText(Constants.tokenBalanceFormat.format(mAccountBalance) + " " + Constants.TRON_SYMBOL);
-            mBandwidthText.setText(account.getBandwidth() == 0 ? "-" : Constants.tokenBalanceFormat.format(account.getBandwidth()));
+            mBalanceText.setText(Constants.tokenBalanceFormat.format(mAccountBalance) + " " + Constants.STABILA_SYMBOL);
+            mBandwidthText.setText(account.getBandwidthUsed() == 0 ? "-" : Constants.tokenBalanceFormat.format(account.getBandwidthUsed()));
             mTokensLayout.removeAllViews();
 
             if (!account.getAssetList().isEmpty()) {
@@ -224,8 +224,8 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
                 mUnCdButton.setVisibility(View.GONE);
             }
 
-            mStabilaPowerText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
-            mCdedStbBalanceText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
+            mStabilaPowerText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.STABILA_SYMBOL);
+            mCdedStbBalanceText.setText(Constants.tokenBalanceFormat.format(cdedBalance / Constants.ONE_STB) + " " + Constants.STABILA_SYMBOL);
             if (expiredTime > 0) {
                 mCdedStbExpiredText.setText(Constants.sdf.format(new Date(expiredTime)));
             } else {
@@ -457,7 +457,7 @@ public class MyAccountActivity extends CommonActivity implements MyAccountView {
     }
 
     @OnClick(R.id.stabila_power_layout)
-    public void onTronPowerHelpClick() {
+    public void onStabilaPowerHelpClick() {
         new MaterialDialog.Builder(MyAccountActivity.this)
                 .title(getString(R.string.stabila_power_text))
                 .content(getString(R.string.stabila_power_help_text))

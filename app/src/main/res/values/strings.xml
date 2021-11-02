@@ -139,6 +139,7 @@
     <string name="cd_confirm_text">I confirm to cd STB for at least of 3 days</string>
     <string name="donations_text">Donations</string>
     <string name="bandwidth_text">BANDWIDTH</string>
+    <string name="ucr_text" translatable="false">UCR</string>
     <string name="stabila_power_text">STABILA POWER</string>
     <string name="current_balance_text">CURRENT BALANCE</string>
     <string name="unable_to_uncd_msg">Unable to uncd STB. This could be caused because the minimal cd period hasn\'t been reached yet.</string>
@@ -283,7 +284,7 @@
     <string name="participate_token_msg">Please input amount.</string>
     <string name="token_price_text">Price :</string>
     <string name="participate_confirm_text">I confirm to buy tokens</string>
-    <string name="your_trx_text">Your trx :</string>
+    <string name="your_trx_text">Your stb :</string>
     <string name="participate_token_success_msg">Success to participate token</string>
     <string name="participate_token_fail_msg">Failed to participate token. Please try again</string>
     <string name="empty">Empty</string>

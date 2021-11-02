@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.devband.stabilawalletforandroid.ui.blockexplorer.adapter.TronAccountAdapter;
+import com.devband.stabilawalletforandroid.ui.blockexplorer.adapter.StabilaAccountAdapter;
 import com.devband.stabilawalletforandroid.R;
 import com.devband.stabilawalletforandroid.common.AdapterView;
 import com.devband.stabilawalletforandroid.common.CommonFragment;
@@ -38,7 +38,7 @@ public class AccountFragment extends CommonFragment implements AccountView {
 
     private LinearLayoutManager mLayoutManager;
     private AdapterView mAdapterView;
-    private TronAccountAdapter mStabilaAccountAdapter;
+    private StabilaAccountAdapter mStabilaAccountAdapter;
 
     private long mStartIndex = 0;
 
@@ -65,7 +65,7 @@ public class AccountFragment extends CommonFragment implements AccountView {
     }
 
     private void initUi() {
-        mStabilaAccountAdapter = new TronAccountAdapter(getActivity(), mOnItemClickListener);
+        mStabilaAccountAdapter = new StabilaAccountAdapter(getActivity(), mOnItemClickListener);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -95,7 +95,7 @@ public class AccountFragment extends CommonFragment implements AccountView {
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0) {
                     mIsLoading = true;
-                    mAccountPresenter.getTronAccounts(mStartIndex, PAGE_SIZE);
+                    mAccountPresenter.getStabilaAccounts(mStartIndex, PAGE_SIZE);
                 }
             }
         }
@@ -111,7 +111,7 @@ public class AccountFragment extends CommonFragment implements AccountView {
     @Override
     protected void refresh() {
         if (!mIsLastPage && isAdded()) {
-            mAccountPresenter.getTronAccounts(mStartIndex, PAGE_SIZE);
+            mAccountPresenter.getStabilaAccounts(mStartIndex, PAGE_SIZE);
         }
     }
 

@@ -23,12 +23,12 @@ public class BalanceCheckService extends Service {
 
     private static boolean isStart;
 
-    private static Stabila TRON;
+    private static Stabila STABILA;
     private CustomPreference customPreference;
 
     @MainThread
     public static void startService(@NonNull Context context, Stabila stabila) {
-        TRON = stabila;
+        STABILA = stabila;
 
         Intent notificationIntent = new Intent(context, LoginActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
@@ -36,7 +36,7 @@ public class BalanceCheckService extends Service {
         NotificationCompat.Builder builder;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Tron Wallet",
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Stabila Wallet",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
 

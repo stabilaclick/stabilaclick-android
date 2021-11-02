@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TronAccountAdapter extends RecyclerView.Adapter<TronAccountAdapter.TokenHolderViewHolder> implements AdapterDataModel<StabilaAccount>, AdapterView {
+public class StabilaAccountAdapter extends RecyclerView.Adapter<StabilaAccountAdapter.TokenHolderViewHolder> implements AdapterDataModel<StabilaAccount>, AdapterView {
 
     private List<StabilaAccount> mList;
 
@@ -30,7 +30,7 @@ public class TronAccountAdapter extends RecyclerView.Adapter<TronAccountAdapter.
 
     private View.OnClickListener mOnItemClickListener;
 
-    public TronAccountAdapter(Context context, View.OnClickListener onItemClickListener) {
+    public StabilaAccountAdapter(Context context, View.OnClickListener onItemClickListener) {
         this.mList = new ArrayList<>();
         this.mContext = context;
         this.mOnItemClickListener = onItemClickListener;
@@ -52,7 +52,7 @@ public class TronAccountAdapter extends RecyclerView.Adapter<TronAccountAdapter.
 
         holder.stabilaAddressNoText.setText((position + 1) + ".");
         Utils.setAccountDetailAction(mContext, holder.stabilaAddressText, item.getAddress());
-        holder.stabilaBalanceText.setText(Constants.tokenBalanceFormat.format(item.getBalance() / Constants.ONE_STB) + " " + Constants.TRON_SYMBOL);
+        holder.stabilaBalanceText.setText(Constants.tokenBalanceFormat.format(item.getBalance() / Constants.ONE_STB) + " " + Constants.STABILA_SYMBOL);
         holder.stabilaBalancePercentText.setText(Constants.percentFormat.format(item.getBalancePercent()) + "%");
         holder.stabilaBalanceProgress.setMax((float) item.getAvailableSypply());
         holder.stabilaBalanceProgress.setProgress((float) ((double) item.getBalance() / Constants.ONE_STB));

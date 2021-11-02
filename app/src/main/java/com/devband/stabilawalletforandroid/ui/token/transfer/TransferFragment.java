@@ -159,7 +159,7 @@ public class TransferFragment extends CommonFragment implements TransferView {
 
             long amount = item.getAmount();
 
-            if (!TextUtils.isEmpty(item.getTokenName()) && item.getTokenName().equalsIgnoreCase(Constants.TRON_SYMBOL)) {
+            if (!TextUtils.isEmpty(item.getTokenName()) && item.getTokenName().equalsIgnoreCase(Constants.STABILA_SYMBOL)) {
                 amount = (long) (amount / Constants.ONE_STB);
             }
 

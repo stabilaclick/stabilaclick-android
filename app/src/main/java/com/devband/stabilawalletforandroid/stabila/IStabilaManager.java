@@ -10,11 +10,13 @@ import org.stabila.protos.Protocol.Account;
 
 import io.reactivex.Single;
 
-public interface ITronManager {
+public interface IStabilaManager {
 
     void shutdown() throws InterruptedException;
 
     Single<Account> queryAccount(byte[] address);
+
+    Single<GrpcAPI.AccountResourceMessage> queryAccountResourceMessage(byte[] address);
 
     Single<WitnessList> listWitnesses();
 

@@ -47,7 +47,7 @@ public class NodePresenter extends BasePresenter<NodeView> {
     }
 
 
-    public void getTronNodeList(){
+    public void getStabilaNodeList(){
         mStabila.getNodeList()
         .subscribeOn(mRxJavaSchedulers.getIo())
         .observeOn(mRxJavaSchedulers.getMainThread())

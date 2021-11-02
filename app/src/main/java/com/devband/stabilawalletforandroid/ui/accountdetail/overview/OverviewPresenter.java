@@ -77,7 +77,8 @@ public class OverviewPresenter extends BasePresenter<OverviewView> {
 
             return StabilaAccount.builder()
                     .balance(account.getBalance())
-                    .bandwidth(account.getBandwidth().getNetRemaining())
+                    //.bandwidth(account.getBandwidth().getNetRemaining())
+                    //.bandwidth(account.getBandwidth().getTotalNetWeight())
                     .assetList(assetList)
                     .cdedList(cdedList)
                     .transactions(transactionStats.getTransactions())
